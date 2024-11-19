@@ -5,6 +5,9 @@
   "homepage": "https://github.com/tomo-waka/yet-another-data-generator",
   "license": "MIT",
   "author": "Tomokazu Wakabayashi",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "main": "bin/index.js",
   "bin": {
