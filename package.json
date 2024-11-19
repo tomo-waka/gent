@@ -9,9 +9,9 @@
     "dist"
   ],
   "type": "module",
-  "main": "bin/index.js",
+  "main": "bin/src/index.js",
   "bin": {
-    "yadg": "bin/cli.js"
+    "yadg": "bin/src/cli.js"
   },
   "repository": {
     "type": "git",
