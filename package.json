@@ -1,0 +1,40 @@
+{
+  "name": "yet-another-data-generator",
+  "version": "0.1.0",
+  "description": "template base dummy text data generator.",
+  "homepage": "https://github.com/tomo-waka/yet-another-data-generator",
+  "license": "MIT",
+  "author": "Tomokazu Wakabayashi",
+  "type": "module",
+  "main": "bin/index.js",
+  "bin": {
+    "yadg": "bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomo-waka/yet-another-data-generator.git"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dts": "tsx scripts/generateDts.ts",
+    "start": "tsx src/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --debug",
+    "start-json": "tsx src/cli.ts --template sample/aws_CloudWatch.json --count 5 --debug",
+    "start-meta": "tsx src/cli.ts --meta sample/meta.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@faker-js/faker": "~9",
+    "@types/luxon": "~3",
+    "chevrotain": "~11",
+    "commander": "~12",
+    "glob": "~11",
+    "luxon": "~3",
+    "rotating-file-stream": "~3"
+  },
+  "devDependencies": {
+    "@types/node": "~20",
+    "prettier": "~3",
+    "tsx": "~4",
+    "typescript": "~5.6"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "debug": true,
+  "from": "2000-01-01T00:00:00+09:00",
+  "to": "2020-12-31T23:59:59+09:00",
+  "count": 100000,
+  "out": {
+    "type": "file",
+    "path": "out/out.log",
+    "size": "10M"
+  },
+  "templates": [
+    {
+      "path": "sample/syslog_RFC3164.template.log",
+      "weight": 2
+    },
+    {
+      "path": "sample/syslog_RFC3164(ISO_Date).template.log",
+      "weight": 3
+    },
+    {
+      "path": "sample/syslog_RFC5424.template.log",
+      "weight": 1
+    },
+    {
+      "path": "sample/aws_CloudWatch.json",
+      "weight": 1
+    }
+  ]
+}
