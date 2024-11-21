@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command, Option } from "commander";
+import { packageEnv } from "../generated/packageEnv.js";
 import { FAILED, SUCCEEDED } from "./cliConsts.js";
 import { DEFAULT_TEMPLATE_WEIGHT } from "./consts.js";
 import { run } from "./run.js";
@@ -42,9 +43,9 @@ async function main(): Promise<void> {
   const program = new Command();
 
   program
-    .version("0.0.0")
-    .name("yet another log generator")
-    .description("yet another log generator.")
+    .name(packageEnv.name)
+    .version(packageEnv.version)
+    .description(packageEnv.description)
     .addOption(templateOption)
     .addOption(metaOption)
     .addOption(fromOption)

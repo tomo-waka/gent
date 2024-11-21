@@ -9,17 +9,19 @@
     "dist"
   ],
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "bin": {
-    "yadg": "dist/cli.js"
+    "yadg": "dist/src/cli.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/tomo-waka/yet-another-data-generator.git"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "dts": "tsx scripts/generateParserCstDts.ts",
+    "build": "npm run generate:package-env && npm run build:tsc",
+    "build:tsc": "tsc -p tsconfig.build.json",
+    "generate:dts": "tsx scripts/generateParserCstDts.ts",
+    "generate:package-env": "tsx scripts/generatePackageEnv.ts",
     "start": "tsx src/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --debug",
     "start-json": "tsx src/cli.ts --template sample/aws_CloudWatch.json --count 5 --debug",
     "start-meta": "tsx src/cli.ts --meta sample/meta.json",

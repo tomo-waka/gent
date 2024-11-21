@@ -4,8 +4,6 @@
     "src"
   ],
   "compilerOptions": {
-    /* Modules */
-    "rootDir": "src",
     /* Emit */
     "noEmit": false,
     "declaration": true,
