@@ -4,7 +4,7 @@ import type { CommandOptions, ProgrammableCommand } from "../../type.js";
 /**
  * options
  * * length
- * * prefix (default:0b)
+ * * prefix (default: '0b')
  */
 export const binary: ProgrammableCommand = {
   name: "binary",

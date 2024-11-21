@@ -4,7 +4,7 @@ import type { CommandOptions, ProgrammableCommand } from "../../type.js";
 /**
  * options
  * * length
- * * prefix (default:0o)
+ * * prefix (default: '0o')
  */
 export const octal: ProgrammableCommand = {
   name: "octal",

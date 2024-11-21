@@ -4,7 +4,7 @@ import type { CommandOptions, ProgrammableCommand } from "../../type.js";
 /**
  * options
  * * length
- * * prefix (default:0x)
+ * * prefix (default: '0x')
  */
 export const hexadecimal: ProgrammableCommand = {
   name: "hexadecimal",

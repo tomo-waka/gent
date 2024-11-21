@@ -59,6 +59,9 @@ output will be like...
 <34>2024-11-21T03:02:42.440+09:00 mymachine su: 'su root failed for lonvick on /dev/pts/8
 <34>2024-11-21T08:45:03.377+09:00 mymachine su: 'su root failed for lonvick on /dev/pts/8
 ```
+## Command list
+
+[Command List](./docs/commands.md)
 
 ## Meta template sample
 
