@@ -23,8 +23,8 @@
     "generate:dts": "tsx scripts/generateParserCstDts.ts",
     "generate:package-env": "tsx scripts/generatePackageEnv.ts",
     "prepare": "npm run build",
-    "start": "tsx src/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --debug",
-    "start-json": "tsx src/cli.ts --template sample/aws_CloudWatch.json --count 5 --debug",
+    "start": "tsx src/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --out out/out.log --debug",
+    "start-json": "tsx src/cli.ts --template sample/aws_CloudWatch.json --count 5 --out out/out.log --debug",
     "start-meta": "tsx src/cli.ts --meta sample/meta.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "version": "npm run generate:package-env"

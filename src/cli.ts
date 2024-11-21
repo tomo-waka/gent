@@ -24,7 +24,7 @@ const metaOption = new Option("-m --meta <meta-file>", "path to meta file");
 const countOption = new Option(
   "-c --count <number>",
   "number of logs to generate.",
-).default(0);
+).default(1);
 
 const fromOption = new Option("-s --start <date-expression>", "from date");
 
@@ -33,7 +33,7 @@ const toOption = new Option("-e --end <date-expression>", "end date");
 const outOption = new Option(
   "-o --out <path>",
   "path to output files.",
-).default("./out/out.log");
+).default("./out.log");
 
 const debugOption = new Option("-d --debug", "debug flat")
   .default(false)
