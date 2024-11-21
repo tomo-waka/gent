@@ -1,15 +1,16 @@
 import { globIterate } from "glob";
-import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
 import * as stream from "node:stream";
-import * as rfs from "rotating-file-stream";
 import type { OutputOptions } from "../types.js";
+import { assertNever } from "../utils.js";
+import { createFileOutput } from "./createFileOutput.js";
 
 export async function initializeOutput(
   outputOptions: OutputOptions,
 ): Promise<stream.Writable> {
-  const rotateSize = outputOptions.size;
+  // region clean dir
+
   const nonRotateOutputPath = outputOptions.path;
   const parsed = nodePath.parse(outputOptions.path);
 
@@ -26,28 +27,16 @@ export async function initializeOutput(
 
   await cleanOutputDir(nonRotateOutputGlobPath, rotateOutputGlobPath);
 
-  if (rotateSize === undefined) {
-    // no file rotation
-    return fs.createWriteStream(nonRotateOutputPath);
-  } else {
-    // rotate file by size
-    return rfs.createStream(
-      (indexOrDate, indexOrUndefined) => {
-        if (indexOrDate === null) {
-          return nonRotateOutputPath;
-        }
-        let index: number;
-        if (typeof indexOrDate === "number") {
-          index = indexOrDate;
-        } else if (typeof indexOrUndefined === "number") {
-          index = indexOrUndefined;
-        } else {
-          index = 0;
-        }
-        return rotateOutputPathGenerator(index.toString());
-      },
-      { size: rotateSize },
+  // endregion
+
+  if (outputOptions.type === "file") {
+    return createFileOutput(
+      nonRotateOutputPath,
+      outputOptions.size,
+      rotateOutputPathGenerator,
     );
+  } else {
+    return assertNever(outputOptions.type);
   }
 }
 
