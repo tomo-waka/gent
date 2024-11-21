@@ -39,10 +39,7 @@ export type ExpressionBlockCstChildren = {
 
 export interface ICstNodeVisitor<IN, OUT> extends ICstVisitor<IN, OUT> {
   template(children: TemplateCstChildren, param?: IN): OUT;
-
   templateFragment(children: TemplateFragmentCstChildren, param?: IN): OUT;
-
   literalBlock(children: LiteralBlockCstChildren, param?: IN): OUT;
-
   expressionBlock(children: ExpressionBlockCstChildren, param?: IN): OUT;
 }

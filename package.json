@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "dts": "tsx scripts/generateDts.ts",
+    "dts": "tsx scripts/generateParserCstDts.ts",
     "start": "tsx src/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --debug",
     "start-json": "tsx src/cli.ts --template sample/aws_CloudWatch.json --count 5 --debug",
     "start-meta": "tsx src/cli.ts --meta sample/meta.json",

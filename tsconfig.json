@@ -3,6 +3,10 @@
     /* Modules */
     "module": "Node16",
     "moduleResolution": "NodeNext",
+    "rootDirs": [
+      "src",
+      "generated"
+    ],
     /* Emit */
     "noEmit": true,
     /* Language and Environment */
