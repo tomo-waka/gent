@@ -46,6 +46,7 @@ async function main(): Promise<void> {
     .name(packageEnv.name)
     .version(packageEnv.version)
     .description(packageEnv.description)
+    .showHelpAfterError()
     .addOption(templateOption)
     .addOption(metaOption)
     .addOption(fromOption)
