@@ -4,13 +4,11 @@
     "module": "Node16",
     "moduleResolution": "NodeNext",
     "rootDirs": [
-      "src"
+      "src",
+      "generated"
     ],
     /* Emit */
-    "declaration": true,
-    "declarationDir": "dist",
-    "outDir": "dist",
-    "sourceMap": true,
+    "noEmit": true,
     /* Language and Environment */
     "target": "ES2022",
     "lib": [

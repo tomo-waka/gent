@@ -1,26 +1,33 @@
 {
   "name": "yet-another-data-generator",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "template base dummy text data generator.",
   "homepage": "https://github.com/tomo-waka/yet-another-data-generator",
   "license": "MIT",
   "author": "Tomokazu Wakabayashi",
+  "files": [
+    "dist"
+  ],
   "type": "module",
-  "main": "bin/index.js",
+  "main": "dist/src/index.js",
   "bin": {
-    "yadg": "bin/cli.js"
+    "yadg": "dist/src/cli.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/tomo-waka/yet-another-data-generator.git"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "dts": "tsx scripts/generateDts.ts",
-    "start": "tsx src/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --debug",
-    "start-json": "tsx src/cli.ts --template sample/aws_CloudWatch.json --count 5 --debug",
+    "build": "npm run build:tsc",
+    "build:tsc": "tsc -p tsconfig.build.json",
+    "generate:dts": "tsx scripts/generateParserCstDts.ts",
+    "generate:package-env": "tsx scripts/generatePackageEnv.ts",
+    "prepare": "npm run build",
+    "start": "tsx src/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --out out/out.log --debug",
+    "start-json": "tsx src/cli.ts --template sample/aws_CloudWatch.json --count 5 --out out/out.log --debug",
     "start-meta": "tsx src/cli.ts --meta sample/meta.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "version": "npm run generate:package-env"
   },
   "dependencies": {
     "@faker-js/faker": "~9",

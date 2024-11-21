@@ -52,12 +52,8 @@ export type CommandOptionValueCstChildren = {
 
 export interface ICstNodeVisitor<IN, OUT> extends ICstVisitor<IN, OUT> {
   commandExpression(children: CommandExpressionCstChildren, param?: IN): OUT;
-
   commandName(children: CommandNameCstChildren, param?: IN): OUT;
-
   commandOption(children: CommandOptionCstChildren, param?: IN): OUT;
-
   commandOptionKey(children: CommandOptionKeyCstChildren, param?: IN): OUT;
-
   commandOptionValue(children: CommandOptionValueCstChildren, param?: IN): OUT;
 }

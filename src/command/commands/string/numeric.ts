@@ -3,12 +3,11 @@ import type { CommandOptions, ProgrammableCommand } from "../../type.js";
 
 /**
  * options
- * * min
- * * max
+ * * length
  */
-export const intCommand: ProgrammableCommand = {
-  name: "int",
+export const numeric: ProgrammableCommand = {
+  name: "numeric",
   build: (commandOptions: Readonly<CommandOptions> | undefined) => {
-    return () => faker.number.int(commandOptions).toString();
+    return () => faker.string.numeric(commandOptions);
   },
 };

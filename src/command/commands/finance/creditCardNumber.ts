@@ -3,12 +3,11 @@ import type { CommandOptions, ProgrammableCommand } from "../../type.js";
 
 /**
  * options
- * * min
- * * max
+ * * issuer
  */
-export const intCommand: ProgrammableCommand = {
-  name: "int",
+export const creditCardNumber: ProgrammableCommand = {
+  name: "creditCardNumber",
   build: (commandOptions: Readonly<CommandOptions> | undefined) => {
-    return () => faker.number.int(commandOptions).toString();
+    return () => faker.finance.creditCardNumber(commandOptions);
   },
 };

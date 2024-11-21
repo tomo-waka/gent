@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command, Option } from "commander";
+import { packageEnv } from "../generated/packageEnv.js";
 import { FAILED, SUCCEEDED } from "./cliConsts.js";
 import { DEFAULT_TEMPLATE_WEIGHT } from "./consts.js";
 import { run } from "./run.js";
@@ -23,7 +24,7 @@ const metaOption = new Option("-m --meta <meta-file>", "path to meta file");
 const countOption = new Option(
   "-c --count <number>",
   "number of logs to generate.",
-).default(0);
+).default(1);
 
 const fromOption = new Option("-s --start <date-expression>", "from date");
 
@@ -32,7 +33,7 @@ const toOption = new Option("-e --end <date-expression>", "end date");
 const outOption = new Option(
   "-o --out <path>",
   "path to output files.",
-).default("./out/out.log");
+).default("./out.log");
 
 const debugOption = new Option("-d --debug", "debug flat")
   .default(false)
@@ -42,9 +43,10 @@ async function main(): Promise<void> {
   const program = new Command();
 
   program
-    .version("0.0.0")
-    .name("yet another log generator")
-    .description("yet another log generator.")
+    .name(packageEnv.name)
+    .version(packageEnv.version)
+    .description(packageEnv.description)
+    .showHelpAfterError()
     .addOption(templateOption)
     .addOption(metaOption)
     .addOption(fromOption)

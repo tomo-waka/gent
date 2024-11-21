@@ -11,13 +11,13 @@ const __dirname = nodePath.dirname(fileURLToPath(import.meta.url));
 const templateDtsString = generateCstDts(templateParser.getGAstProductions());
 const templateDtsPath = nodePath.resolve(
   __dirname,
-  "../src/template/templateParser/templateParser_cst.d.ts",
+  "../generated/template/templateParser/templateParser_cst.d.ts",
 );
 
 const commandDtsString = generateCstDts(commandParser.getGAstProductions());
 const commandDtsPath = nodePath.resolve(
   __dirname,
-  "../src/command/commandParser/commandParser_cst.d.ts",
+  "../generated/command/commandParser/commandParser_cst.d.ts",
 );
 
 type Tuple = [templateDtsString: string, templateDtsPath: string];
