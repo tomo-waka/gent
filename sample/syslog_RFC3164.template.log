@@ -1,0 +1,1 @@
+<{{pri}}>{{timestamp --format "MMM dd hh:mm:ss"}} {{ipv4}} {{hacker.noun --variations 3}}[{{pid}}]: {{lorem.sentences}}
