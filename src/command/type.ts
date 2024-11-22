@@ -2,6 +2,7 @@ import type {
   ContextualStringOut,
   DocumentOptions,
 } from "../document/index.js";
+import type { EscapeStyles } from "./consts.js";
 
 export interface StructuredCommandExpression {
   readonly expression: string;
@@ -12,7 +13,6 @@ export interface StructuredCommandExpression {
 
 interface PrimitiveCommand {
   readonly name: string;
-  readonly global?: true;
 }
 
 export interface StaticCommand extends PrimitiveCommand {
@@ -31,3 +31,5 @@ export type Command = StaticCommand | ProgrammableCommand;
 export type CommandOptionValue = string | number | boolean;
 
 export type CommandOptions = Record<string, CommandOptionValue>;
+
+export type EscapeStyle = (typeof EscapeStyles)[number];

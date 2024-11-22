@@ -14,7 +14,6 @@ const ERROR_DATE = "ERROR_DATE";
 
 class TimestampCommandImpl implements ProgrammableCommand {
   public readonly name = "timestamp";
-  public readonly global = true;
 
   private dateTimeArray: DateTime[] | undefined;
   private sharedDocumentOptions: SharedDocumentOptions | undefined;
