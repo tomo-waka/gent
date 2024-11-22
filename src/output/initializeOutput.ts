@@ -5,6 +5,7 @@ import * as stream from "node:stream";
 import type { OutputOptions } from "../types.js";
 import { assertNever } from "../utils.js";
 import { createFileOutput } from "./createFileOutput.js";
+import { createUdpOutput } from "./createUdpOutput.js";
 
 export async function initializeOutput(
   outputOptions: OutputOptions,
@@ -35,8 +36,10 @@ export async function initializeOutput(
       outputOptions.size,
       rotateOutputPathGenerator,
     );
+  } else if (outputOptions.type === "udp") {
+    return createUdpOutput(outputOptions);
   } else {
-    return assertNever(outputOptions.type);
+    return assertNever(outputOptions);
   }
 }
 

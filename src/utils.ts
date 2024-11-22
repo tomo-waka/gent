@@ -248,18 +248,35 @@ function normalizeOutputOptions(
     return undefined;
   }
 
-  const possibleSize = parseString(possibleOutputOptions["size"]);
-  if (possibleSize === undefined) {
+  if (possibleType == "file") {
+    const possibleSize = parseString(possibleOutputOptions["size"]);
+    if (possibleSize === undefined) {
+      return {
+        type: possibleType,
+        path: possiblePath,
+      };
+    } else {
+      return {
+        type: possibleType,
+        path: possiblePath,
+        size: possibleSize,
+      };
+    }
+  } else if (possibleType === "udp") {
+    const possibleAddress = parseString(possibleOutputOptions["address"]);
+    const possiblePort = parseNonNaNInteger(possibleOutputOptions["port"]);
+    if (possibleAddress === undefined || possiblePort === undefined) {
+      console.error("invalid udp output options");
+      return undefined;
+    }
     return {
       type: possibleType,
       path: possiblePath,
+      address: possibleAddress,
+      port: possiblePort,
     };
   } else {
-    return {
-      type: possibleType,
-      path: possiblePath,
-      size: possibleSize,
-    };
+    return assertNever(possibleType);
   }
 }
 

@@ -42,18 +42,24 @@ export interface TemplateOptions {
 
 export type ShorthandOutputOptions = string;
 
-export type OutputOptions = FileOutputOptions;
+export type OutputOptions = FileOutputOptions | UdpOutputOptions;
 
 export type OutputType = (typeof OutputTypes)[number];
 
 interface PrimitiveOutputOptions {
   readonly type: OutputType;
+  readonly path: string;
 }
 
 export interface FileOutputOptions extends PrimitiveOutputOptions {
   readonly type: "file";
-  readonly path: string;
   readonly size?: string;
+}
+
+export interface UdpOutputOptions extends PrimitiveOutputOptions {
+  readonly type: "udp";
+  readonly address: string;
+  readonly port: number;
 }
 
 // endregion
