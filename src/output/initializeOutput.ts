@@ -5,6 +5,7 @@ import * as stream from "node:stream";
 import type { OutputOptions } from "../types.js";
 import { assertNever } from "../utils.js";
 import { createFileOutput } from "./createFileOutput.js";
+import { createTcpOutput } from "./createTcpOutput.js";
 import { createUdpOutput } from "./createUdpOutput.js";
 
 export async function initializeOutput(
@@ -38,6 +39,8 @@ export async function initializeOutput(
     );
   } else if (outputOptions.type === "udp") {
     return createUdpOutput(outputOptions);
+  } else if (outputOptions.type === "tcp") {
+    return createTcpOutput(outputOptions);
   } else {
     return assertNever(outputOptions);
   }

@@ -1,4 +1,8 @@
-import type { OutputTypes, TemplateModes } from "./consts.js";
+import type {
+  NetworkOutputTypes,
+  OutputTypes,
+  TemplateModes,
+} from "./consts.js";
 
 // region common
 
@@ -42,9 +46,14 @@ export interface TemplateOptions {
 
 export type ShorthandOutputOptions = string;
 
-export type OutputOptions = FileOutputOptions | UdpOutputOptions;
+export type OutputOptions =
+  | FileOutputOptions
+  | UdpOutputOptions
+  | TcpOutputOptions;
 
 export type OutputType = (typeof OutputTypes)[number];
+
+export type NetworkOutputType = (typeof NetworkOutputTypes)[number];
 
 interface PrimitiveOutputOptions {
   readonly type: OutputType;
@@ -56,10 +65,18 @@ export interface FileOutputOptions extends PrimitiveOutputOptions {
   readonly size?: string;
 }
 
-export interface UdpOutputOptions extends PrimitiveOutputOptions {
-  readonly type: "udp";
+interface NetworkOutputOptions extends PrimitiveOutputOptions {
+  readonly type: NetworkOutputType;
   readonly address: string;
   readonly port: number;
+}
+
+export interface UdpOutputOptions extends NetworkOutputOptions {
+  readonly type: "udp";
+}
+
+export interface TcpOutputOptions extends NetworkOutputOptions {
+  readonly type: "tcp";
 }
 
 // endregion
