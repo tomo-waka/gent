@@ -4,10 +4,12 @@ import * as nodePath from "node:path";
 import { normalizeWeight } from "./common/weightedItemFeeder.js";
 import {
   DEFAULT_TEMPLATE_WEIGHT,
+  NetworkOutputTypes,
   OutputTypes,
   TemplateModes,
 } from "./consts.js";
 import type {
+  NetworkOutputType,
   OutputOptions,
   OutputType,
   ProgramOptions,
@@ -43,6 +45,16 @@ export function isOutputType(value: unknown): value is OutputType {
     return false;
   }
   const candidates: readonly string[] = OutputTypes;
+  return candidates.includes(value);
+}
+
+export function isNetworkOutputType(
+  value: unknown,
+): value is NetworkOutputType {
+  if (typeof value !== "string") {
+    return false;
+  }
+  const candidates: readonly string[] = NetworkOutputTypes;
   return candidates.includes(value);
 }
 
@@ -248,18 +260,35 @@ function normalizeOutputOptions(
     return undefined;
   }
 
-  const possibleSize = parseString(possibleOutputOptions["size"]);
-  if (possibleSize === undefined) {
+  if (possibleType == "file") {
+    const possibleSize = parseString(possibleOutputOptions["size"]);
+    if (possibleSize === undefined) {
+      return {
+        type: possibleType,
+        path: possiblePath,
+      };
+    } else {
+      return {
+        type: possibleType,
+        path: possiblePath,
+        size: possibleSize,
+      };
+    }
+  } else if (isNetworkOutputType(possibleType)) {
+    const possibleAddress = parseString(possibleOutputOptions["address"]);
+    const possiblePort = parseNonNaNInteger(possibleOutputOptions["port"]);
+    if (possibleAddress === undefined || possiblePort === undefined) {
+      console.error("invalid udp output options");
+      return undefined;
+    }
     return {
       type: possibleType,
       path: possiblePath,
+      address: possibleAddress,
+      port: possiblePort,
     };
   } else {
-    return {
-      type: possibleType,
-      path: possiblePath,
-      size: possibleSize,
-    };
+    return assertNever(possibleType);
   }
 }
 
