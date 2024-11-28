@@ -12,6 +12,10 @@ import type { CommandOptions, ProgrammableCommand } from "../../type.js";
 const NO_DATE = "NO_DATE";
 const ERROR_DATE = "ERROR_DATE";
 
+/**
+ * options
+ * * format
+ */
 class TimestampCommandImpl implements ProgrammableCommand {
   public readonly name = "timestamp";
 
