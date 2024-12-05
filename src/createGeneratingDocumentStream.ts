@@ -1,32 +1,52 @@
 import { Readable } from "node:stream";
 import { WeightedItemFeeder } from "./common/weightedItemFeeder.js";
-import type { DocumentContent } from "./document/index.js";
 import {
   createDocumentContextIterator,
-  stampDocument,
+  type DocumentContent,
+  GeneratingDocument,
 } from "./document/index.js";
 
 export function createGeneratingDocumentStream(
   documentFeeder: WeightedItemFeeder<DocumentContent>,
   count: number,
+  objectMode: boolean = false,
 ): Readable {
-  return Readable.from(generate(documentFeeder, count));
+  if (objectMode) {
+    return Readable.from(generateGeneratingDocument(documentFeeder, count), {
+      objectMode: true,
+    });
+  } else {
+    return Readable.from(generate(documentFeeder, count), {
+      objectMode: false,
+    });
+  }
+}
+
+function* generateGeneratingDocument(
+  documentFeeder: WeightedItemFeeder<DocumentContent>,
+  count: number,
+): Generator<GeneratingDocument> {
+  const documentContextIterator = createDocumentContextIterator(count);
+  for (let context of documentContextIterator) {
+    let document = documentFeeder.getItem();
+    if (document === undefined) {
+      console.error("no document found.");
+      document = "";
+    }
+    yield new GeneratingDocument(document, context);
+  }
 }
 
 function* generate(
   documentFeeder: WeightedItemFeeder<DocumentContent>,
   count: number,
 ): Generator<string> {
-  const documentContextIterator = createDocumentContextIterator(count);
-  for (let documentContext of documentContextIterator) {
-    const document = documentFeeder.getItem();
-    let output: string;
-    if (document === undefined) {
-      console.error("no document found.");
-      output = "";
-    } else {
-      output = stampDocument(document, documentContext);
-    }
+  const generatingDocumentIterator = generateGeneratingDocument(
+    documentFeeder,
+    count,
+  );
+  for (let generatingDocument of generatingDocumentIterator) {
+    const output = generatingDocument.stamp();
     yield output + "\n";
   }
 }

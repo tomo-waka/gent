@@ -59,7 +59,11 @@ export async function run(programOptions: ProgramOptions): Promise<ResultCode> {
     commandManager,
   );
 
-  const documentStream = createGeneratingDocumentStream(documentFeeder, count);
+  const documentStream = createGeneratingDocumentStream(
+    documentFeeder,
+    count,
+    out.type !== "file",
+  );
   const writeStream = await initializeOutput(out);
   documentStream.pipe(writeStream);
 

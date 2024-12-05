@@ -5,8 +5,8 @@ import * as stream from "node:stream";
 import type { OutputOptions } from "../types.js";
 import { assertNever } from "../utils.js";
 import { createFileOutput } from "./createFileOutput.js";
-import { createTcpOutput } from "./createTcpOutput.js";
-import { createUdpOutput } from "./createUdpOutput.js";
+import { TcpDocumentStream } from "./tcpDocumentStream.js";
+import { UdpDocumentStream } from "./udpDocumentStream.js";
 
 export async function initializeOutput(
   outputOptions: OutputOptions,
@@ -38,9 +38,9 @@ export async function initializeOutput(
       rotateOutputPathGenerator,
     );
   } else if (outputOptions.type === "udp") {
-    return createUdpOutput(outputOptions);
+    return new UdpDocumentStream(outputOptions);
   } else if (outputOptions.type === "tcp") {
-    return createTcpOutput(outputOptions);
+    return new TcpDocumentStream(outputOptions);
   } else {
     return assertNever(outputOptions);
   }

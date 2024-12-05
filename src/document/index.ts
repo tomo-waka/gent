@@ -7,5 +7,6 @@ export type {
   DocumentOptions,
   SharedDocumentOptions,
 } from "./types.js";
+export { GeneratingDocument } from "./generatingDocument.js";
 export { createDocumentContextIterator } from "./createDocumentContextIterator.js";
 export { stampDocument } from "./utils.js";
