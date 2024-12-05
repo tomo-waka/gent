@@ -8,4 +8,4 @@ export type {
   SharedDocumentOptions,
 } from "./types.js";
 export { createDocumentContextIterator } from "./createDocumentContextIterator.js";
-export { stampDocumentContent } from "./utils.js";
+export { stampDocument } from "./utils.js";

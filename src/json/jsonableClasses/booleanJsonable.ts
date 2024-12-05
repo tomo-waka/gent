@@ -1,7 +1,7 @@
 import {
   type DocumentContent,
   type DocumentContext,
-  stampDocumentContent,
+  stampDocument,
 } from "../../document/index.js";
 import { AbstractJsonable } from "../abstractJsonable.js";
 
@@ -20,7 +20,7 @@ export class BooleanJsonable extends AbstractJsonable {
     keyOrIndex: string | number,
     context: DocumentContext,
   ): string | undefined {
-    const output = Boolean(stampDocumentContent(this.content, context));
+    const output = Boolean(stampDocument(this.content, context));
     return output ? "true" : "false";
   }
 }

@@ -1,7 +1,7 @@
 import {
   type DocumentContent,
   type DocumentContext,
-  stampDocumentContent,
+  stampDocument,
 } from "../../document/index.js";
 import { AbstractJsonable } from "../abstractJsonable.js";
 import type { JsonString } from "../jsonTypes.js";
@@ -21,7 +21,7 @@ export class StringJsonable extends AbstractJsonable {
     keyOrIndex: string | number,
     context: DocumentContext,
   ): JsonString | undefined {
-    const output = stampDocumentContent(this.content, context);
+    const output = stampDocument(this.content, context);
     return output;
   }
 }

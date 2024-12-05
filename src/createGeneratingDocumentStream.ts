@@ -3,10 +3,10 @@ import { WeightedItemFeeder } from "./common/weightedItemFeeder.js";
 import type { DocumentContent } from "./document/index.js";
 import {
   createDocumentContextIterator,
-  stampDocumentContent,
+  stampDocument,
 } from "./document/index.js";
 
-export function createGeneratingLogStream(
+export function createGeneratingDocumentStream(
   documentFeeder: WeightedItemFeeder<DocumentContent>,
   count: number,
 ): Readable {
@@ -25,7 +25,7 @@ function* generate(
       console.error("no document found.");
       output = "";
     } else {
-      output = stampDocumentContent(document, documentContext);
+      output = stampDocument(document, documentContext);
     }
     yield output + "\n";
   }
