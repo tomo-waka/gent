@@ -7,6 +7,7 @@ import { GeneratingDocument } from "../document/index.js";
 import type { TcpFramingType, TcpOutputOptions } from "../types.js";
 
 const SP = " " as const;
+const sendLfAtEndWhenOctet = true;
 
 export class TcpDocumentStream extends stream.Writable {
   private readonly address: string;
@@ -17,6 +18,8 @@ export class TcpDocumentStream extends stream.Writable {
   private family: number | undefined;
   private client: net.Socket | undefined;
 
+  private readonly sendLfAtEnd: boolean;
+
   constructor(options: TcpOutputOptions) {
     super({
       objectMode: true,
@@ -26,9 +29,11 @@ export class TcpDocumentStream extends stream.Writable {
     this.port = options.port;
     if (options.framing === "octet-counting") {
       this.framing = options.framing;
+      this.sendLfAtEnd = sendLfAtEndWhenOctet;
     } else {
       this.framing = options.framing;
       this.trailerReplacer = options.trailerReplacer;
+      this.sendLfAtEnd = false;
     }
   }
 
@@ -111,12 +116,22 @@ export class TcpDocumentStream extends stream.Writable {
 
   public override _final(callback: (error?: Error | null) => void): void {
     const client = this.client;
-    if (client !== undefined) {
-      client.write("\n");
-      client.end(callback);
+    if (client === undefined) {
+      callback();
       return;
     }
-    callback();
+
+    if (this.sendLfAtEnd) {
+      client.write("\n", (error) => {
+        if (error !== null) {
+          callback(error);
+          return;
+        }
+        client.end(callback);
+      });
+    } else {
+      client.end(callback);
+    }
   }
 
   public override _destroy(
@@ -125,7 +140,7 @@ export class TcpDocumentStream extends stream.Writable {
   ): void {
     const client = this.client;
     if (client === undefined) {
-      callback();
+      callback(error);
       return;
     }
     if (error !== null) {
@@ -133,6 +148,6 @@ export class TcpDocumentStream extends stream.Writable {
     } else {
       client.destroy();
     }
-    callback();
+    callback(error);
   }
 }
