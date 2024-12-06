@@ -5,6 +5,8 @@ export const TemplateModes = ["text", "json"] as const;
 export const NetworkOutputTypes = ["udp", "tcp"] as const;
 export const OutputTypes = ["file", ...NetworkOutputTypes] as const;
 
+export const DefaultEps = 3000;
+
 export const OctetCounting = "octet-counting" as const;
 export const NonTransparentFramingTypes = ["lf"] as const;
 export const TcpFramingTypes = [

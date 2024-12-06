@@ -71,6 +71,7 @@ interface NetworkOutputOptions extends PrimitiveOutputOptions {
   readonly type: NetworkOutputType;
   readonly address: string;
   readonly port: number;
+  readonly eps: number;
 }
 
 export interface UdpOutputOptions extends NetworkOutputOptions {

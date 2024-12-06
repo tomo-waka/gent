@@ -1,19 +1,17 @@
 import * as dgram from "node:dgram";
 import * as dnsPromises from "node:dns/promises";
-import * as stream from "node:stream";
 import { GeneratingDocument } from "../document/index.js";
 import type { UdpOutputOptions } from "../types.js";
+import { ThrottlingDocumentStream } from "./throttlingDocumentStream.js";
 
-export class UdpDocumentStream extends stream.Writable {
+export class UdpDocumentStream extends ThrottlingDocumentStream {
   private readonly address: string;
   private readonly port: number;
 
   private socketType: dgram.SocketType | undefined;
 
   constructor(options: UdpOutputOptions) {
-    super({
-      objectMode: true,
-    });
+    super(options.eps);
 
     this.address = options.address;
     this.port = options.port;
@@ -31,20 +29,11 @@ export class UdpDocumentStream extends stream.Writable {
       .catch((reason) => callback(reason));
   }
 
-  public override _write(
-    chunk: any,
+  public override _throttledWrite(
+    chunk: GeneratingDocument,
     encoding: BufferEncoding,
     callback: (error?: Error | null) => void,
   ): void {
-    if (!(chunk instanceof GeneratingDocument)) {
-      callback(
-        new Error(
-          `Unexpected chunk type(${typeof chunk}). Cannot process any chunk type except Document.`,
-        ),
-      );
-      return;
-    }
-
     const socketType = this.socketType;
     if (socketType === undefined) {
       callback(
@@ -63,5 +52,16 @@ export class UdpDocumentStream extends stream.Writable {
       }
       callback();
     });
+  }
+
+  protected _throttledFinal(callback: (error?: Error | null) => void): void {
+    callback();
+  }
+
+  protected _throttledDestroy(
+    error: Error | null,
+    callback: (error?: Error | null) => void,
+  ): void {
+    callback(error);
   }
 }

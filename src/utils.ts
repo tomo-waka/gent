@@ -4,6 +4,7 @@ import * as nodePath from "node:path";
 import { normalizeWeight } from "./common/weightedItemFeeder.js";
 import {
   DEFAULT_TEMPLATE_WEIGHT,
+  DefaultEps,
   DefaultTcpFraming,
   DefaultTrailerReplacer,
   NetworkOutputTypes,
@@ -289,6 +290,8 @@ function normalizeOutputOptions(
   } else if (isNetworkOutputType(possibleType)) {
     const possibleAddress = parseString(possibleOutputOptions["address"]);
     const possiblePort = parseNonNaNInteger(possibleOutputOptions["port"]);
+    const possibleEps =
+      parseNonNaNInteger(possibleOutputOptions["eps"]) ?? DefaultEps;
     if (possibleAddress === undefined || possiblePort === undefined) {
       console.error("invalid udp output options");
       return undefined;
@@ -299,6 +302,7 @@ function normalizeOutputOptions(
         path: possiblePath,
         address: possibleAddress,
         port: possiblePort,
+        eps: possibleEps,
       };
     } else if (possibleType === "tcp") {
       const possibleFraming =
@@ -313,6 +317,7 @@ function normalizeOutputOptions(
           path: possiblePath,
           address: possibleAddress,
           port: possiblePort,
+          eps: possibleEps,
           framing: possibleFraming,
         };
       } else if (possibleFraming === "lf") {
@@ -324,6 +329,7 @@ function normalizeOutputOptions(
           path: possiblePath,
           address: possibleAddress,
           port: possiblePort,
+          eps: possibleEps,
           framing: possibleFraming,
           trailerReplacer: possibleTrailerReplacer,
         };

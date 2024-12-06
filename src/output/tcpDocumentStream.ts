@@ -1,15 +1,14 @@
 import { Buffer } from "node:buffer";
 import * as dnsPromises from "node:dns/promises";
 import * as net from "node:net";
-import * as stream from "node:stream";
 import { TrailerMap } from "../consts.js";
 import { GeneratingDocument } from "../document/index.js";
 import type { TcpFramingType, TcpOutputOptions } from "../types.js";
+import { ThrottlingDocumentStream } from "./throttlingDocumentStream.js";
 
 const SP = " " as const;
-const sendLfAtEndWhenOctet = true;
 
-export class TcpDocumentStream extends stream.Writable {
+export class TcpDocumentStream extends ThrottlingDocumentStream {
   private readonly address: string;
   private readonly port: number;
   private readonly framing: TcpFramingType;
@@ -18,22 +17,16 @@ export class TcpDocumentStream extends stream.Writable {
   private family: number | undefined;
   private client: net.Socket | undefined;
 
-  private readonly sendLfAtEnd: boolean;
-
   constructor(options: TcpOutputOptions) {
-    super({
-      objectMode: true,
-    });
+    super(options.eps);
 
     this.address = options.address;
     this.port = options.port;
     if (options.framing === "octet-counting") {
       this.framing = options.framing;
-      this.sendLfAtEnd = sendLfAtEndWhenOctet;
     } else {
       this.framing = options.framing;
       this.trailerReplacer = options.trailerReplacer;
-      this.sendLfAtEnd = false;
     }
   }
 
@@ -49,20 +42,11 @@ export class TcpDocumentStream extends stream.Writable {
       .catch((reason) => callback(reason));
   }
 
-  public override _write(
-    chunk: any,
+  public override _throttledWrite(
+    chunk: GeneratingDocument,
     encoding: BufferEncoding,
     callback: (error?: Error | null) => void,
   ): void {
-    if (!(chunk instanceof GeneratingDocument)) {
-      callback(
-        new Error(
-          `Unexpected chunk type(${typeof chunk}). Cannot process any chunk type except Document.`,
-        ),
-      );
-      return;
-    }
-
     const family = this.family;
     if (family === undefined) {
       callback(
@@ -98,8 +82,6 @@ export class TcpDocumentStream extends stream.Writable {
       const lengthCount = messageBuf8.length.toString();
       const lengthBuf8 = Buffer.from(lengthCount + SP, "utf-8");
       output = Buffer.concat([lengthBuf8, messageBuf8]);
-      // output = `${lengthCount} ${outputString}\n`;
-      // console.log(output);
     } else {
       callback(new Error(`unexpected framing type ${this.framing}`));
       return;
@@ -114,27 +96,17 @@ export class TcpDocumentStream extends stream.Writable {
     });
   }
 
-  public override _final(callback: (error?: Error | null) => void): void {
+  protected _throttledFinal(callback: (error?: Error | null) => void): void {
     const client = this.client;
     if (client === undefined) {
       callback();
       return;
     }
 
-    if (this.sendLfAtEnd) {
-      client.write("\n", (error) => {
-        if (error !== null) {
-          callback(error);
-          return;
-        }
-        client.end(callback);
-      });
-    } else {
-      client.end(callback);
-    }
+    client.end(callback);
   }
 
-  public override _destroy(
+  protected _throttledDestroy(
     error: Error | null,
     callback: (error?: Error | null) => void,
   ): void {
