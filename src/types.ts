@@ -1,6 +1,8 @@
 import type {
   NetworkOutputTypes,
+  NonTransparentFramingTypes,
   OutputTypes,
+  TcpFramingTypes,
   TemplateModes,
 } from "./consts.js";
 
@@ -69,14 +71,35 @@ interface NetworkOutputOptions extends PrimitiveOutputOptions {
   readonly type: NetworkOutputType;
   readonly address: string;
   readonly port: number;
+  readonly eps: number;
 }
 
 export interface UdpOutputOptions extends NetworkOutputOptions {
   readonly type: "udp";
 }
 
-export interface TcpOutputOptions extends NetworkOutputOptions {
+export type NonTransparentFramingType =
+  (typeof NonTransparentFramingTypes)[number];
+export type TcpFramingType = (typeof TcpFramingTypes)[number];
+
+interface PrimitiveTcpOutputOptions extends NetworkOutputOptions {
   readonly type: "tcp";
+  readonly framing: TcpFramingType;
 }
+
+interface TcpOctetCountingOutputOptions extends PrimitiveTcpOutputOptions {
+  readonly type: "tcp";
+  readonly framing: "octet-counting";
+}
+
+interface TcpNonFramingOutputOptions extends PrimitiveTcpOutputOptions {
+  readonly type: "tcp";
+  readonly framing: NonTransparentFramingType;
+  readonly trailerReplacer: string;
+}
+
+export type TcpOutputOptions =
+  | TcpOctetCountingOutputOptions
+  | TcpNonFramingOutputOptions;
 
 // endregion

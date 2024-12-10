@@ -2,7 +2,7 @@ import { WeightedItemFeeder } from "../../common/weightedItemFeeder.js";
 import {
   type DocumentContent,
   type DocumentContext,
-  stampDocumentContent,
+  stampDocument,
 } from "../../document/index.js";
 import { AbstractJsonable } from "../abstractJsonable.js";
 import type { JsonableValue } from "../jsonableTypes.js";
@@ -36,9 +36,7 @@ export class ArrayJsonable extends AbstractJsonable {
     context: DocumentContext,
   ): JsonValue[] | undefined {
     const jsonValues: JsonValue[] = [];
-    const length = Number.parseInt(
-      stampDocumentContent(this.lengthContent, context),
-    );
+    const length = Number.parseInt(stampDocument(this.lengthContent, context));
     if (!Number.isNaN(length) && length > 0) {
       for (let i = 0; i < length; i++) {
         const item = this.weightedItemFeeder.getItem();

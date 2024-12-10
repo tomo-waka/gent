@@ -1,7 +1,7 @@
 import {
   type DocumentContent,
   type DocumentContext,
-  stampDocumentContent,
+  stampDocument,
 } from "../../document/index.js";
 import { AbstractJsonable } from "../abstractJsonable.js";
 import type { JsonNumber } from "../jsonTypes.js";
@@ -21,7 +21,7 @@ export class NumberJsonable extends AbstractJsonable {
     keyOrIndex: string | number,
     context: DocumentContext,
   ): JsonNumber | undefined {
-    const output = Number(stampDocumentContent(this.content, context));
+    const output = Number(stampDocument(this.content, context));
     if (Number.isNaN(output)) {
       return undefined;
     }

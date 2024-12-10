@@ -1,13 +1,13 @@
 import type { DocumentContent, DocumentContext } from "./types.js";
 
-export function stampDocumentContent(
-  documentContent: DocumentContent,
+export function stampDocument(
+  content: DocumentContent,
   context: DocumentContext,
 ): string {
-  if (typeof documentContent === "string") {
-    return documentContent;
+  if (typeof content === "string") {
+    return content;
   }
-  return documentContent
+  return content
     .map<string>((documentFragment) => documentFragment.toString(context))
     .join("");
 }

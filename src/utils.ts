@@ -4,8 +4,12 @@ import * as nodePath from "node:path";
 import { normalizeWeight } from "./common/weightedItemFeeder.js";
 import {
   DEFAULT_TEMPLATE_WEIGHT,
+  DefaultEps,
+  DefaultTcpFraming,
+  DefaultTrailerReplacer,
   NetworkOutputTypes,
   OutputTypes,
+  TcpFramingTypes,
   TemplateModes,
 } from "./consts.js";
 import type {
@@ -13,6 +17,7 @@ import type {
   OutputOptions,
   OutputType,
   ProgramOptions,
+  TcpFramingType,
   TemplateMode,
   TemplateOptions,
 } from "./types.js"; // region type guards
@@ -55,6 +60,14 @@ export function isNetworkOutputType(
     return false;
   }
   const candidates: readonly string[] = NetworkOutputTypes;
+  return candidates.includes(value);
+}
+
+export function isTcpFramingType(value: unknown): value is TcpFramingType {
+  if (typeof value !== "string") {
+    return false;
+  }
+  const candidates: readonly string[] = TcpFramingTypes;
   return candidates.includes(value);
 }
 
@@ -277,16 +290,55 @@ function normalizeOutputOptions(
   } else if (isNetworkOutputType(possibleType)) {
     const possibleAddress = parseString(possibleOutputOptions["address"]);
     const possiblePort = parseNonNaNInteger(possibleOutputOptions["port"]);
+    const possibleEps =
+      parseNonNaNInteger(possibleOutputOptions["eps"]) ?? DefaultEps;
     if (possibleAddress === undefined || possiblePort === undefined) {
       console.error("invalid udp output options");
       return undefined;
     }
-    return {
-      type: possibleType,
-      path: possiblePath,
-      address: possibleAddress,
-      port: possiblePort,
-    };
+    if (possibleType === "udp") {
+      return {
+        type: possibleType,
+        path: possiblePath,
+        address: possibleAddress,
+        port: possiblePort,
+        eps: possibleEps,
+      };
+    } else if (possibleType === "tcp") {
+      const possibleFraming =
+        parseString(possibleOutputOptions["framing"]) ?? DefaultTcpFraming;
+      if (!isTcpFramingType(possibleFraming)) {
+        console.error(`invalid framing type.(${possibleFraming})`);
+        return undefined;
+      }
+      if (possibleFraming === "octet-counting") {
+        return {
+          type: possibleType,
+          path: possiblePath,
+          address: possibleAddress,
+          port: possiblePort,
+          eps: possibleEps,
+          framing: possibleFraming,
+        };
+      } else if (possibleFraming === "lf") {
+        const possibleTrailerReplacer =
+          parseString(possibleOutputOptions["trailerReplacer"]) ??
+          DefaultTrailerReplacer;
+        return {
+          type: possibleType,
+          path: possiblePath,
+          address: possibleAddress,
+          port: possiblePort,
+          eps: possibleEps,
+          framing: possibleFraming,
+          trailerReplacer: possibleTrailerReplacer,
+        };
+      } else {
+        assertNever(possibleFraming);
+      }
+    } else {
+      assertNever(possibleType);
+    }
   } else {
     return assertNever(possibleType);
   }

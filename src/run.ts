@@ -5,7 +5,7 @@ import { FAILED, SUCCEEDED } from "./cliConsts.js";
 import type { ResultCode } from "./cliTypes.js";
 import { commandManager } from "./command/index.js";
 import { createDocumentFeeder } from "./createDocumentFeeder.js";
-import { createGeneratingLogStream } from "./createGeneratingLogStream.js";
+import { createGeneratingDocumentStream } from "./createGeneratingDocumentStream.js";
 import { debugFileWriter } from "./debugFileWriter.js";
 import { initializeOutput } from "./output/initializeOutput.js";
 import type { ProgramOptions } from "./types.js";
@@ -59,9 +59,13 @@ export async function run(programOptions: ProgramOptions): Promise<ResultCode> {
     commandManager,
   );
 
-  const logStream = createGeneratingLogStream(documentFeeder, count);
+  const documentStream = createGeneratingDocumentStream(
+    documentFeeder,
+    count,
+    out.type !== "file",
+  );
   const writeStream = await initializeOutput(out);
-  logStream.pipe(writeStream);
+  documentStream.pipe(writeStream);
 
   return SUCCEEDED;
 }
