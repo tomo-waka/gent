@@ -1,8 +1,8 @@
 {
-  "name": "yet-another-data-generator",
+  "name": "gtem",
   "version": "0.1.4",
   "description": "template base dummy text data generator.",
-  "homepage": "https://github.com/tomo-waka/yet-another-data-generator",
+  "homepage": "https://github.com/tomo-waka/gtem",
   "license": "MIT",
   "author": "Tomokazu Wakabayashi",
   "files": [
@@ -11,11 +11,11 @@
   "type": "module",
   "main": "dist/src/index.js",
   "bin": {
-    "yadg": "dist/src/cli.js"
+    "gtem": "dist/src/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tomo-waka/yet-another-data-generator.git"
+    "url": "https://github.com/tomo-waka/gtem.git"
   },
   "scripts": {
     "build": "npm run build:tsc",
@@ -39,7 +39,7 @@
     "rotating-file-stream": "~3"
   },
   "devDependencies": {
-    "@types/node": "~20",
+    "@types/node": "~22",
     "prettier": "~3",
     "tsx": "~4",
     "typescript": "~5.6"
