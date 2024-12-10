@@ -1,8 +1,8 @@
 {
-  "name": "gtem",
+  "name": "gentem",
   "version": "0.1.4",
   "description": "template base dummy text data generator.",
-  "homepage": "https://github.com/tomo-waka/gtem",
+  "homepage": "https://github.com/tomo-waka/gentem",
   "license": "MIT",
   "author": "Tomokazu Wakabayashi",
   "files": [
@@ -11,11 +11,11 @@
   "type": "module",
   "main": "dist/src/index.js",
   "bin": {
-    "gtem": "dist/src/cli.js"
+    "gentem": "dist/src/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tomo-waka/gtem.git"
+    "url": "https://github.com/tomo-waka/gentem.git"
   },
   "scripts": {
     "build": "npm run build:tsc",
