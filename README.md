@@ -1,5 +1,7 @@
 # GenT
 
+![NPM Version](https://img.shields.io/npm/v/%40gent-js%2Fgent)
+
 ## Introduction
 
 GenT is a template-based dummy text data generator. The generated data is used as test data for software that process such data. You can define data format with a simple text file (referred to as a "template") and obtain the output as text file. It means that both input and output are non-programing interfaces. These features are particularly useful as test data in end-to-end testing situations, rather than in Unit testing.
@@ -20,14 +22,14 @@ GenT is a template-based dummy text data generator. The generated data is used a
 
 ## Quick Start
 
+> [!NOTE]
+> This quick start explains the steps how to use GenT as shell cli application. If you are looking for how to use as a dependency or how to develop, see other sections.
+
 install with npm globally.
 
 ```shell
 npm install -g gent
 ```
-
-> [!NOTE]
-> This quick start explains the steps how to use GenT as shell cli application. If you are looking for how to use as a dependency or how to develop, see other sections.
 
 Then, create a template. Save the following content as a text file in any directory, for instance `{dir path}/template.log`.
 
