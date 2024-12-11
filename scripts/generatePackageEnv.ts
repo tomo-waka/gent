@@ -18,16 +18,30 @@ const packageJsonString = await fsPromises.readFile(packageJsonPath, {
 const parsedPackageJson = JSON.parse(packageJsonString);
 
 const UNKNOWN = "UNKNOWN";
-const name = parsedPackageJson["name"] ?? UNKNOWN;
+const fullName = parsedPackageJson["name"] ?? UNKNOWN;
 const version = parsedPackageJson["version"] ?? UNKNOWN;
 const description = parsedPackageJson["description"] ?? UNKNOWN;
+
+const scopedNameRegex = /^(?:(@[^@\/]+)\/|)([^@\/]+)$/;
+
+let name: string | undefined;
+if (typeof fullName === "string") {
+  const matchResults = fullName.match(scopedNameRegex);
+  if (matchResults !== null) {
+    name = matchResults[2];
+  }
+}
+if (name == null || name === "") {
+  name = UNKNOWN;
+}
 
 // language=TypeScript
 const out = `// generated codes about package environmental information.
 export const packageEnv = {
-  name: "${name}",
-  version: "${version}",
-  description: "${description}"
+    fullName: "${fullName}",
+    name: "${name}",
+    version: "${version}",
+    description: "${description}"
 } as const;
 `;
 
