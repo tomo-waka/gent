@@ -1,8 +1,8 @@
-# GenTem
+# GenT
 
 ## Introduction
 
-GenTem is a template-based dummy text data generator. The generated data is used as test data for software that process such data. You can define data format with a simple text file (referred to as a "template") and obtain the output as text file. It means that both input and output are non-programing interfaces. These features are particularly useful as test data in end-to-end testing situations, rather than in Unit testing.
+GenT is a template-based dummy text data generator. The generated data is used as test data for software that process such data. You can define data format with a simple text file (referred to as a "template") and obtain the output as text file. It means that both input and output are non-programing interfaces. These features are particularly useful as test data in end-to-end testing situations, rather than in Unit testing.
 
 ## Features
 
@@ -23,11 +23,11 @@ GenTem is a template-based dummy text data generator. The generated data is used
 install with npm globally.
 
 ```shell
-npm install -g gentem
+npm install -g gent
 ```
 
 > [!NOTE]
-> This quick start explains the steps how to use GenTem as shell cli application. If you are looking for how to use as a dependency or how to develop, see other sections.
+> This quick start explains the steps how to use GenT as shell cli application. If you are looking for how to use as a dependency or how to develop, see other sections.
 
 Then, create a template. Save the following content as a text file in any directory, for instance `{dir path}/template.log`.
 
@@ -40,7 +40,7 @@ Above content of template is a syslog format log but its timestamp part has been
 Then, execute following command with previously created template path.
 
 ```shell
-gentem --template {dir path}/template.log --count 3
+gent --template {dir path}/template.log --count 3
 ```
 output file `out.log` will be created in current working directory.
 And content of output will be like following.
@@ -52,7 +52,7 @@ And content of output will be like following.
 ```
 Each text line is almost same as template content but template command part has been replaced with generated text by the template command.
 
-This is basic mechanics of GenTem.
+This is basic mechanics of GenT.
 
 Fully customized template example is following
 
@@ -65,7 +65,7 @@ Fully customized template example is following
 Template file defines generating text data format.
 
 Template is basically just a text file. You can embed template command with special syntax.
-So GenTem process template command and replace command expression with command result.
+So GenT process template command and replace command expression with command result.
 
 ## Template Commands
 
