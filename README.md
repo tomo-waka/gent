@@ -87,7 +87,7 @@ Some commands accept command option, command and option syntax is like shell com
 
 supporting template commands and their options are below.
 
-[Command List](./docs/template-commands)
+[Command List](./docs/template-commands.md)
 
 ## Meta template sample
 
