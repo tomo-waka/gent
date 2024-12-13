@@ -1,17 +1,20 @@
 import * as dgram from "node:dgram";
 import * as dnsPromises from "node:dns/promises";
+import * as stream from "node:stream";
 import { GeneratingDocument } from "../document/index.js";
 import type { UdpOutputOptions } from "../types.js";
-import { ThrottlingDocumentStream } from "./throttlingDocumentStream.js";
 
-export class UdpDocumentStream extends ThrottlingDocumentStream {
+export class UdpDocumentStream extends stream.Writable {
   private readonly address: string;
   private readonly port: number;
 
   private socketType: dgram.SocketType | undefined;
 
   constructor(options: UdpOutputOptions) {
-    super(options.eps);
+    super({
+      highWaterMark: 0,
+      objectMode: true,
+    });
 
     this.address = options.address;
     this.port = options.port;
@@ -29,11 +32,20 @@ export class UdpDocumentStream extends ThrottlingDocumentStream {
       .catch((reason) => callback(reason));
   }
 
-  public override _throttledWrite(
-    chunk: GeneratingDocument,
+  public override _write(
+    chunk: unknown,
     encoding: BufferEncoding,
     callback: (error?: Error | null) => void,
   ): void {
+    if (!(chunk instanceof GeneratingDocument)) {
+      callback(
+        new Error(
+          `Unexpected chunk type(${typeof chunk}). Cannot process any chunk type except Document.`,
+        ),
+      );
+      return;
+    }
+
     const socketType = this.socketType;
     if (socketType === undefined) {
       callback(
@@ -43,25 +55,23 @@ export class UdpDocumentStream extends ThrottlingDocumentStream {
     }
 
     const client = dgram.createSocket(socketType);
-    client.send(chunk.stamp(), this.port, this.address, (error) => {
-      client.close();
+    client.send(
+      chunk.stamp(),
+      this.port,
+      this.address,
+      (error: Error | null, bytes: number): void => {
+        client.close();
 
-      if (error !== null) {
-        callback(error);
-        return;
-      }
-      callback();
-    });
+        if (error !== null) {
+          callback(error);
+          return;
+        }
+        callback();
+      },
+    );
   }
 
-  protected _throttledFinal(callback: (error?: Error | null) => void): void {
+  public override _final(callback: (error?: Error | null) => void): void {
     callback();
-  }
-
-  protected _throttledDestroy(
-    error: Error | null,
-    callback: (error?: Error | null) => void,
-  ): void {
-    callback(error);
   }
 }
