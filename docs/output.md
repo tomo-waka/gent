@@ -84,5 +84,6 @@ file output with options.
 * type: `tcp`
 * address: destination ip address.
 * port: destination port.
+* eps(optional): throttle data generate. event per second. (default: 3000)
 * framing: `lf`
 * trailerReplacer(optional): replace trailer string (which is `lf`) with other string.

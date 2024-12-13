@@ -31,7 +31,7 @@ GenT is a template-based data generator. The generated data is used as test data
 install with npm globally.
 
 ```shell
-npm install -g gent
+npm install -g @gent-js/gent
 ```
 
 Then, create a template. Save the following content as a text file in any directory, for instance `{dir path}/template.log`.
