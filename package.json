@@ -1,6 +1,6 @@
 {
   "name": "@gent-js/gent",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "template-based data generator.",
   "homepage": "https://github.com/tomo-waka/gent",
   "license": "MIT",
