@@ -18,12 +18,15 @@ file output with options.
 ```json
 {
   "out": {
-    "type": "path-to-out.log",
+    "type": "file",
+    "path": "path-to-out.log",
     "size": "10M"
   }
 }
 ```
 
+* type: `file`
+* path: path to output file.
 * size(optional): rotate file size. (e.g. "10M")
 
 ## udp
@@ -33,12 +36,15 @@ file output with options.
   "out": {
     "type": "udp",
     "address": "127.0.0.1",
-    "port": 514
+    "port": 514,
+    "eps": 1000
   }
 }
 ```
+* type: `udp`
 * address: destination ip address.
 * port: destination port.
+* eps(optional): throttle data generate. event per second. (default: 3000)
 
 ## tcp
 
@@ -50,12 +56,15 @@ file output with options.
     "type": "tcp",
     "address": "127.0.0.1",
     "port": 514,
+    "eps": 1000,
     "framing": "octet-counting"
   }
 }
 ```
+* type: `tcp`
 * address: destination ip address.
 * port: destination port.
+* eps(optional): throttle data generate. event per second. (default: 3000)
 * framing: `octet-counting`
 
 ### lf framing
@@ -66,11 +75,13 @@ file output with options.
     "type": "tcp",
     "address": "127.0.0.1",
     "port": 514,
+    "eps": 1000,
     "framing": "lf",
     "trailerReplacer": " "
   }
 }
 ```
+* type: `tcp`
 * address: destination ip address.
 * port: destination port.
 * framing: `lf`
