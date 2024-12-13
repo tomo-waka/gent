@@ -26,6 +26,13 @@
     * url
     * userAgent
     * username
+* japanese
+    * hyakuninIsshu
+        * generate [小倉百人一首](https://en.wikipedia.org/wiki/Ogura_Hyakunin_Isshu)
+        * generated text includes LF code.
+    * shogun
+        * generate shogun name of [徳川幕府](https://en.wikipedia.org/wiki/Tokugawa_shogunate)
+        * probability is based on their period of reign.
 * location
     * country
     * countryCode
