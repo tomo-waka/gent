@@ -5,7 +5,7 @@ import * as stream from "node:stream";
 import type { OutputOptions } from "../types.js";
 import { assertNever } from "../utils.js";
 import { createFileOutput } from "./createFileOutput.js";
-import { TcpDocumentStream } from "./tcpDocumentStream.js";
+import { createTcpOutput } from "./createTcpOutput.js";
 import { UdpDocumentStream } from "./udpDocumentStream.js";
 
 export async function initializeOutput(
@@ -40,7 +40,7 @@ export async function initializeOutput(
   } else if (outputOptions.type === "udp") {
     return new UdpDocumentStream(outputOptions);
   } else if (outputOptions.type === "tcp") {
-    return new TcpDocumentStream(outputOptions);
+    return createTcpOutput(outputOptions);
   } else {
     return assertNever(outputOptions);
   }

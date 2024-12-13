@@ -5,11 +5,11 @@ import { normalizeWeight } from "./common/weightedItemFeeder.js";
 import {
   DEFAULT_TEMPLATE_WEIGHT,
   DefaultEps,
-  DefaultTcpFraming,
+  DefaultTcpFramingMethod,
   DefaultTrailerReplacer,
   NetworkOutputTypes,
   OutputTypes,
-  TcpFramingTypes,
+  TcpFramingMethods,
   TemplateModes,
 } from "./consts.js";
 import type {
@@ -17,7 +17,7 @@ import type {
   OutputOptions,
   OutputType,
   ProgramOptions,
-  TcpFramingType,
+  TcpFramingMethod,
   TemplateMode,
   TemplateOptions,
 } from "./types.js"; // region type guards
@@ -63,11 +63,11 @@ export function isNetworkOutputType(
   return candidates.includes(value);
 }
 
-export function isTcpFramingType(value: unknown): value is TcpFramingType {
+export function isTcpFramingType(value: unknown): value is TcpFramingMethod {
   if (typeof value !== "string") {
     return false;
   }
-  const candidates: readonly string[] = TcpFramingTypes;
+  const candidates: readonly string[] = TcpFramingMethods;
   return candidates.includes(value);
 }
 
@@ -306,7 +306,8 @@ function normalizeOutputOptions(
       };
     } else if (possibleType === "tcp") {
       const possibleFraming =
-        parseString(possibleOutputOptions["framing"]) ?? DefaultTcpFraming;
+        parseString(possibleOutputOptions["framing"]) ??
+        DefaultTcpFramingMethod;
       if (!isTcpFramingType(possibleFraming)) {
         console.error(`invalid framing type.(${possibleFraming})`);
         return undefined;

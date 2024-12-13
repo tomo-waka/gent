@@ -1,4 +1,4 @@
-import { Readable } from "node:stream";
+import * as stream from "node:stream";
 import { WeightedItemFeeder } from "./common/weightedItemFeeder.js";
 import {
   createDocumentContextIterator,
@@ -9,17 +9,13 @@ import {
 export function createGeneratingDocumentStream(
   documentFeeder: WeightedItemFeeder<DocumentContent>,
   count: number,
-  objectMode: boolean = false,
-): Readable {
-  if (objectMode) {
-    return Readable.from(generateGeneratingDocument(documentFeeder, count), {
+): stream.Readable {
+  return stream.Readable.from(
+    generateGeneratingDocument(documentFeeder, count),
+    {
       objectMode: true,
-    });
-  } else {
-    return Readable.from(generate(documentFeeder, count), {
-      objectMode: false,
-    });
-  }
+    },
+  );
 }
 
 function* generateGeneratingDocument(
@@ -34,19 +30,5 @@ function* generateGeneratingDocument(
       document = "";
     }
     yield new GeneratingDocument(document, context);
-  }
-}
-
-function* generate(
-  documentFeeder: WeightedItemFeeder<DocumentContent>,
-  count: number,
-): Generator<string> {
-  const generatingDocumentIterator = generateGeneratingDocument(
-    documentFeeder,
-    count,
-  );
-  for (let generatingDocument of generatingDocumentIterator) {
-    const output = generatingDocument.stamp();
-    yield output + "\n";
   }
 }
