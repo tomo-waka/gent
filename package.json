@@ -1,7 +1,7 @@
 {
   "name": "@gent-js/gent",
   "version": "0.1.4",
-  "description": "template base dummy text data generator.",
+  "description": "template-based data generator.",
   "homepage": "https://github.com/tomo-waka/gent",
   "license": "MIT",
   "author": "Tomokazu Wakabayashi",
