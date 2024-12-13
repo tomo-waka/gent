@@ -87,7 +87,7 @@ Some commands accept command option, command and option syntax is like shell com
 
 supporting template commands and their options are below.
 
-[Command List](./docs/templateCommands)
+[Command List](./docs/template-commands)
 
 ## Meta template sample
 
@@ -139,3 +139,17 @@ supporting template commands and their options are below.
   "{{content}}": "{{int}}"
 }
 ```
+## Output
+
+in cli, specify output path with `out` option.
+```shell
+gent --template {dir path}/template.log --count 3 --out path-to-out.log
+```
+in meta file, specify output path with `out` key.
+```json
+{
+  "out": "path-to-out.log"
+}
+```
+
+moreover, you can use various output method and options in meta file. see [output](./docs/output.md) for details.
