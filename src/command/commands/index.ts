@@ -18,6 +18,8 @@ import { priCommand } from "./internet/pri.js";
 import { url } from "./internet/url.js";
 import { userAgent } from "./internet/userAgent.js";
 import { username } from "./internet/username.js";
+import { hyakuninIsshu } from "./japan/hyakuninIsshu.js";
+import { shogun } from "./japan/shogun.js";
 import { country } from "./location/country.js";
 import { countryCode } from "./location/countryCode.js";
 import { timeZone } from "./location/timeZone.js";
@@ -64,6 +66,9 @@ commandManager.setCommand(priCommand);
 commandManager.setCommand(url);
 commandManager.setCommand(userAgent);
 commandManager.setCommand(username);
+// japan
+commandManager.setCommand(hyakuninIsshu);
+commandManager.setCommand(shogun);
 // location
 commandManager.setCommand(country);
 commandManager.setCommand(countryCode);
