@@ -42,13 +42,13 @@ import type {
   JsonableObject,
   JsonableTransformer,
   JsonableValue,
-  JsonValueType,
   MutableJsonableObject,
 } from "./jsonableTypes.js";
 import type {
   JsonArray,
   JsonObject,
   JsonValue,
+  JsonValueType,
   MutableJsonArray,
   MutableJsonObject,
 } from "./jsonTypes.js";

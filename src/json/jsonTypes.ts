@@ -1,3 +1,7 @@
+import type { JsonValueTypes } from "./jsonConsts.js";
+
+export type JsonValueType = (typeof JsonValueTypes)[number];
+
 export type JsonValue =
   | JsonObject
   | JsonArray

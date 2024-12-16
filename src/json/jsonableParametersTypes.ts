@@ -1,9 +1,6 @@
 import type { DocumentContent } from "../document/index.js";
-import type {
-  JsonableArray,
-  JsonableObject,
-  JsonValueType,
-} from "./jsonableTypes.js";
+import type { JsonableArray, JsonableObject } from "./jsonableTypes.js";
+import type { JsonValueType } from "./jsonTypes.js";
 
 export interface PrimitiveJsonableParameters {
   readonly type: JsonValueType;
