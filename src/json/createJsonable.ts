@@ -2,6 +2,7 @@ import { assertNever } from "../utils.js";
 import { AbstractJsonable } from "./abstractJsonable.js";
 import { ArrayJsonable } from "./jsonableClasses/arrayJsonable.js";
 import { BooleanJsonable } from "./jsonableClasses/booleanJsonable.js";
+import { JsonStringJsonable } from "./jsonableClasses/jsonStringJsonable.js";
 import type { JsonableValueParameters } from "./jsonableParametersTypes.js";
 import { NullJsonable } from "./jsonableClasses/nullJsonable.js";
 import { NumberJsonable } from "./jsonableClasses/numberJsonable.js";
@@ -25,11 +26,21 @@ export function createJsonable(
       parameters.weight,
     );
   } else if (parameters.type === "string") {
-    return new StringJsonable(
-      parameters.content,
-      parameters.probability,
-      parameters.weight,
-    );
+    if (parameters.subType === "string") {
+      return new StringJsonable(
+        parameters.content,
+        parameters.probability,
+        parameters.weight,
+      );
+    } else if (parameters.subType === "json") {
+      return new JsonStringJsonable(
+        parameters.content,
+        parameters.probability,
+        parameters.weight,
+      );
+    } else {
+      return assertNever(parameters);
+    }
   } else if (parameters.type === "number") {
     return new NumberJsonable(
       parameters.content,

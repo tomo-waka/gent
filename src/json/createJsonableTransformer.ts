@@ -98,6 +98,7 @@ export function createJsonableTransformer(
       } else {
         return createJsonable({
           type: "string",
+          subType: "string",
           content: documentContent,
           probability: undefined,
           weight: undefined,
@@ -209,19 +210,23 @@ function tryParseJsonableParameters(
     const possibleParameterName =
       tryExtractJsonableParameterExpression(memberKey);
     if (possibleParameterName === JsonableTypeParameterName) {
+      // explicitly specified "type"
       if (!isJsonValueType(memberValue)) {
         return;
       }
       jsonValueType = memberValue;
     } else if (possibleParameterName === JsonableContentParameterName) {
+      // specify "content" and also implicitly indicate "object" type
       contentValue = memberValue;
       hasShorthandObjectJsonableTrigger = true;
     } else if (possibleParameterName === JsonableProbabilityParameterName) {
+      // specify "probability" and also implicitly indicate "object" type
       probabilityValue = memberValue;
       hasShorthandObjectJsonableTrigger = true;
     } else if (possibleParameterName === JsonableLengthParameterName) {
       lengthValue = memberValue;
     } else if (possibleParameterName === JsonableWeightParameterName) {
+      // specify "weight" and also implicitly indicate "object" type
       weightValue = memberValue;
       hasShorthandObjectJsonableTrigger = true;
     } else if (memberValue !== undefined) {
@@ -231,9 +236,10 @@ function tryParseJsonableParameters(
 
   let actualJsonValueType: JsonValueType;
   if (jsonValueType !== undefined) {
+    // explicit type
     actualJsonValueType = jsonValueType;
   } else if (hasShorthandObjectJsonableTrigger) {
-    // shorthand object
+    // shorthand object (implicit type)
     actualJsonValueType = "object";
     contentValue = contentValue ?? otherMembers;
   } else {
@@ -284,12 +290,45 @@ function tryParseJsonableParameters(
       length: lengthContent,
       ...createCommonJsonableParameters(probabilityValue, weightValue),
     };
+  } else if (actualJsonValueType === "string") {
+    // ## string case
+    if (typeof contentValue !== "string") {
+      if (contentValue === undefined) {
+        // => return undefined
+        return undefined;
+      }
+      // string-json
+      let jsonableValue: JsonableValue | undefined;
+      jsonableValue = jsonableTransformer(contentValue);
+      if (jsonableValue === undefined) {
+        // => return undefined
+        return undefined;
+      }
+      // string-json
+      return {
+        type: actualJsonValueType,
+        subType: "json",
+        content: jsonableValue,
+        ...createCommonJsonableParameters(probabilityValue, weightValue),
+      };
+    }
+    // string-string
+    const content = parseDocumentContent(
+      contentValue,
+      commandDocumentFragmentsBuilder,
+    );
+    // => return JsonableValueParameters
+    return {
+      type: actualJsonValueType,
+      subType: "string",
+      content: content,
+      ...createCommonJsonableParameters(probabilityValue, weightValue),
+    };
   } else if (
-    actualJsonValueType === "string" ||
     actualJsonValueType === "number" ||
     actualJsonValueType === "boolean"
   ) {
-    // ## string | number | boolean case
+    // ## number | boolean case
     if (typeof contentValue !== "string") {
       // => return undefined
       return undefined;
