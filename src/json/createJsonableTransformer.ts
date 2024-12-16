@@ -4,6 +4,7 @@ import {
   type CommandParsedTemplateFragment,
   parseAndEmbedCommandExpression,
 } from "../commandTemplate/index.js";
+import { isReadonlyArray } from "../common/utils.js";
 import { normalizeWeight } from "../common/weightedItemFeeder.js";
 import type {
   DocumentContent,
@@ -42,7 +43,13 @@ import type {
   JsonableValue,
   JsonValueType,
 } from "./jsonableTypes.js";
-import type { JsonObject, JsonValue } from "./jsonTypes.js";
+import type {
+  JsonArray,
+  JsonObject,
+  JsonValue,
+  MutableJsonArray,
+  MutableJsonObject,
+} from "./jsonTypes.js";
 import { isJsonValueType } from "./utils.js";
 
 interface CommandDocumentFragmentsBuilder {
@@ -94,7 +101,7 @@ export function createJsonableTransformer(
           weight: undefined,
         });
       }
-    } else if (Array.isArray(value)) {
+    } else if (isReadonlyArray(value)) {
       // array
       const arrayJsonableParameters = tryParseArrayJsonableParameters(
         value,
@@ -122,7 +129,7 @@ export function createJsonableTransformer(
 }
 
 function transformIntoJsonableValueArray(
-  content: readonly JsonValue[],
+  content: JsonArray,
   jsonableTransformer: JsonableTransformer,
 ): JsonableValue[] {
   return content
@@ -150,11 +157,11 @@ function transformIntoJsonableObject(
 }
 
 function tryParseArrayJsonableParameters(
-  array: readonly JsonValue[],
+  array: JsonArray,
   commandDocumentFragmentsBuilder: CommandDocumentFragmentsBuilder,
   jsonableTransformer: JsonableTransformer,
 ): ArrayJsonableParameters | undefined {
-  const items: JsonValue[] = [];
+  const items: MutableJsonArray = [];
   let lengthContent: DocumentContent | undefined;
   array.forEach((item) => {
     const possibleExpression = tryExtractJsonableParameterExpression(item);
@@ -194,7 +201,7 @@ function tryParseJsonableParameters(
   let probabilityValue: JsonValue | undefined;
   let weightValue: JsonValue | undefined;
   let hasShorthandObjectJsonableTrigger = false;
-  const otherMembers: JsonObject = {};
+  const otherMembers: MutableJsonObject = {};
   Object.keys(jsonObject).forEach((memberKey) => {
     const memberValue = jsonObject[memberKey];
     const possibleParameterName =

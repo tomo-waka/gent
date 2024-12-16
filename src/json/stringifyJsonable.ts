@@ -1,7 +1,7 @@
 import type { DocumentContext } from "../document/index.js";
 import { AbstractJsonable } from "./abstractJsonable.js";
 import type { JsonableObject, JsonableValue } from "./jsonableTypes.js";
-import type { JsonObject, JsonValue } from "./jsonTypes.js";
+import type { JsonObject, JsonValue, MutableJsonObject } from "./jsonTypes.js";
 
 export function stringifyJsonable(
   value: JsonableValue,
@@ -51,7 +51,7 @@ export function transformJsonableObjectIntoJsonObject(
   keyOrIndex: string | number,
   context: DocumentContext,
 ): JsonObject | undefined {
-  let jsonObject: JsonObject = {};
+  let jsonObject: MutableJsonObject = {};
   Object.keys(jsonableObject).forEach((memberKey) => {
     const memberValue = jsonableObject[memberKey];
     if (memberValue === undefined) {
