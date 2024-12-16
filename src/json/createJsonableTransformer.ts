@@ -38,10 +38,12 @@ import type {
   PrimitiveJsonableParameters,
 } from "./jsonableParametersTypes.js";
 import type {
+  JsonableArray,
   JsonableObject,
   JsonableTransformer,
   JsonableValue,
   JsonValueType,
+  MutableJsonableObject,
 } from "./jsonableTypes.js";
 import type {
   JsonArray,
@@ -111,7 +113,7 @@ export function createJsonableTransformer(
       if (arrayJsonableParameters !== undefined) {
         return createJsonable(arrayJsonableParameters);
       }
-      return transformIntoJsonableValueArray(value, jsonableTransformer);
+      return transformIntoJsonableArray(value, jsonableTransformer);
     } else {
       // object
       const jsonableValueParameters = tryParseJsonableParameters(
@@ -128,7 +130,7 @@ export function createJsonableTransformer(
   return jsonableTransformer;
 }
 
-function transformIntoJsonableValueArray(
+function transformIntoJsonableArray(
   content: JsonArray,
   jsonableTransformer: JsonableTransformer,
 ): JsonableValue[] {
@@ -141,7 +143,7 @@ function transformIntoJsonableObject(
   jsonObject: JsonObject,
   jsonableTransformer: JsonableTransformer,
 ): JsonableObject {
-  let jsonableObject: JsonableObject = {};
+  let jsonableObject: MutableJsonableObject = {};
   Object.keys(jsonObject).forEach((memberKey) => {
     const memberValue = jsonObject[memberKey];
     if (memberValue === undefined) {
@@ -183,7 +185,7 @@ function tryParseArrayJsonableParameters(
 
   return {
     type: "array",
-    content: transformIntoJsonableValueArray(items, jsonableTransformer),
+    content: transformIntoJsonableArray(items, jsonableTransformer),
     length: lengthContent,
     probability: undefined,
     weight: undefined,
@@ -266,19 +268,19 @@ function tryParseJsonableParameters(
       lengthValue,
       commandDocumentFragmentsBuilder,
     );
-    let jsonableValueArray: readonly JsonableValue[];
+    let jsonableArray: JsonableArray;
     if (Array.isArray(contentValue)) {
-      jsonableValueArray = transformIntoJsonableValueArray(
+      jsonableArray = transformIntoJsonableArray(
         contentValue,
         jsonableTransformer,
       );
     } else {
-      jsonableValueArray = [];
+      jsonableArray = [];
     }
     // => return JsonableValueParameters
     return {
       type: actualJsonValueType,
-      content: jsonableValueArray,
+      content: jsonableArray,
       length: lengthContent,
       ...createCommonJsonableParameters(probabilityValue, weightValue),
     };

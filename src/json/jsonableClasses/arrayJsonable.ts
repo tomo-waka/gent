@@ -5,7 +5,7 @@ import {
   stampDocument,
 } from "../../document/index.js";
 import { AbstractJsonable } from "../abstractJsonable.js";
-import type { JsonableValue } from "../jsonableTypes.js";
+import type { JsonableArray, JsonableValue } from "../jsonableTypes.js";
 import type { JsonArray, MutableJsonArray } from "../jsonTypes.js";
 import { transformJsonableIntoJsonValue } from "../stringifyJsonable.js";
 
@@ -14,7 +14,7 @@ export class ArrayJsonable extends AbstractJsonable {
   private readonly weightedItemFeeder: WeightedItemFeeder<JsonableValue>;
 
   constructor(
-    items: readonly JsonableValue[],
+    items: JsonableArray,
     private readonly lengthContent: DocumentContent,
     probability: number | undefined,
     weight: number | undefined,

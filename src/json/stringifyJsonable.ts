@@ -1,3 +1,4 @@
+import { isReadonlyArray } from "../common/utils.js";
 import type { DocumentContext } from "../document/index.js";
 import { AbstractJsonable } from "./abstractJsonable.js";
 import type { JsonableObject, JsonableValue } from "./jsonableTypes.js";
@@ -37,7 +38,7 @@ export function transformJsonableIntoJsonValue(
     typeof value === "string"
   ) {
     return value;
-  } else if (Array.isArray(value)) {
+  } else if (isReadonlyArray(value)) {
     return value
       .map((item) => transformJsonableIntoJsonValue(item, keyOrIndex, context))
       .filter((jsonValue) => jsonValue !== undefined);
