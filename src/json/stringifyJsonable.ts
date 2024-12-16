@@ -12,7 +12,15 @@ export function stringifyJsonable(
   if (jsonValue === undefined) {
     return "";
   }
-  return JSON.stringify(jsonValue);
+
+  let jsonString: string | undefined;
+  try {
+    jsonString = JSON.stringify(jsonValue);
+  } catch (error) {
+    console.error(error);
+    jsonString = undefined;
+  }
+  return jsonString;
 }
 
 export function transformJsonableIntoJsonValue(
