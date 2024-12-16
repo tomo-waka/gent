@@ -2,8 +2,8 @@
 
 ![GenT logo](https://github.com/tomo-waka/gent/raw/main/media/gent_logo.png)
 
-![NPM Version](https://img.shields.io/npm/v/%40gent-js%2Fgent)
-![NPM License](https://img.shields.io/npm/l/%40gent-js%2Fgent)
+[![NPM Version](https://img.shields.io/npm/v/%40gent-js%2Fgent)](https://www.npmjs.com/package/@gent-js/gent)
+[![NPM License](https://img.shields.io/npm/l/%40gent-js%2Fgent)](https://github.com/tomo-waka/gent/blob/main/LICENSE)
 
 ## Introduction
 
