@@ -4,8 +4,7 @@ import {
   MAX_PROBABILITY,
   MIN_PROBABILITY,
 } from "./jsonableParametersConsts.js";
-import type { JsonValueType } from "./jsonableTypes.js";
-import type { JsonValue } from "./jsonTypes.js";
+import type { JsonValue, JsonValueType } from "./jsonTypes.js";
 
 export abstract class AbstractJsonable {
   public abstract readonly type: JsonValueType;

@@ -5,8 +5,8 @@ import {
   stampDocument,
 } from "../../document/index.js";
 import { AbstractJsonable } from "../abstractJsonable.js";
-import type { JsonableValue } from "../jsonableTypes.js";
-import type { JsonValue } from "../jsonTypes.js";
+import type { JsonableArray, JsonableValue } from "../jsonableTypes.js";
+import type { JsonArray, MutableJsonArray } from "../jsonTypes.js";
 import { transformJsonableIntoJsonValue } from "../stringifyJsonable.js";
 
 export class ArrayJsonable extends AbstractJsonable {
@@ -14,7 +14,7 @@ export class ArrayJsonable extends AbstractJsonable {
   private readonly weightedItemFeeder: WeightedItemFeeder<JsonableValue>;
 
   constructor(
-    items: readonly JsonableValue[],
+    items: JsonableArray,
     private readonly lengthContent: DocumentContent,
     probability: number | undefined,
     weight: number | undefined,
@@ -34,8 +34,8 @@ export class ArrayJsonable extends AbstractJsonable {
   protected toJSONImpl(
     keyOrIndex: string | number,
     context: DocumentContext,
-  ): JsonValue[] | undefined {
-    const jsonValues: JsonValue[] = [];
+  ): JsonArray | undefined {
+    const jsonValues: MutableJsonArray = [];
     const length = Number.parseInt(stampDocument(this.lengthContent, context));
     if (!Number.isNaN(length) && length > 0) {
       for (let i = 0; i < length; i++) {

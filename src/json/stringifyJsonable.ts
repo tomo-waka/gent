@@ -1,7 +1,8 @@
+import { isReadonlyArray } from "../common/utils.js";
 import type { DocumentContext } from "../document/index.js";
 import { AbstractJsonable } from "./abstractJsonable.js";
 import type { JsonableObject, JsonableValue } from "./jsonableTypes.js";
-import type { JsonObject, JsonValue } from "./jsonTypes.js";
+import type { JsonObject, JsonValue, MutableJsonObject } from "./jsonTypes.js";
 
 export function stringifyJsonable(
   value: JsonableValue,
@@ -12,7 +13,15 @@ export function stringifyJsonable(
   if (jsonValue === undefined) {
     return "";
   }
-  return JSON.stringify(jsonValue);
+
+  let jsonString: string | undefined;
+  try {
+    jsonString = JSON.stringify(jsonValue);
+  } catch (error) {
+    console.error(error);
+    jsonString = undefined;
+  }
+  return jsonString;
 }
 
 export function transformJsonableIntoJsonValue(
@@ -29,7 +38,7 @@ export function transformJsonableIntoJsonValue(
     typeof value === "string"
   ) {
     return value;
-  } else if (Array.isArray(value)) {
+  } else if (isReadonlyArray(value)) {
     return value
       .map((item) => transformJsonableIntoJsonValue(item, keyOrIndex, context))
       .filter((jsonValue) => jsonValue !== undefined);
@@ -43,7 +52,7 @@ export function transformJsonableObjectIntoJsonObject(
   keyOrIndex: string | number,
   context: DocumentContext,
 ): JsonObject | undefined {
-  let jsonObject: JsonObject = {};
+  let jsonObject: MutableJsonObject = {};
   Object.keys(jsonableObject).forEach((memberKey) => {
     const memberValue = jsonableObject[memberKey];
     if (memberValue === undefined) {

@@ -1,9 +1,10 @@
 import type { DocumentContent } from "../document/index.js";
 import type {
+  JsonableArray,
   JsonableObject,
   JsonableValue,
-  JsonValueType,
 } from "./jsonableTypes.js";
+import type { JsonValueType } from "./jsonTypes.js";
 
 export interface PrimitiveJsonableParameters {
   readonly type: JsonValueType;
@@ -18,13 +19,21 @@ export interface ObjectJsonableParameters extends PrimitiveJsonableParameters {
 
 export interface ArrayJsonableParameters extends PrimitiveJsonableParameters {
   readonly type: "array";
-  readonly content: readonly JsonableValue[];
+  readonly content: JsonableArray;
   readonly length: DocumentContent;
 }
 
 export interface StringJsonableParameters extends PrimitiveJsonableParameters {
   readonly type: "string";
+  readonly subType: "string";
   readonly content: DocumentContent;
+}
+
+export interface JsonStringJsonableParameters
+  extends PrimitiveJsonableParameters {
+  readonly type: "string";
+  readonly subType: "json";
+  readonly content: JsonableValue;
 }
 
 export interface NumberJsonableParameters extends PrimitiveJsonableParameters {
@@ -45,6 +54,7 @@ export type JsonableValueParameters =
   | ObjectJsonableParameters
   | ArrayJsonableParameters
   | StringJsonableParameters
+  | JsonStringJsonableParameters
   | NumberJsonableParameters
   | BooleanJsonableParameters
   | NullJsonableParameters;

@@ -1,5 +1,5 @@
-import type { JsonValueType } from "./jsonableTypes.js";
 import { JsonValueTypes } from "./jsonConsts.js";
+import type { JsonValueType } from "./jsonTypes.js";
 
 export function isJsonValueType(value: unknown): value is JsonValueType {
   if (typeof value !== "string") {

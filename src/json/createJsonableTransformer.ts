@@ -4,6 +4,7 @@ import {
   type CommandParsedTemplateFragment,
   parseAndEmbedCommandExpression,
 } from "../commandTemplate/index.js";
+import { isReadonlyArray } from "../common/utils.js";
 import { normalizeWeight } from "../common/weightedItemFeeder.js";
 import type {
   DocumentContent,
@@ -37,12 +38,20 @@ import type {
   PrimitiveJsonableParameters,
 } from "./jsonableParametersTypes.js";
 import type {
+  JsonableArray,
   JsonableObject,
   JsonableTransformer,
   JsonableValue,
-  JsonValueType,
+  MutableJsonableObject,
 } from "./jsonableTypes.js";
-import type { JsonObject, JsonValue } from "./jsonTypes.js";
+import type {
+  JsonArray,
+  JsonObject,
+  JsonValue,
+  JsonValueType,
+  MutableJsonArray,
+  MutableJsonObject,
+} from "./jsonTypes.js";
 import { isJsonValueType } from "./utils.js";
 
 interface CommandDocumentFragmentsBuilder {
@@ -89,12 +98,13 @@ export function createJsonableTransformer(
       } else {
         return createJsonable({
           type: "string",
+          subType: "string",
           content: documentContent,
           probability: undefined,
           weight: undefined,
         });
       }
-    } else if (Array.isArray(value)) {
+    } else if (isReadonlyArray(value)) {
       // array
       const arrayJsonableParameters = tryParseArrayJsonableParameters(
         value,
@@ -104,7 +114,7 @@ export function createJsonableTransformer(
       if (arrayJsonableParameters !== undefined) {
         return createJsonable(arrayJsonableParameters);
       }
-      return transformIntoJsonableValueArray(value, jsonableTransformer);
+      return transformIntoJsonableArray(value, jsonableTransformer);
     } else {
       // object
       const jsonableValueParameters = tryParseJsonableParameters(
@@ -121,8 +131,8 @@ export function createJsonableTransformer(
   return jsonableTransformer;
 }
 
-function transformIntoJsonableValueArray(
-  content: readonly JsonValue[],
+function transformIntoJsonableArray(
+  content: JsonArray,
   jsonableTransformer: JsonableTransformer,
 ): JsonableValue[] {
   return content
@@ -134,7 +144,7 @@ function transformIntoJsonableObject(
   jsonObject: JsonObject,
   jsonableTransformer: JsonableTransformer,
 ): JsonableObject {
-  let jsonableObject: JsonableObject = {};
+  let jsonableObject: MutableJsonableObject = {};
   Object.keys(jsonObject).forEach((memberKey) => {
     const memberValue = jsonObject[memberKey];
     if (memberValue === undefined) {
@@ -150,11 +160,11 @@ function transformIntoJsonableObject(
 }
 
 function tryParseArrayJsonableParameters(
-  array: readonly JsonValue[],
+  array: JsonArray,
   commandDocumentFragmentsBuilder: CommandDocumentFragmentsBuilder,
   jsonableTransformer: JsonableTransformer,
 ): ArrayJsonableParameters | undefined {
-  const items: JsonValue[] = [];
+  const items: MutableJsonArray = [];
   let lengthContent: DocumentContent | undefined;
   array.forEach((item) => {
     const possibleExpression = tryExtractJsonableParameterExpression(item);
@@ -176,7 +186,7 @@ function tryParseArrayJsonableParameters(
 
   return {
     type: "array",
-    content: transformIntoJsonableValueArray(items, jsonableTransformer),
+    content: transformIntoJsonableArray(items, jsonableTransformer),
     length: lengthContent,
     probability: undefined,
     weight: undefined,
@@ -194,25 +204,29 @@ function tryParseJsonableParameters(
   let probabilityValue: JsonValue | undefined;
   let weightValue: JsonValue | undefined;
   let hasShorthandObjectJsonableTrigger = false;
-  const otherMembers: JsonObject = {};
+  const otherMembers: MutableJsonObject = {};
   Object.keys(jsonObject).forEach((memberKey) => {
     const memberValue = jsonObject[memberKey];
     const possibleParameterName =
       tryExtractJsonableParameterExpression(memberKey);
     if (possibleParameterName === JsonableTypeParameterName) {
+      // explicitly specified "type"
       if (!isJsonValueType(memberValue)) {
         return;
       }
       jsonValueType = memberValue;
     } else if (possibleParameterName === JsonableContentParameterName) {
+      // specify "content" and also implicitly indicate "object" type
       contentValue = memberValue;
       hasShorthandObjectJsonableTrigger = true;
     } else if (possibleParameterName === JsonableProbabilityParameterName) {
+      // specify "probability" and also implicitly indicate "object" type
       probabilityValue = memberValue;
       hasShorthandObjectJsonableTrigger = true;
     } else if (possibleParameterName === JsonableLengthParameterName) {
       lengthValue = memberValue;
     } else if (possibleParameterName === JsonableWeightParameterName) {
+      // specify "weight" and also implicitly indicate "object" type
       weightValue = memberValue;
       hasShorthandObjectJsonableTrigger = true;
     } else if (memberValue !== undefined) {
@@ -222,9 +236,10 @@ function tryParseJsonableParameters(
 
   let actualJsonValueType: JsonValueType;
   if (jsonValueType !== undefined) {
+    // explicit type
     actualJsonValueType = jsonValueType;
   } else if (hasShorthandObjectJsonableTrigger) {
-    // shorthand object
+    // shorthand object (implicit type)
     actualJsonValueType = "object";
     contentValue = contentValue ?? otherMembers;
   } else {
@@ -259,28 +274,61 @@ function tryParseJsonableParameters(
       lengthValue,
       commandDocumentFragmentsBuilder,
     );
-    let jsonableValueArray: readonly JsonableValue[];
+    let jsonableArray: JsonableArray;
     if (Array.isArray(contentValue)) {
-      jsonableValueArray = transformIntoJsonableValueArray(
+      jsonableArray = transformIntoJsonableArray(
         contentValue,
         jsonableTransformer,
       );
     } else {
-      jsonableValueArray = [];
+      jsonableArray = [];
     }
     // => return JsonableValueParameters
     return {
       type: actualJsonValueType,
-      content: jsonableValueArray,
+      content: jsonableArray,
       length: lengthContent,
       ...createCommonJsonableParameters(probabilityValue, weightValue),
     };
+  } else if (actualJsonValueType === "string") {
+    // ## string case
+    if (typeof contentValue !== "string") {
+      if (contentValue === undefined) {
+        // => return undefined
+        return undefined;
+      }
+      // string-json
+      let jsonableValue: JsonableValue | undefined;
+      jsonableValue = jsonableTransformer(contentValue);
+      if (jsonableValue === undefined) {
+        // => return undefined
+        return undefined;
+      }
+      // string-json
+      return {
+        type: actualJsonValueType,
+        subType: "json",
+        content: jsonableValue,
+        ...createCommonJsonableParameters(probabilityValue, weightValue),
+      };
+    }
+    // string-string
+    const content = parseDocumentContent(
+      contentValue,
+      commandDocumentFragmentsBuilder,
+    );
+    // => return JsonableValueParameters
+    return {
+      type: actualJsonValueType,
+      subType: "string",
+      content: content,
+      ...createCommonJsonableParameters(probabilityValue, weightValue),
+    };
   } else if (
-    actualJsonValueType === "string" ||
     actualJsonValueType === "number" ||
     actualJsonValueType === "boolean"
   ) {
-    // ## string | number | boolean case
+    // ## number | boolean case
     if (typeof contentValue !== "string") {
       // => return undefined
       return undefined;

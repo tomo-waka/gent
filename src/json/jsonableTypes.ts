@@ -1,5 +1,4 @@
 import type { AbstractJsonable } from "./abstractJsonable.js";
-import type { JsonValueTypes } from "./jsonConsts.js";
 import type {
   JsonBoolean,
   JsonNull,
@@ -8,18 +7,24 @@ import type {
   JsonValue,
 } from "./jsonTypes.js";
 
-export type JsonValueType = (typeof JsonValueTypes)[number];
 export type JsonableValue =
-  | AbstractJsonable
   | JsonableObject
-  | JsonableValue[]
+  | JsonableArray
+  | AbstractJsonable
   | JsonString
   | JsonNumber
   | JsonBoolean
   | JsonNull;
+
 export type JsonableObject = {
+  readonly [key: string]: JsonableValue;
+};
+export type MutableJsonableObject = {
   [key: string]: JsonableValue;
 };
+
+export type JsonableArray = readonly JsonableValue[];
+export type MutableJsonableArray = JsonableValue[];
 
 export interface JsonableTransformer {
   (value: JsonValue): JsonableValue | undefined;
