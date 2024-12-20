@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    /* Modules */
+    "module": "Node16",
+    "moduleResolution": "NodeNext",
+    "rootDirs": [
+      "src",
+      "generated"
+    ],
+    /* Emit */
+    "noEmit": true,
+    /* Language and Environment */
+    "target": "ES2022",
+    "lib": [
+      "ES2022"
+    ],
+    /* Type Checking */
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true
+    // "noUnusedParameters": true,
+  }
+}
