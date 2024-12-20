@@ -1,0 +1,58 @@
+{
+  "name": "@gent-js/gent",
+  "version": "0.1.8",
+  "description": "template-based data generator.",
+  "keywords": [
+    "gent"
+  ],
+  "homepage": "https://github.com/tomo-waka/gent",
+  "bugs": {
+    "url": "https://github.com/tomo-waka/gent/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomo-waka/gent.git"
+  },
+  "license": "MIT",
+  "author": "Tomokazu Wakabayashi",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "bin": {
+    "gent": "dist/src/cli.js"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run build:tsc",
+    "build:publish": "npm run build:tsc -- --sourceMap false",
+    "build:tsc": "tsc -p tsconfig.build.json",
+    "generate:dts": "tsx scripts/generateParserCstDts.ts",
+    "generate:package-env": "tsx scripts/generatePackageEnv.ts",
+    "lint:tsc": "npm run build:tsc -- --noEmit",
+    "prepare": "npm run build:publish",
+    "start": "tsx src/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --out out/out.log --debug",
+    "start-json": "tsx src/cli.ts --template sample/aws_CloudWatch.json --count 5 --out out/out.log --debug",
+    "start-meta": "tsx src/cli.ts --meta sample/meta.json",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "version": "npm run generate:package-env"
+  },
+  "dependencies": {
+    "@faker-js/faker": "~9",
+    "@types/luxon": "~3",
+    "chevrotain": "~11",
+    "commander": "~12",
+    "glob": "~11",
+    "luxon": "~3",
+    "rotating-file-stream": "~3"
+  },
+  "devDependencies": {
+    "@types/node": "~22",
+    "prettier": "~3",
+    "tsx": "~4",
+    "typescript": "~5.6"
+  }
+}
