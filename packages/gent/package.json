@@ -1,25 +1,31 @@
 {
   "name": "@gent-js/gent",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "template-based data generator.",
+  "keywords": [
+    "gent"
+  ],
   "homepage": "https://github.com/tomo-waka/gent",
   "bugs": {
     "url": "https://github.com/tomo-waka/gent/issues"
-  },
-  "license": "MIT",
-  "author": "Tomokazu Wakabayashi",
-  "files": [
-    "dist"
-  ],
-  "type": "module",
-  "main": "dist/src/index.js",
-  "bin": {
-    "gent": "dist/src/cli.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/tomo-waka/gent.git"
   },
+  "license": "MIT",
+  "author": "Tomokazu Wakabayashi",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "bin": {
+    "gent": "dist/src/cli.js"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "npm run build:tsc",
     "build:publish": "npm run build:tsc -- --sourceMap false",
