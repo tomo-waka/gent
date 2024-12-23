@@ -1,0 +1,1 @@
+import '@gent-js/gent/dist/src/cli.js';
