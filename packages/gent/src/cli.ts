@@ -39,7 +39,7 @@ const debugOption = new Option("-d --debug", "debug flat")
   .default(false)
   .hideHelp(true);
 
-async function main(): Promise<void> {
+function main(): void {
   const program = new Command();
 
   program
@@ -68,7 +68,9 @@ async function main(): Promise<void> {
       if (meta !== undefined) {
         const resolvedFilePath = parseAndResolveFilePath(meta, cwd);
         if (resolvedFilePath === undefined) {
-          program.error(`failed to resolve meta file path.(${meta})`);
+          program.error(`failed to resolve meta file path.(${meta})`, {
+            exitCode: FAILED,
+          });
           return;
         }
         let fileContent: string | undefined;
@@ -78,7 +80,7 @@ async function main(): Promise<void> {
           console.log(error);
         }
         if (fileContent === undefined) {
-          program.error("failed to read meta file.");
+          program.error("failed to read meta file.", { exitCode: FAILED });
           return;
         }
         try {
@@ -88,7 +90,7 @@ async function main(): Promise<void> {
           rawProgramOptions = undefined;
         }
         if (rawProgramOptions === undefined) {
-          program.error("failed to parse meta file.");
+          program.error("failed to parse meta file.", { exitCode: FAILED });
           return;
         }
       } else if (template !== undefined) {
@@ -127,7 +129,9 @@ async function main(): Promise<void> {
       }
     });
 
-  await program.parseAsync(process.argv);
+  program.parseAsync(process.argv).catch((error) => {
+    console.error(error);
+  });
 }
 
-await main();
+main();
