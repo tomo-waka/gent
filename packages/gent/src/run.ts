@@ -9,9 +9,9 @@ import { MaxEps, TrailerMap } from "./consts.js";
 import { createDocumentFeeder } from "./createDocumentFeeder.js";
 import { createGeneratingDocumentStream } from "./createGeneratingDocumentStream.js";
 import { debugFileWriter } from "./debugFileWriter.js";
-import { initializeOutput } from "./output/initializeOutput.js";
 import { DocumentTransformStream } from "./documentTransformStream.js";
 import type { DocumentTransformOptions } from "./documentTransformTypes.js";
+import { initializeOutput } from "./output/initializeOutput.js";
 import type { ProgramOptions } from "./types.js";
 import "./command/commands/index.js";
 
@@ -79,7 +79,7 @@ export async function run(programOptions: ProgramOptions): Promise<ResultCode> {
       transformMode: "object",
       eps: out.eps,
     };
-  } else if (out.type === "tcp") {
+  } else if (out.type === "tcp" || out.type === "tls") {
     if (out.framing === "octet-counting") {
       documentTransformOptions = {
         transformMode: "buffer",

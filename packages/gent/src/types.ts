@@ -51,7 +51,8 @@ export type ShorthandOutputOptions = string;
 export type OutputOptions =
   | FileOutputOptions
   | UdpOutputOptions
-  | TcpOutputOptions;
+  | TcpOutputOptions
+  | TlsOutputOptions;
 
 export type OutputType = (typeof OutputTypes)[number];
 
@@ -88,12 +89,10 @@ interface PrimitiveTcpOutputOptions extends NetworkOutputOptions {
 }
 
 interface TcpOctetCountingOutputOptions extends PrimitiveTcpOutputOptions {
-  readonly type: "tcp";
   readonly framing: "octet-counting";
 }
 
 interface TcpNonFramingOutputOptions extends PrimitiveTcpOutputOptions {
-  readonly type: "tcp";
   readonly framing: NonTransparentFramingMethod;
   readonly trailerReplacer: string;
 }
@@ -101,5 +100,23 @@ interface TcpNonFramingOutputOptions extends PrimitiveTcpOutputOptions {
 export type TcpOutputOptions =
   | TcpOctetCountingOutputOptions
   | TcpNonFramingOutputOptions;
+
+interface PrimitiveTlsOutputOptions extends NetworkOutputOptions {
+  readonly type: "tls";
+  readonly framing: TcpFramingMethod;
+}
+
+interface TlsOctetCountingOutputOptions extends PrimitiveTlsOutputOptions {
+  readonly framing: "octet-counting";
+}
+
+interface TlsNonFramingOutputOptions extends PrimitiveTlsOutputOptions {
+  readonly framing: NonTransparentFramingMethod;
+  readonly trailerReplacer: string;
+}
+
+export type TlsOutputOptions =
+  | TlsOctetCountingOutputOptions
+  | TlsNonFramingOutputOptions;
 
 // endregion

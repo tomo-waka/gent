@@ -304,7 +304,7 @@ function normalizeOutputOptions(
         port: possiblePort,
         eps: possibleEps,
       };
-    } else if (possibleType === "tcp") {
+    } else if (possibleType === "tcp" || possibleType === "tls") {
       const possibleFraming =
         parseString(possibleOutputOptions["framing"]) ??
         DefaultTcpFramingMethod;

@@ -6,6 +6,7 @@ import type { OutputOptions } from "../types.js";
 import { assertNever } from "../utils.js";
 import { createFileOutput } from "./createFileOutput.js";
 import { createTcpOutput } from "./createTcpOutput.js";
+import { createTlsOutput } from "./createTlsOutput.js";
 import { UdpDocumentStream } from "./udpDocumentStream.js";
 
 export async function initializeOutput(
@@ -41,6 +42,8 @@ export async function initializeOutput(
     return new UdpDocumentStream(outputOptions);
   } else if (outputOptions.type === "tcp") {
     return createTcpOutput(outputOptions);
+  } else if (outputOptions.type === "tls") {
+    return createTlsOutput(outputOptions);
   } else {
     return assertNever(outputOptions);
   }
