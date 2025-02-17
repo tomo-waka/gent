@@ -1,11 +1,12 @@
 import * as fs from "node:fs";
 import * as stream from "node:stream";
 import * as rfs from "rotating-file-stream";
+import type { RotateOutputPathGenerator } from "./types.js";
 
 export async function createFileOutput(
   nonRotateOutputPath: string,
   rotateSize: string | undefined,
-  rotateOutputPathGenerator: (additionalPhrase: string) => string,
+  rotateOutputPathGenerator: RotateOutputPathGenerator,
 ): Promise<stream.Writable> {
   if (rotateSize === undefined) {
     // no file rotation

@@ -60,12 +60,13 @@ export type NetworkOutputType = (typeof NetworkOutputTypes)[number];
 
 interface PrimitiveOutputOptions {
   readonly type: OutputType;
-  readonly path: string;
+  readonly path?: string | undefined;
 }
 
 export interface FileOutputOptions extends PrimitiveOutputOptions {
   readonly type: "file";
-  readonly size?: string;
+  readonly path: string;
+  readonly size?: string | undefined;
 }
 
 interface NetworkOutputOptions extends PrimitiveOutputOptions {
