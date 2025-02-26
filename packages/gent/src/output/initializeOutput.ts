@@ -6,6 +6,8 @@ import type { OutputOptions } from "../types.js";
 import { assertNever } from "../utils.js";
 import { createFileOutput } from "./createFileOutput.js";
 import { createTcpOutput } from "./createTcpOutput.js";
+import { createTlsOutput } from "./createTlsOutput.js";
+import type { RotateOutputPathGenerator } from "./types.js";
 import { UdpDocumentStream } from "./udpDocumentStream.js";
 
 export async function initializeOutput(
@@ -13,27 +15,33 @@ export async function initializeOutput(
 ): Promise<stream.Writable> {
   // region clean dir
 
-  const nonRotateOutputPath = outputOptions.path;
-  const parsed = nodePath.parse(outputOptions.path);
-
-  const rotateOutputPathGenerator = (additionalPhrase: string) => {
-    const filename = `${parsed.name}.${additionalPhrase}${parsed.ext}`;
-    return nodePath.join(parsed.dir, filename);
-  };
-
-  const nonRotateOutputGlobPath = nonRotateOutputPath.replaceAll("\\", "/");
-  const rotateOutputGlobPath = rotateOutputPathGenerator("*").replaceAll(
-    "\\",
-    "/",
-  );
-
-  await cleanOutputDir(nonRotateOutputGlobPath, rotateOutputGlobPath);
+  const outputPath = outputOptions.path;
+  let rotateOutputPathGenerator: RotateOutputPathGenerator | undefined;
+  if (outputPath !== undefined) {
+    // when output path is specified, clean dir.
+    const parsed = nodePath.parse(outputPath);
+    rotateOutputPathGenerator = (additionalPhrase: string) => {
+      const filename = `${parsed.name}.${additionalPhrase}${parsed.ext}`;
+      return nodePath.join(parsed.dir, filename);
+    };
+    const nonRotateOutputGlobPath = outputPath.replaceAll("\\", "/");
+    const rotateOutputGlobPath = rotateOutputPathGenerator("*").replaceAll(
+      "\\",
+      "/",
+    );
+    await cleanOutputDir(nonRotateOutputGlobPath, rotateOutputGlobPath);
+  }
 
   // endregion
 
   if (outputOptions.type === "file") {
+    if (rotateOutputPathGenerator === undefined) {
+      throw new Error(
+        "rotateOutputPathGenerator should be initialized at this point.",
+      );
+    }
     return createFileOutput(
-      nonRotateOutputPath,
+      outputOptions.path,
       outputOptions.size,
       rotateOutputPathGenerator,
     );
@@ -41,6 +49,8 @@ export async function initializeOutput(
     return new UdpDocumentStream(outputOptions);
   } else if (outputOptions.type === "tcp") {
     return createTcpOutput(outputOptions);
+  } else if (outputOptions.type === "tls") {
+    return createTlsOutput(outputOptions);
   } else {
     return assertNever(outputOptions);
   }

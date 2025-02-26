@@ -268,25 +268,18 @@ function normalizeOutputOptions(
     possibleOutputOptions["path"],
     basePath,
   );
-  if (possiblePath === undefined) {
-    console.error(`output path must be specified.(${possiblePath})`);
-    return undefined;
-  }
 
   if (possibleType == "file") {
-    const possibleSize = parseString(possibleOutputOptions["size"]);
-    if (possibleSize === undefined) {
-      return {
-        type: possibleType,
-        path: possiblePath,
-      };
-    } else {
-      return {
-        type: possibleType,
-        path: possiblePath,
-        size: possibleSize,
-      };
+    if (possiblePath === undefined) {
+      console.error(`output path must be specified.(${possiblePath})`);
+      return undefined;
     }
+    const possibleSize = parseString(possibleOutputOptions["size"]);
+    return {
+      type: possibleType,
+      path: possiblePath,
+      size: possibleSize,
+    };
   } else if (isNetworkOutputType(possibleType)) {
     const possibleAddress = parseString(possibleOutputOptions["address"]);
     const possiblePort = parseNonNaNInteger(possibleOutputOptions["port"]);
@@ -304,7 +297,7 @@ function normalizeOutputOptions(
         port: possiblePort,
         eps: possibleEps,
       };
-    } else if (possibleType === "tcp") {
+    } else if (possibleType === "tcp" || possibleType === "tls") {
       const possibleFraming =
         parseString(possibleOutputOptions["framing"]) ??
         DefaultTcpFramingMethod;
