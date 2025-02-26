@@ -87,3 +87,45 @@ file output with options.
 * eps(optional): throttle data generate. event per second. (default: 3000)
 * framing: `lf`
 * trailerReplacer(optional): replace trailer string (which is `lf`) with other string.
+
+## tls
+
+### octet-counting
+
+```json
+{
+  "out": {
+    "type": "tls",
+    "address": "127.0.0.1",
+    "port": 514,
+    "eps": 1000,
+    "framing": "octet-counting"
+  }
+}
+```
+* type: `tls`
+* address: destination ip address.
+* port: destination port.
+* eps(optional): throttle data generate. event per second. (default: 3000)
+* framing: `octet-counting`
+
+### lf framing
+
+```json
+{
+  "out": {
+    "type": "tls",
+    "address": "127.0.0.1",
+    "port": 514,
+    "eps": 1000,
+    "framing": "lf",
+    "trailerReplacer": " "
+  }
+}
+```
+* type: `tls`
+* address: destination ip address.
+* port: destination port.
+* eps(optional): throttle data generate. event per second. (default: 3000)
+* framing: `lf`
+* trailerReplacer(optional): replace trailer string (which is `lf`) with other string.
