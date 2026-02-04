@@ -1,6 +1,6 @@
 {
   "name": "@gent-js/gent",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "template-based data generator.",
   "keywords": [
     "gent"
@@ -32,27 +32,28 @@
     "build:tsc": "tsc -p tsconfig.build.json",
     "generate:dts": "tsx scripts/generateParserCstDts.ts",
     "generate:package-env": "tsx scripts/generatePackageEnv.ts",
+    "lint": "echo \"Info: no lint specified\" && exit 0",
     "lint:tsc": "npm run build:tsc -- --noEmit",
     "prepare": "npm run build:publish",
     "start": "tsx src/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --out out/out.log --debug",
     "start-json": "tsx src/cli.ts --template sample/aws_CloudWatch.json --count 5 --out out/out.log --debug",
     "start-meta": "tsx src/cli.ts --meta sample/meta.json",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Info: no test specified\" && exit 0",
     "version": "npm run generate:package-env"
   },
   "dependencies": {
-    "@faker-js/faker": "~9",
+    "@faker-js/faker": "~10",
     "@types/luxon": "~3",
     "chevrotain": "~11",
-    "commander": "~12",
-    "glob": "~11",
+    "commander": "~14",
+    "glob": "~13",
     "luxon": "~3",
     "rotating-file-stream": "~3"
   },
   "devDependencies": {
-    "@types/node": "~22",
+    "@types/node": "~25",
     "prettier": "~3",
     "tsx": "~4",
-    "typescript": "~5.6"
+    "typescript": "~5.9"
   }
 }
