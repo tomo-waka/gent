@@ -153,3 +153,7 @@ in meta file, specify output path with `out` key.
 ```
 
 moreover, you can use various output method and options in meta file. see [output](./docs/output.md) for details.
+
+## Development
+
+[development](./docs/developing.md)
