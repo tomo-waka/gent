@@ -27,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Confirm version
-        run: npm version --workspaces @gent-js/gent
+        run: npm version --workspace @gent-js/gent
 
       - name: Publish package
-        run: npm publish --workspaces @gent-js/gent
+        run: npm publish --workspace @gent-js/gent
