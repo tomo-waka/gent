@@ -7,7 +7,7 @@
 
 ## Introduction
 
-GenT is a template-based data generator. The generated data is used as test data for software that process such data. You can define data format with a simple text file (referred to as a "template") and obtain the output as text file. It means that both input and output are non-programing interfaces. These features are particularly useful as test data in end-to-end testing situations, rather than in Unit testing.
+GenT is a template-based data generator. The generated data is used as test data for software that process such data. You can define data format with a simple text file (referred to as a "template") and obtain the output as text file. It means that both input and output are non-programming interfaces. These features are particularly useful as test data in end-to-end testing situations, rather than in Unit testing.
 
 ## Features
 
