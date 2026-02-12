@@ -1,0 +1,41 @@
+# Build exe:
+name: Build Single Executable Application for Windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-sea:
+    name: Build Single Executable Application for Windows
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application codes
+        run: npm run build:bundle --workspace @gent-js/gent-sea
+
+      - name: Build SEA blob
+        run: node --experimental-sea-config packages/gent-sea/sea.config.json
+
+      - name: Copy Node.js binary
+        run: node -e "require('fs').copyFileSync(process.execPath, 'packages/gent-sea/dist/gent.exe')"
+
+      - name: Inject blob
+        run: npx postject packages/gent-sea/dist/gent.exe NODE_SEA_BLOB dist/gent.blob --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2
+
+      - name: Upload executable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-executable
+          path: packages/gent-sea/dist/gent.exe
