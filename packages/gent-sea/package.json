@@ -9,7 +9,7 @@
     "test": "echo \"Info: no test specified\" && exit 0"
   },
   "dependencies": {
-    "@gent-js/gent": "^0.1.14"
+    "@gent-js/gent": "^0.1.15"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "~28",
