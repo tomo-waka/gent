@@ -1,6 +1,6 @@
 {
   "name": "@gent-js/gent",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "template-based data generator.",
   "keywords": [
     "gent"

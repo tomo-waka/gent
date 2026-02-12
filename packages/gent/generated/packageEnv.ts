@@ -2,6 +2,6 @@
 export const packageEnv = {
     fullName: "@gent-js/gent",
     name: "gent",
-    version: "0.1.16",
+    version: "0.1.17",
     description: "template-based data generator."
 } as const;
