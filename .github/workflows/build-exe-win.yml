@@ -1,12 +1,12 @@
 # Build exe:
-name: Build Single Executable Application for Windows
+name: Build Executable for Windows
 
 on:
   workflow_dispatch:
 
 jobs:
   build-sea:
-    name: Build Single Executable Application for Windows
+    name: Build Executable for Windows
     runs-on: windows-latest
     
     steps:
@@ -26,16 +26,25 @@ jobs:
         run: npm run build:bundle --workspace @gent-js/gent-sea
 
       - name: Build SEA blob
-        run: node --experimental-sea-config packages/gent-sea/sea.config.json
+        run: node --experimental-sea-config sea.config.json
+        working-directory: packages/gent-sea
 
       - name: Copy Node.js binary
-        run: node -e "require('fs').copyFileSync(process.execPath, 'packages/gent-sea/dist/gent.exe')"
+        run: node -e "require('fs').copyFileSync(process.execPath, 'dist/gent-win.exe')"
+        working-directory: packages/gent-sea
 
       - name: Inject blob
-        run: npx postject packages/gent-sea/dist/gent.exe NODE_SEA_BLOB dist/gent.blob --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2
+        run: npx postject dist/gent-win.exe NODE_SEA_BLOB dist/gent.blob --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2
+        working-directory: packages/gent-sea
 
       - name: Upload executable artifact
         uses: actions/upload-artifact@v4
         with:
-          name: sea-executable
-          path: packages/gent-sea/dist/gent.exe
+          name: gent-win
+          path: packages/gent-sea/dist/gent-win.exe
+      
+      - name: Upload to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "$GITHUB_REF_NAME" packages/gent-sea/dist/gent-win.exe --clobber
