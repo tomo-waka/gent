@@ -26,7 +26,7 @@ jobs:
         run: npm run build:bundle --workspace @gent-js/gent-sea
 
       - name: Build SEA blob
-        run: node --experimental-sea-config packages/gent-sea/sea.config.json
+        run: node --experimental-sea-config sea.config.json
         working-directory: packages/gent-sea
 
       - name: Copy Node.js binary
