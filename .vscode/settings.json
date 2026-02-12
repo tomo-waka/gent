@@ -2,5 +2,8 @@
     "chat.disableAIFeatures": false,
     "github.copilot.enable": {
         "*": true
-    }
+    },
+    "cSpell.words": [
+        "postject"
+    ]
 }
