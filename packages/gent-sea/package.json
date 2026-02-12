@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build:blob": "node --experimental-sea-config sea.config.json",
-    "build:bundle": "rollup --config scripts/rollup.config.ts --configPlugin typescript",
+    "build:bundle": "rollup --config rollup.config.ts --configPlugin typescript",
     "build:inject-blob": "npx postject out/gent.exe NODE_SEA_BLOB dist/gent.blob --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2",
     "cp:node": "tsx scripts/cpNode.ts",
     "test": "echo \"Info: no test specified\" && exit 0"
