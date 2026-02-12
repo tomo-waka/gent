@@ -42,6 +42,7 @@ jobs:
         with:
           name: gent-win
           path: packages/gent-sea/dist/gent-win.exe
+          retention-days: 1
       
       - name: checks
         run: echo "GITHUB_REF_NAME is $GITHUB_REF_NAME"
@@ -70,4 +71,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload "$GITHUB_REF_NAME" packages/gent-sea/dist/gent-win.exe --clobber
+        run: gh release upload v0.1.19 packages/gent-sea/dist/gent-win.exe --clobber
