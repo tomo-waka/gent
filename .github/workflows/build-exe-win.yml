@@ -8,6 +8,9 @@ jobs:
   build-sea:
     name: Build Executable for Windows
     runs-on: windows-latest
+
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout repository
@@ -45,7 +48,8 @@ jobs:
           retention-days: 1
       
       - name: checks
-        run: echo "GITHUB_REF_NAME is $GITHUB_REF_NAME"
+        run: |
+          echo "GITHUB_REF_NAME: $GITHUB_REF_NAME"
 
       - name: checks
         env:
@@ -56,19 +60,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release view "$GITHUB_REF_NAME"
-      
-      - name: checks
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release view "v0.1.15"
 
       - name: checks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release view "v0.1.17"
+        run: gh release view "v0.1.20"
       
       - name: Upload to GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload v0.1.19 packages/gent-sea/dist/gent-win.exe --clobber
+        run: gh release upload v0.1.20 packages/gent-sea/dist/gent-win.exe --clobber
