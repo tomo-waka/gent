@@ -1,4 +1,4 @@
-# Release: Runs when a release is published(manually).
+# Release: Runs when a release is published.
 # Steps:
 # * Publish package to npm
 name: Release
