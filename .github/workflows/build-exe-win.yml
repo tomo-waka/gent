@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build application codes
+      - name: Build bundle code
         run: npm run build:bundle --workspace @gent-js/gent-sea
 
       - name: Build SEA blob
@@ -49,7 +49,9 @@ jobs:
       
       - name: checks
         run: |
-          echo "GITHUB_REF_NAME: $GITHUB_REF_NAME"
+          echo "GITHUB_REF_NAME= $GITHUB_REF_NAME"
+          echo "github.ref_name= ${{ github.ref_name }}"
+          echo "github.ref= ${{ github.ref }}"
 
       - name: checks
         env:
@@ -64,10 +66,15 @@ jobs:
       - name: checks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release view "v0.1.20"
+        run: gh release view ${{ github.ref_name }}
+
+      - name: checks
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release view "v0.1.21"
       
       - name: Upload to GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload v0.1.20 packages/gent-sea/dist/gent-win.exe --clobber
+        run: gh release upload v0.1.21 packages/gent-sea/dist/gent-win.exe --clobber
