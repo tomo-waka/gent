@@ -1,5 +1,5 @@
 {
-  "name": "gent-gui",
+  "name": "@gent-js/gent-gui",
   "private": true,
   "version": "0.0.0",
   "type": "module",

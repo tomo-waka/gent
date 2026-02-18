@@ -1,19 +1,11 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     /* Modules */
-    "module": "Node16",
-    "moduleResolution": "NodeNext",
-    "rootDirs": [
-      "src",
-      "generated"
-    ],
-    /* Emit */
-    "noEmit": true,
+    "rootDirs": ["src", "generated"],
+    "types": [],
     /* Language and Environment */
-    "target": "ES2022",
-    "lib": [
-      "ES2022"
-    ],
+    "lib": ["ES2024"],
     /* Type Checking */
     "strict": true,
     "allowUnreachableCode": false,

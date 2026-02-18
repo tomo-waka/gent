@@ -1,30 +1,14 @@
 {
   "compilerOptions": {
     /* Modules */
-    "module": "Node16",
-    "moduleResolution": "NodeNext",
-    "rootDirs": [
-      "src",
-      "generated"
-    ],
-    /* Emit */
-    "noEmit": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     /* Language and Environment */
-    "target": "ES2022",
-    "lib": [
-      "ES2022"
-    ],
+    "target": "es2024",
     /* Type Checking */
     "strict": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "exactOptionalPropertyTypes": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true
-    // "noUnusedParameters": true,
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
   }
 }
