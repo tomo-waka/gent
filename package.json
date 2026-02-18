@@ -7,6 +7,7 @@
   "workspaces": [
     "packages/gent",
     "packages/gent-gui",
-    "packages/gent-sea"
+    "packages/gent-sea",
+    "packages/gent-server"
   ]
 }

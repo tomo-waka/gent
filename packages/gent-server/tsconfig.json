@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    /* Modules */
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": [],
+    /* Language and Environment */
+    "target": "es2022",
+    /* Emit */
+    "declaration": true,
+    "declarationDir": "dist",
+    "outDir": "dist",
+    "sourceMap": true
+  },
+  "include": ["src"]
+}
