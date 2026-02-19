@@ -6,15 +6,15 @@ import type {
   TemplateModes,
 } from "./consts.js";
 
-// region common
+// #region common
 
 export interface TypeTaggedStructure {
   readonly type: string;
 }
 
-// endregion
+// #endregion
 
-// region program
+// #region program
 
 export type MetaTemplateJson = {
   readonly debug?: boolean;
@@ -120,4 +120,4 @@ export type TlsOutputOptions =
   | TlsOctetCountingOutputOptions
   | TlsNonFramingOutputOptions;
 
-// endregion
+// #endregion

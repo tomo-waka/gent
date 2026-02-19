@@ -1,6 +1,6 @@
 import { createToken, CstParser, Lexer } from "chevrotain";
 
-// region token
+// #region token
 
 const Literal = createToken({
   name: "Literal",
@@ -49,9 +49,9 @@ const allTokens = [
   CommandOptionKey,
 ];
 
-// endregion
+// #endregion
 
-// region lexer
+// #region lexer
 
 const lexer = new Lexer(allTokens);
 
@@ -68,9 +68,9 @@ ${lexingResult.errors[0]?.message}`,
   return lexingResult;
 }
 
-// endregion
+// #endregion
 
-// region parser
+// #region parser
 
 export class CommandParser extends CstParser {
   constructor() {
@@ -112,4 +112,4 @@ export class CommandParser extends CstParser {
 
 export const commandParser = new CommandParser();
 
-// endregion
+// #endregion

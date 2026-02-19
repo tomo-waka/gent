@@ -13,7 +13,7 @@ import { UdpDocumentStream } from "./udpDocumentStream.js";
 export async function initializeOutput(
   outputOptions: OutputOptions,
 ): Promise<stream.Writable> {
-  // region clean dir
+  // #region clean dir
 
   const outputPath = outputOptions.path;
   let rotateOutputPathGenerator: RotateOutputPathGenerator | undefined;
@@ -32,7 +32,7 @@ export async function initializeOutput(
     await cleanOutputDir(nonRotateOutputGlobPath, rotateOutputGlobPath);
   }
 
-  // endregion
+  // #endregion
 
   if (outputOptions.type === "file") {
     if (rotateOutputPathGenerator === undefined) {

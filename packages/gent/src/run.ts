@@ -18,7 +18,7 @@ import "./command/commands/index.js";
 export async function run(programOptions: ProgramOptions): Promise<ResultCode> {
   const { debug, count, out, templates } = programOptions;
 
-  // region out path
+  // #region out path
 
   const outPath = out.path;
   if (outPath !== undefined) {
@@ -58,7 +58,7 @@ export async function run(programOptions: ProgramOptions): Promise<ResultCode> {
     }
   }
 
-  // endregion
+  // #endregion
 
   const documentFeeder = await createDocumentFeeder(
     templates,

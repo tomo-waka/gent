@@ -1,7 +1,7 @@
 import { createToken, CstParser, Lexer } from "chevrotain";
 import { EXPRESSION_BLOCK_END, EXPRESSION_BLOCK_START } from "../consts.js";
 
-// region token
+// #region token
 
 const LiteralBlock = createToken({
   name: "LiteralBlock",
@@ -17,9 +17,9 @@ const ExpressionBlock = createToken({
 
 const allTokens = [ExpressionBlock, LiteralBlock];
 
-// endregion
+// #endregion
 
-// region matcher
+// #region matcher
 
 function matchLiteralBlock(text: string, startOffset: number): [string] | null {
   const endOffset = text.indexOf(EXPRESSION_BLOCK_START, startOffset);
@@ -59,9 +59,9 @@ function matchExpressionBlock(
   }
 }
 
-// endregion
+// #endregion
 
-// region lexer
+// #region lexer
 
 const lexer = new Lexer(allTokens);
 
@@ -78,9 +78,9 @@ ${lexingResult.errors[0]?.message}`,
   return lexingResult;
 }
 
-// endregion
+// #endregion
 
-// region parser
+// #region parser
 
 class TemplateParser extends CstParser {
   constructor() {
@@ -112,4 +112,4 @@ class TemplateParser extends CstParser {
 
 export const templateParser = new TemplateParser();
 
-// endregion
+// #endregion

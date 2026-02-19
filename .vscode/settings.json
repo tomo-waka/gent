@@ -1,9 +1,7 @@
 {
-    "chat.disableAIFeatures": false,
-    "github.copilot.enable": {
-        "*": true
-    },
-    "cSpell.words": [
-        "postject"
-    ]
+  "chat.disableAIFeatures": false,
+  "github.copilot.enable": {
+    "*": true
+  },
+  "cSpell.words": ["Jsonable", "postject"]
 }

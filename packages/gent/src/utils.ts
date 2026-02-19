@@ -20,9 +20,9 @@ import type {
   TcpFramingMethod,
   TemplateMode,
   TemplateOptions,
-} from "./types.js"; // region type guards
+} from "./types.js"; // #region type guards
 
-// region type guards
+// #region type guards
 
 export function isString(value: unknown) {
   return typeof value === "string";
@@ -71,9 +71,9 @@ export function isTcpFramingType(value: unknown): value is TcpFramingMethod {
   return candidates.includes(value);
 }
 
-// endregion
+// #endregion
 
-// region parsers
+// #region parsers
 
 export function parseString(value: unknown): string | undefined {
   if (!isString(value)) {
@@ -342,9 +342,9 @@ export function determineTemplateModeByFile(filePath: string): TemplateMode {
   return nodePath.extname(filePath) === ".json" ? "json" : "text";
 }
 
-// endregion
+// #endregion
 
-// region misc
+// #region misc
 
 export function pickFirst<T>(input: T | T[] | undefined): T | undefined {
   if (input === undefined) {
@@ -366,12 +366,12 @@ export function pickMany<T>(input: T | T[] | undefined): T[] {
   }
 }
 
-// endregion
+// #endregion
 
-// region misc
+// #region misc
 
 export function assertNever(x: never): never {
   throw new Error(`Unexpected object: ${x}`);
 }
 
-// endregion
+// #endregion
