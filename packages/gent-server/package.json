@@ -1,0 +1,19 @@
+{
+  "name": "@gent-js/gent-server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "fastify": "^5.0.0",
+    "@gent-js/gent": "^0.1.22"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "~5.9.3"
+  }
+}
