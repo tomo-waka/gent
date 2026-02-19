@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import { Command, Option } from "commander";
-import { packageEnv } from "../generated/packageEnv.js";
-import { FAILED, SUCCEEDED } from "./cliConsts.js";
-import { DEFAULT_TEMPLATE_WEIGHT } from "./consts.js";
-import { run } from "./run.js";
-import type { TemplateMode, TemplateOptions } from "./types.js";
+import { packageEnv } from "../packageEnv.js";
+import { FAILED } from "./cliConsts.js";
+import { DEFAULT_TEMPLATE_WEIGHT } from "../consts.js";
+import { run } from "../run.js";
+import type { TemplateMode, TemplateOptions } from "../types.js";
 import {
   determineTemplateModeByFile,
   isNonNullObject,
@@ -12,7 +12,7 @@ import {
   parseAndResolveFilePath,
   parseString,
   tryReadFile,
-} from "./utils.js";
+} from "../utils.js";
 
 const templateOption = new Option(
   "-t --template <template-file>",
@@ -35,7 +35,7 @@ const outOption = new Option(
   "path to output files.",
 ).default("./out.log");
 
-const debugOption = new Option("-d --debug", "debug flat")
+const debugOption = new Option("-d --debug", "debug flag")
   .default(false)
   .hideHelp(true);
 
@@ -123,9 +123,15 @@ function main(): void {
         return;
       }
 
-      const resultCode = await run(programOptions);
-      if (resultCode !== SUCCEEDED) {
-        program.error("Command has failed", { exitCode: resultCode });
+      try {
+        await run(programOptions);
+      } catch (error) {
+        program.error(
+          `Command failed: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+          { exitCode: FAILED },
+        );
       }
     });
 

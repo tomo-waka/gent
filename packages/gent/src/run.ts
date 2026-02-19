@@ -2,8 +2,6 @@ import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
 import * as stream from "node:stream";
-import { FAILED, SUCCEEDED } from "./cliConsts.js";
-import type { ResultCode } from "./cliTypes.js";
 import { commandManager } from "./command/index.js";
 import { MaxEps, TrailerMap } from "./consts.js";
 import { createDocumentFeeder } from "./createDocumentFeeder.js";
@@ -15,7 +13,7 @@ import { initializeOutput } from "./output/initializeOutput.js";
 import type { ProgramOptions } from "./types.js";
 import "./command/commands/index.js";
 
-export async function run(programOptions: ProgramOptions): Promise<ResultCode> {
+export async function run(programOptions: ProgramOptions): Promise<void> {
   const { debug, count, out, templates } = programOptions;
 
   // #region out path
@@ -39,18 +37,22 @@ export async function run(programOptions: ProgramOptions): Promise<ResultCode> {
       try {
         await fsPromises.mkdir(outDirPath, { recursive: true });
       } catch (error) {
-        console.error(`failed to create out path directory. ${outDirPath}`);
-        console.log(error);
-        return FAILED;
+        return Promise.reject(
+          new Error(`failed to create out path directory. ${outDirPath}`, {
+            cause: error,
+          }),
+        );
       }
     }
 
     try {
       await fsPromises.access(outDirPath, fs.constants.W_OK);
     } catch (error) {
-      console.error(`cannot access out directory. ${outDirPath}`);
-      console.log(error);
-      return FAILED;
+      return Promise.reject(
+        new Error(`cannot access out directory. ${outDirPath}`, {
+          cause: error,
+        }),
+      );
     }
 
     if (debug) {
@@ -99,10 +101,14 @@ export async function run(programOptions: ProgramOptions): Promise<ResultCode> {
         trailerReplacer: out.trailerReplacer,
       };
     } else {
-      throw new Error(`Unexpected out options: ${out satisfies never}`);
+      return Promise.reject(
+        new Error(`Unexpected out options: ${out satisfies never}`),
+      );
     }
   } else {
-    throw new Error(`Unexpected out options: ${out satisfies never}`);
+    return Promise.reject(
+      new Error(`Unexpected out options: ${out satisfies never}`),
+    );
   }
 
   const documentTransformStream = new DocumentTransformStream(
@@ -123,5 +129,5 @@ export async function run(programOptions: ProgramOptions): Promise<ResultCode> {
     },
   );
 
-  return SUCCEEDED;
+  return;
 }
