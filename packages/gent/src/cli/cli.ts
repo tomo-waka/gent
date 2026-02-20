@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command, Option } from "commander";
-import { packageEnv } from "../packageEnv.js";
+import { packageEnv } from "../../generated/packageEnv.js";
 import { FAILED } from "./cliConsts.js";
 import { DEFAULT_TEMPLATE_WEIGHT } from "../consts.js";
 import { run } from "../run.js";
