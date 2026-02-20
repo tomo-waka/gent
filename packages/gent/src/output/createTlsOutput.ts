@@ -1,6 +1,6 @@
 import * as stream from "node:stream";
 import * as tls from "node:tls";
-import type { TlsOutputOptions } from "../types.js";
+import type { TlsOutputOptions } from "../api/outputOptions.js";
 
 export async function createTlsOutput(
   outputOptions: TlsOutputOptions,

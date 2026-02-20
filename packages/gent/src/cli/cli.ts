@@ -3,8 +3,8 @@ import { Command, Option } from "commander";
 import { packageEnv } from "../../generated/packageEnv.js";
 import { FAILED } from "./cliConsts.js";
 import { DEFAULT_TEMPLATE_WEIGHT } from "../consts.js";
+import type { TemplateMode, TemplateOptions } from "../api/programOptions.js";
 import { run } from "../run.js";
-import type { TemplateMode, TemplateOptions } from "../types.js";
 import {
   determineTemplateModeByFile,
   isNonNullObject,

@@ -2,7 +2,7 @@ import * as dgram from "node:dgram";
 import * as dnsPromises from "node:dns/promises";
 import * as stream from "node:stream";
 import { GeneratingDocument } from "../document/index.js";
-import type { UdpOutputOptions } from "../types.js";
+import type { UdpOutputOptions } from "../api/outputOptions.js";
 
 export class UdpDocumentStream extends stream.Writable {
   private readonly address: string;

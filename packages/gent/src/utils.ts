@@ -7,20 +7,22 @@ import {
   DefaultEps,
   DefaultTcpFramingMethod,
   DefaultTrailerReplacer,
-  NetworkOutputTypes,
-  OutputTypes,
-  TcpFramingMethods,
-  TemplateModes,
 } from "./consts.js";
-import type {
-  NetworkOutputType,
-  OutputOptions,
-  OutputType,
-  ProgramOptions,
-  TcpFramingMethod,
-  TemplateMode,
-  TemplateOptions,
-} from "./types.js"; // #region type guards
+import {
+  type NetworkOutputType,
+  NetworkOutputTypes,
+  type OutputOptions,
+  type OutputType,
+  OutputTypes,
+  type TcpFramingMethod,
+  TcpFramingMethods,
+} from "./api/outputOptions.js";
+import {
+  type ProgramOptions,
+  type TemplateMode,
+  TemplateModes,
+  type TemplateOptions,
+} from "./api/programOptions.js";
 
 // #region type guards
 

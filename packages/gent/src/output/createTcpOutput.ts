@@ -1,7 +1,7 @@
 import * as dnsPromises from "node:dns/promises";
 import * as net from "node:net";
 import * as stream from "node:stream";
-import type { TcpOutputOptions } from "../types.js";
+import type { TcpOutputOptions } from "../api/outputOptions.js";
 
 export async function createTcpOutput(
   outputOptions: TcpOutputOptions,

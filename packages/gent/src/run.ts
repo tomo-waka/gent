@@ -10,7 +10,7 @@ import { debugFileWriter } from "./debugFileWriter.js";
 import { DocumentTransformStream } from "./documentTransformStream.js";
 import type { DocumentTransformOptions } from "./documentTransformTypes.js";
 import { initializeOutput } from "./output/initializeOutput.js";
-import type { ProgramOptions } from "./types.js";
+import type { ProgramOptions } from "./api/programOptions.js";
 import "./command/commands/index.js";
 
 export async function run(programOptions: ProgramOptions): Promise<void> {

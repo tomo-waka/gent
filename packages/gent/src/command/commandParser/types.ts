@@ -1,4 +1,3 @@
-import type { TypeTaggedStructure } from "../../types.js";
 import type {
   CommandOptionValue,
   StructuredCommandExpression,
@@ -12,7 +11,7 @@ export type CommandExpressionType =
   | "option-key"
   | "option-value";
 
-interface PrimitiveParsedCommandExpression extends TypeTaggedStructure {
+interface PrimitiveParsedCommandExpression {
   readonly type: CommandExpressionType;
 }
 
