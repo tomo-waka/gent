@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/tomo-waka/gent/main/packages/gent/schema/output/tls-output.schema.json",
+  "title": "GenT TlsOutputOptions",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "tls"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "address": {
+          "type": "string",
+          "minLength": 1
+        },
+        "port": {
+          "$ref": "../common.schema.json#/$defs/numberLike"
+        },
+        "eps": {
+          "$ref": "../common.schema.json#/$defs/numberLike"
+        },
+        "framing": {
+          "const": "octet-counting"
+        }
+      },
+      "required": ["type", "address", "port"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "tls"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "address": {
+          "type": "string",
+          "minLength": 1
+        },
+        "port": {
+          "$ref": "../common.schema.json#/$defs/numberLike"
+        },
+        "eps": {
+          "$ref": "../common.schema.json#/$defs/numberLike"
+        },
+        "framing": {
+          "const": "lf"
+        },
+        "trailerReplacer": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "address", "port", "framing"],
+      "additionalProperties": false
+    }
+  ]
+}

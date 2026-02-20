@@ -1,4 +1,5 @@
 {
+  "$schema": "../schema/program-options.schema.json",
   "debug": true,
   "from": "2000-01-01T00:00:00+09:00",
   "to": "2020-12-31T23:59:59+09:00",

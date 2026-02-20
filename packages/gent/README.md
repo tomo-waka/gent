@@ -11,17 +11,17 @@ GenT is a template-based data generator. The generated data is used as test data
 
 ## Features
 
-* "template" and "template commands"
-    * define generating text data format with a "template" which is a simple text file.
-    * embed "template commands" within a "template" with special syntax.
-    * "template commands" generate dynamic value, thus generating data will be non-static.
-    * there are various "template commands" and also easily add new command.
-* "meta file"
-    * meta file allows to manage multiple templates and their probabilities.
-* "json mode"
-    * json mode can control json structure.
-* output
-    * flexible output interface.
+- "template" and "template commands"
+  - define generating text data format with a "template" which is a simple text file.
+  - embed "template commands" within a "template" with special syntax.
+  - "template commands" generate dynamic value, thus generating data will be non-static.
+  - there are various "template commands" and also easily add new command.
+- "meta file"
+  - meta file allows to manage multiple templates and their probabilities.
+- "json mode"
+  - json mode can control json structure.
+- output
+  - flexible output interface.
 
 ## Quick Start
 
@@ -47,6 +47,7 @@ Then, execute following command with previously created template path.
 ```shell
 gent --template {dir path}/template.log --count 3
 ```
+
 output file `out.log` will be created in current working directory.
 And content of output will be like following.
 
@@ -55,6 +56,7 @@ And content of output will be like following.
 <34>2024-11-21T03:02:42.440+09:00 mymachine su: 'su root failed for lonvick on /dev/pts/8
 <34>2024-11-21T08:45:03.377+09:00 mymachine su: 'su root failed for lonvick on /dev/pts/8
 ```
+
 Each text line is almost same as template content but template command part has been replaced with generated text by the template command.
 
 This is basic mechanics of GenT.
@@ -81,6 +83,7 @@ basic template command syntax is following.
 ```
 
 Some commands accept command option, command and option syntax is like shell command syntax.
+
 ```text
 {{command_name --optA --optBWithValue value}}
 ```
@@ -93,6 +96,7 @@ supporting template commands and their options are below.
 
 ```json
 {
+  "$schema": "./schema/program-options.schema.json",
   "from": "2000-01-01T00:00:00+09:00",
   "to": "2020-12-31T23:59:59+09:00",
   "count": 100,
@@ -105,17 +109,29 @@ supporting template commands and their options are below.
 }
 ```
 
+## Meta JSON Schema
+
+`packages/gent/schema/program-options.schema.json` defines the meta file structure (`ProgramOptions` at runtime).
+
+If you put the schema reference in your meta file, VS Code can provide completion and validation.
+
+```json
+{
+  "$schema": "./schema/program-options.schema.json"
+}
+```
+
 ## Json mode
 
 ### special commands
 
-* array length
+- array length
 
 ```json
 "{{length --min 2 --max 5}}"
 ```
 
-* array item weight
+- array item weight
 
 ```json
 {
@@ -123,7 +139,7 @@ supporting template commands and their options are below.
 }
 ```
 
-* value probability
+- value probability
 
 ```json
 {
@@ -131,7 +147,7 @@ supporting template commands and their options are below.
 }
 ```
 
-* dynamic value
+- dynamic value
 
 ```json
 {
@@ -139,13 +155,17 @@ supporting template commands and their options are below.
   "{{content}}": "{{int}}"
 }
 ```
+
 ## Output
 
 in cli, specify output path with `out` option.
+
 ```shell
 gent --template {dir path}/template.log --count 3 --out path-to-out.log
 ```
+
 in meta file, specify output path with `out` key.
+
 ```json
 {
   "out": "path-to-out.log"

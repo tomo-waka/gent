@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/tomo-waka/gent/main/packages/gent/schema/output/udp-output.schema.json",
+  "title": "GenT UdpOutputOptions",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "udp"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "address": {
+      "type": "string",
+      "minLength": 1
+    },
+    "port": {
+      "$ref": "../common.schema.json#/$defs/numberLike"
+    },
+    "eps": {
+      "$ref": "../common.schema.json#/$defs/numberLike"
+    }
+  },
+  "required": ["type", "address", "port"],
+  "additionalProperties": false
+}

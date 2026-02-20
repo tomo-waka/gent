@@ -24,7 +24,8 @@
     "doc": "docs"
   },
   "files": [
-    "dist"
+    "dist",
+    "schema"
   ],
   "scripts": {
     "build": "npm run build:tsc",
@@ -32,6 +33,7 @@
     "build:tsc": "tsc -p tsconfig.build.json",
     "generate:dts": "tsx scripts/generateParserCstDts.ts",
     "generate:package-env": "tsx scripts/generatePackageEnv.ts",
+    "generate:schema-types": "tsx scripts/generateSchemaTypes.ts",
     "lint": "echo \"Info: no lint specified\" && exit 0",
     "lint:tsc": "npm run build:tsc -- --noEmit",
     "prepare": "npm run build:publish",
@@ -52,6 +54,7 @@
   },
   "devDependencies": {
     "@types/node": "~25",
+    "json-schema-to-typescript": "^15.0.4",
     "prettier": "~3",
     "tsx": "^4.0.0",
     "typescript": "~5.9.3"

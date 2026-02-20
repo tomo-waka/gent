@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/tomo-waka/gent/main/packages/gent/schema/common.schema.json",
+  "title": "GenT Common Schema Definitions",
+  "$defs": {
+    "numberLike": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string",
+          "pattern": "^-?(?:\\d+|\\d+\\.\\d+|\\.\\d+)$"
+        }
+      ]
+    },
+    "templateMode": {
+      "type": "string",
+      "enum": ["text", "json"]
+    }
+  }
+}

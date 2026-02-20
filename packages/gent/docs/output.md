@@ -4,6 +4,18 @@
 > You can describe following output method only in meta file but cli.
 > only simple file output is available in cli.
 
+## Meta schema
+
+Meta file schema is available at `packages/gent/schema/program-options.schema.json`.
+
+Add `$schema` at the top of your meta json to enable editor completion and validation.
+
+```json
+{
+  "$schema": "../schema/program-options.schema.json"
+}
+```
+
 ## file
 
 shorthand file output.
@@ -15,6 +27,7 @@ shorthand file output.
 ```
 
 file output with options.
+
 ```json
 {
   "out": {
@@ -25,9 +38,9 @@ file output with options.
 }
 ```
 
-* type: `file`
-* path: path to output file.
-* size(optional): rotate file size. (e.g. "10M")
+- type: `file`
+- path: path to output file.
+- size(optional): rotate file size. (e.g. "10M")
 
 ## udp
 
@@ -41,10 +54,11 @@ file output with options.
   }
 }
 ```
-* type: `udp`
-* address: destination ip address.
-* port: destination port.
-* eps(optional): throttle data generate. event per second. (default: 3000)
+
+- type: `udp`
+- address: destination ip address.
+- port: destination port.
+- eps(optional): throttle data generate. event per second. (default: 3000)
 
 ## tcp
 
@@ -61,11 +75,12 @@ file output with options.
   }
 }
 ```
-* type: `tcp`
-* address: destination ip address.
-* port: destination port.
-* eps(optional): throttle data generate. event per second. (default: 3000)
-* framing: `octet-counting`
+
+- type: `tcp`
+- address: destination ip address.
+- port: destination port.
+- eps(optional): throttle data generate. event per second. (default: 3000)
+- framing: `octet-counting`
 
 ### lf framing
 
@@ -81,12 +96,13 @@ file output with options.
   }
 }
 ```
-* type: `tcp`
-* address: destination ip address.
-* port: destination port.
-* eps(optional): throttle data generate. event per second. (default: 3000)
-* framing: `lf`
-* trailerReplacer(optional): replace trailer string (which is `lf`) with other string.
+
+- type: `tcp`
+- address: destination ip address.
+- port: destination port.
+- eps(optional): throttle data generate. event per second. (default: 3000)
+- framing: `lf`
+- trailerReplacer(optional): replace trailer string (which is `lf`) with other string.
 
 ## tls
 
@@ -103,11 +119,12 @@ file output with options.
   }
 }
 ```
-* type: `tls`
-* address: destination ip address.
-* port: destination port.
-* eps(optional): throttle data generate. event per second. (default: 3000)
-* framing: `octet-counting`
+
+- type: `tls`
+- address: destination ip address.
+- port: destination port.
+- eps(optional): throttle data generate. event per second. (default: 3000)
+- framing: `octet-counting`
 
 ### lf framing
 
@@ -123,9 +140,10 @@ file output with options.
   }
 }
 ```
-* type: `tls`
-* address: destination ip address.
-* port: destination port.
-* eps(optional): throttle data generate. event per second. (default: 3000)
-* framing: `lf`
-* trailerReplacer(optional): replace trailer string (which is `lf`) with other string.
+
+- type: `tls`
+- address: destination ip address.
+- port: destination port.
+- eps(optional): throttle data generate. event per second. (default: 3000)
+- framing: `lf`
+- trailerReplacer(optional): replace trailer string (which is `lf`) with other string.

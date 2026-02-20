@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/tomo-waka/gent/main/packages/gent/schema/program-options.schema.json",
+  "title": "GenT ProgramOptions (meta file)",
+  "type": "object",
+  "properties": {
+    "debug": {
+      "type": "boolean"
+    },
+    "from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "to": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "count": {
+      "$ref": "./common.schema.json#/$defs/numberLike"
+    },
+    "out": {
+      "$ref": "#/$defs/outputOptions"
+    },
+    "templates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/templateOptions"
+      }
+    }
+  },
+  "required": ["out", "templates"],
+  "additionalProperties": false,
+  "$defs": {
+    "templateOptions": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "$ref": "./common.schema.json#/$defs/templateMode"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "weight": {
+          "$ref": "./common.schema.json#/$defs/numberLike"
+        }
+      },
+      "required": ["path"],
+      "additionalProperties": false
+    },
+    "outputOptions": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "$ref": "./output/file-output.schema.json"
+        },
+        {
+          "$ref": "./output/udp-output.schema.json"
+        },
+        {
+          "$ref": "./output/tcp-output.schema.json"
+        },
+        {
+          "$ref": "./output/tls-output.schema.json"
+        }
+      ]
+    }
+  }
+}
