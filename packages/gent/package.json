@@ -40,7 +40,8 @@
     "start": "tsx src/cli/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --out out/out.log --debug",
     "start-json": "tsx src/cli/cli.ts --template sample/aws_CloudWatch.json --count 5 --out out/out.log --debug",
     "start-profile": "tsx src/cli/cli.ts --profile sample/profile.json",
-    "test": "echo \"Info: no test specified\" && exit 0",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "version": "npm run generate:package-env"
   },
   "dependencies": {
@@ -50,13 +51,15 @@
     "commander": "~14",
     "glob": "~13",
     "luxon": "~3",
-    "rotating-file-stream": "~3"
+    "rotating-file-stream": "~3",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "~25",
     "json-schema-to-typescript": "^15.0.4",
     "prettier": "~3",
     "tsx": "^4.0.0",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "vitest": "^4.0.18"
   }
 }

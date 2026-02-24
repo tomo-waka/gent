@@ -1,0 +1,11 @@
+{
+  "$schema": "./schema/generation-profile.schema.json",
+  "out": {
+    "type": "tcp",
+    "address": "127.0.0.1",
+    "port": "514",
+    "framing": "lf",
+    "trailerReplacer": " "
+  },
+  "templates": [{ "path": "template.log", "mode": "text", "weight": "1.5" }]
+}

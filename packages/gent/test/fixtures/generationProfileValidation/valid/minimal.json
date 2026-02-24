@@ -1,0 +1,4 @@
+{
+  "out": "out.log",
+  "templates": [{ "path": "template.log" }]
+}

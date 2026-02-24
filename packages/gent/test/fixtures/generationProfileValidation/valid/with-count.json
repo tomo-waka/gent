@@ -1,0 +1,5 @@
+{
+  "out": "out.log",
+  "count": "10",
+  "templates": [{ "path": "template.log", "weight": "2.5" }]
+}

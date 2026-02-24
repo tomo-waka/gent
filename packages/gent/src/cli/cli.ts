@@ -13,6 +13,7 @@ import {
   parseString,
   tryReadFile,
 } from "../utils.js";
+import { validateGenerationProfileJson } from "../helper/generationProfileValidation.js";
 
 const templateOption = new Option(
   "-t --template <template-file>",
@@ -96,6 +97,22 @@ function main(): void {
           program.error("failed to parse profile file.", { exitCode: FAILED });
           return;
         }
+
+        const validationResult =
+          validateGenerationProfileJson(rawProgramOptions);
+        if (!validationResult.success) {
+          const errorMessages = validationResult.errors
+            .map((errorMessage) => `  - ${errorMessage}`)
+            .join("\n");
+          program.error(
+            `invalid generation profile.\nvalidation errors:\n${errorMessages}`,
+            {
+              exitCode: FAILED,
+            },
+          );
+          return;
+        }
+        rawProgramOptions = validationResult.value;
       } else if (template !== undefined) {
         const mode: TemplateMode = determineTemplateModeByFile(template);
         const templateOptions: TemplateOptions = {

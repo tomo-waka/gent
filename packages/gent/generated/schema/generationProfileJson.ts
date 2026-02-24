@@ -45,6 +45,7 @@ export type GenTTlsOutputOptions =
     };
 
 export interface GenTGenerationProfile {
+  $schema?: string;
   debug?: boolean;
   from?: string;
   to?: string;
