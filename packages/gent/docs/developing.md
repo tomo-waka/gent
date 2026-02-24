@@ -30,7 +30,7 @@ The project uses JSON Schema for Generation Profile validation and TypeScript ty
 
 ### Schema Files
 
-- `schema/program-options.schema.json` - Main Generation Profile schema
+- `schema/generation-profile.schema.json` - Main Generation Profile schema
 - `schema/common.schema.json` - Shared definitions
 - `schema/output/*.schema.json` - Output options schemas
 
@@ -42,6 +42,22 @@ When you modify JSON Schema files, regenerate TypeScript types:
 npm run generate:schema-types
 ```
 
-This generates types in `generated/schema/` directory. The generated `MetaTemplateJson` type is used for JSON input validation at runtime.
+This generates types in `generated/schema/` directory.
+
+Generation Profile JSON (`--profile`) is validated at runtime by Zod schema in `src/options/generationProfileValidation.ts`.
 
 **Note:** Runtime types (`ProgramOptions`, `OutputOptions`, etc.) with normalized values (like `Date` objects) are manually maintained in `src/api/`. If you change schema structure significantly, you may need to update these runtime types as well.
+
+## Unit Testing
+
+Run unit tests with Vitest:
+
+```shell
+npm test
+```
+
+Watch mode:
+
+```shell
+npm run test:watch
+```

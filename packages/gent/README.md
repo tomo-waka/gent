@@ -106,7 +106,7 @@ supporting template commands and their options are below.
 
 ```json
 {
-  "$schema": "./schema/program-options.schema.json",
+  "$schema": "./schema/generation-profile.schema.json",
   "from": "2000-01-01T00:00:00+09:00",
   "to": "2020-12-31T23:59:59+09:00",
   "count": 100,
@@ -121,15 +121,18 @@ supporting template commands and their options are below.
 
 ## Generation Profile JSON Schema
 
-`packages/gent/schema/program-options.schema.json` defines the Generation Profile structure (`ProgramOptions` at runtime).
+`packages/gent/schema/generation-profile.schema.json` defines the Generation Profile structure (`ProgramOptions` at runtime).
 
 If you put the schema reference in your Generation Profile JSON file, VS Code can provide completion and validation.
 
 ```json
 {
-  "$schema": "./schema/program-options.schema.json"
+  "$schema": "./schema/generation-profile.schema.json"
 }
 ```
+
+Generation Profile specified by `--profile` is validated at runtime before normalization.
+If validation fails, GenT prints validation errors and exits.
 
 ## Json mode
 

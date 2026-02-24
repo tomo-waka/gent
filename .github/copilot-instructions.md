@@ -22,7 +22,7 @@ Default behavior should be: small, scoped edits; explicit validation; and synchr
 
 ## Big-Picture Execution Flow (packages/gent)
 
-- CLI entrypoint is `src/cli/cli.ts` (`commander` options: `--template` or `--meta` are required).
+- CLI entrypoint is `src/cli/cli.ts` (`commander` options: `--template` or `--profile` are required).
 - `cli.ts` builds raw options, then normalizes via `normalizeProgramOptions` in `src/utils.ts`.
 - `run` in `src/run.ts` orchestrates generation:
   - `createDocumentFeeder`
