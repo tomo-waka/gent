@@ -61,3 +61,19 @@ Watch mode:
 ```shell
 npm run test:watch
 ```
+
+### Code Coverage
+
+Generate code coverage report:
+
+```shell
+npm run test:coverage
+```
+
+Coverage reports are generated in multiple formats:
+
+- **Text**: Console output showing percentage-based metrics
+- **HTML**: Interactive report at `coverage/lcov-report/index.html`
+- **LCOV**: Machine-readable format at `coverage/lcov.info` for CI/CD integration
+
+Thresholds are configured in `vitest.config.ts`. Current minimum thresholds: 70% for statements, branches, functions, and lines.

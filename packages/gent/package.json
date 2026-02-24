@@ -42,6 +42,7 @@
     "start-profile": "tsx src/cli/cli.ts --profile sample/profile.json",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "version": "npm run generate:package-env"
   },
   "dependencies": {
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@types/node": "~25",
+    "@vitest/coverage-v8": "^4.0.18",
     "json-schema-to-typescript": "^15.0.4",
     "prettier": "~3",
     "tsx": "^4.0.0",

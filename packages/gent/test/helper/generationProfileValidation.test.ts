@@ -11,7 +11,7 @@ import { normalizeProgramOptions } from "../../src/utils.js";
 const currentDir = nodePath.dirname(fileURLToPath(import.meta.url));
 const fixtureDir = nodePath.resolve(
   currentDir,
-  "../fixtures/generationProfileValidation",
+  "../fixtures/generationProfiles",
 );
 
 function readJsonFixture(fileName: string): unknown {
