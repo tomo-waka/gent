@@ -51,9 +51,9 @@ async function compileSchemaFile(
 async function main() {
   const tasks = [
     {
-      schemaPath: nodePath.join(schemaDir, "program-options.schema.json"),
-      outputPath: nodePath.join(outputDir, "programOptions.ts"),
-      typeName: "ProgramOptions",
+      schemaPath: nodePath.join(schemaDir, "generation-profile.schema.json"),
+      outputPath: nodePath.join(outputDir, "generationProfileJson.ts"),
+      typeName: "GenerationProfileJson",
     },
     {
       schemaPath: nodePath.join(schemaDir, "common.schema.json"),

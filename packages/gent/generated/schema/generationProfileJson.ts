@@ -44,7 +44,7 @@ export type GenTTlsOutputOptions =
       trailerReplacer?: string;
     };
 
-export interface GenTProgramOptionsMetaFile {
+export interface GenTGenerationProfile {
   debug?: boolean;
   from?: string;
   to?: string;

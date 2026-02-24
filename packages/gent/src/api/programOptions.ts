@@ -1,6 +1,6 @@
 import type { OutputOptions } from "./outputOptions.js";
 
-export type MetaTemplateJson = {
+export type GenerationProfileJson = {
   readonly debug?: boolean;
   readonly from?: string;
   readonly to?: string;

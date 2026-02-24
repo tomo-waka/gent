@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/tomo-waka/gent/main/packages/gent/schema/program-options.schema.json",
-  "title": "GenT ProgramOptions (Generation Profile)",
+  "$id": "https://raw.githubusercontent.com/tomo-waka/gent/main/packages/gent/schema/generation-profile.schema.json",
+  "title": "GenT Generation Profile",
   "type": "object",
   "properties": {
     "debug": {
