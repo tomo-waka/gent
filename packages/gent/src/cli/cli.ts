@@ -19,7 +19,10 @@ const templateOption = new Option(
   "path to template file",
 );
 
-const metaOption = new Option("-m --meta <meta-file>", "path to meta file");
+const profileOption = new Option(
+  "-p --profile <profile-file>",
+  "path to generation profile file",
+);
 
 const countOption = new Option(
   "-c --count <number>",
@@ -48,7 +51,7 @@ function main(): void {
     .description(packageEnv.description)
     .showHelpAfterError()
     .addOption(templateOption)
-    .addOption(metaOption)
+    .addOption(profileOption)
     .addOption(fromOption)
     .addOption(toOption)
     .addOption(countOption)
@@ -62,13 +65,13 @@ function main(): void {
       }
 
       const cwd = process.cwd();
-      const meta = parseString(options["meta"]);
+      const profile = parseString(options["profile"]);
       const template = parseString(options["template"]);
       let rawProgramOptions: unknown;
-      if (meta !== undefined) {
-        const resolvedFilePath = parseAndResolveFilePath(meta, cwd);
+      if (profile !== undefined) {
+        const resolvedFilePath = parseAndResolveFilePath(profile, cwd);
         if (resolvedFilePath === undefined) {
-          program.error(`failed to resolve meta file path.(${meta})`, {
+          program.error(`failed to resolve profile file path.(${profile})`, {
             exitCode: FAILED,
           });
           return;
@@ -80,7 +83,7 @@ function main(): void {
           console.log(error);
         }
         if (fileContent === undefined) {
-          program.error("failed to read meta file.", { exitCode: FAILED });
+          program.error("failed to read profile file.", { exitCode: FAILED });
           return;
         }
         try {
@@ -90,7 +93,7 @@ function main(): void {
           rawProgramOptions = undefined;
         }
         if (rawProgramOptions === undefined) {
-          program.error("failed to parse meta file.", { exitCode: FAILED });
+          program.error("failed to parse profile file.", { exitCode: FAILED });
           return;
         }
       } else if (template !== undefined) {
@@ -111,7 +114,7 @@ function main(): void {
         };
       } else {
         program.error(
-          "You must specify either template or meta option at least.",
+          "You must specify either template or profile option at least.",
           { exitCode: FAILED },
         );
         return;

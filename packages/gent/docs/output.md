@@ -1,14 +1,14 @@
 # Output
 
 > [!NOTE]
-> You can describe following output method only in meta file but cli.
+> You can describe following output methods only in Generation Profile JSON, not in CLI options.
 > only simple file output is available in cli.
 
-## Meta schema
+## Generation Profile schema
 
-Meta file schema is available at `packages/gent/schema/program-options.schema.json`.
+Generation Profile schema is available at `packages/gent/schema/program-options.schema.json`.
 
-Add `$schema` at the top of your meta json to enable editor completion and validation.
+Add `$schema` at the top of your Generation Profile JSON to enable editor completion and validation.
 
 ```json
 {

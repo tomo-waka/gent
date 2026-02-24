@@ -23,10 +23,10 @@ Like other dummy data, generated output can be used as sample data for applicati
   - Within a "template," users can embed "template commands" using a special syntax.
   - "Template commands" generate dynamic values at generation time, resulting in output data with rich variations.
   - There are many kinds of "template commands," and extending them is straightforward.
-- "meta file"
-  - A "meta file" allows more advanced generation settings that cannot be configured only with CLI options.
+- "Generation Profile"
+  - A "Generation Profile" allows more advanced generation settings that cannot be configured only with CLI options.
   - For example, you can combine multiple templates and specify their probabilities.
-  - A "meta file" is also used when you want outputs other than file output (described later).
+  - A "Generation Profile" is also used when you want outputs other than file output (described later).
 - "json mode"
   - "json mode" provides powerful features for generating JSON-formatted data.
   - In addition to standard features, "json mode" can control JSON structure, including the presence and number of elements.
@@ -102,7 +102,7 @@ supporting template commands and their options are below.
 
 [Command List](./docs/template-commands.md)
 
-## Meta template sample
+## Generation Profile Sample
 
 ```json
 {
@@ -119,11 +119,11 @@ supporting template commands and their options are below.
 }
 ```
 
-## Meta JSON Schema
+## Generation Profile JSON Schema
 
-`packages/gent/schema/program-options.schema.json` defines the meta file structure (`ProgramOptions` at runtime).
+`packages/gent/schema/program-options.schema.json` defines the Generation Profile structure (`ProgramOptions` at runtime).
 
-If you put the schema reference in your meta file, VS Code can provide completion and validation.
+If you put the schema reference in your Generation Profile JSON file, VS Code can provide completion and validation.
 
 ```json
 {
@@ -174,7 +174,7 @@ in cli, specify output path with `out` option.
 gent --template {dir path}/template.log --count 3 --out path-to-out.log
 ```
 
-in meta file, specify output path with `out` key.
+in Generation Profile JSON, specify output path with `out` key.
 
 ```json
 {
@@ -182,7 +182,7 @@ in meta file, specify output path with `out` key.
 }
 ```
 
-moreover, you can use various output method and options in meta file. see [output](./docs/output.md) for details.
+moreover, you can use various output method and options in Generation Profile JSON. see [output](./docs/output.md) for details.
 
 ## Development
 

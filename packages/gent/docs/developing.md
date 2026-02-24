@@ -26,11 +26,11 @@
 
 ## JSON Schema and Type Generation
 
-The project uses JSON Schema for meta file validation and TypeScript type generation.
+The project uses JSON Schema for Generation Profile validation and TypeScript type generation.
 
 ### Schema Files
 
-- `schema/program-options.schema.json` - Main meta file schema
+- `schema/program-options.schema.json` - Main Generation Profile schema
 - `schema/common.schema.json` - Shared definitions
 - `schema/output/*.schema.json` - Output options schemas
 
