@@ -7,31 +7,31 @@
 
 ## Introduction
 
-GenT is a template-based data generator. The generated data is a kind of "dummy data," but GenT was developed with the following goals:
+GenT is a template-based data generator. The generated data is a kind of "dummy data," GenT was developed with the following goals:
 
 - Generate data that closely resembles real-world data.
 - Flexibly support text data across a wide range of formats.
 - Let users customize this behavior through a non-programming interface.
 
-Like other dummy data, generated output can be used as sample data for application mocks or as test data. GenT is especially useful in situations where data should not look mechanically generated, but instead appear realistic.
+Like other dummy data, GenT output can be used as sample data for application mocks or as test data. It is especially useful in situations where data should not look mechanically generated, but instead appear realistic.
 
 ## Features
 
 - "template" and "template commands"
-  - To generate natural-looking data across various formats, GenT uses a mechanism called "template" and "template commands."
-  - A "template" is a simple text file in which users can freely describe the data (text) they want to generate.
-  - Within a "template," users can embed "template commands" using a special syntax.
-  - "Template commands" generate dynamic values at generation time, resulting in output data with rich variations.
-  - There are many kinds of "template commands," and extending them is straightforward.
+  - To generate data that resembles real-world data across various formats, GenT uses "templates" and "template commands."
+  - A "template" is a simple text file where users can freely describe the text they want to generate.
+  - Within a template, users can embed template commands using a special syntax.
+  - Template commands generate dynamic values at generation time, resulting in output with rich variations.
+  - GenT provides many template commands, and extending them is straightforward.
 - "Generation Profile"
-  - A "Generation Profile" allows more advanced generation settings that cannot be configured only with CLI options.
+  - A "Generation Profile" is a JSON file for advanced generation settings that cannot be configured with CLI options alone.
   - For example, you can combine multiple templates and specify their probabilities.
-  - A "Generation Profile" is also used when you want outputs other than file output (described later).
+  - A "Generation Profile" is also used when you want output methods other than file output (described later).
 - "json mode"
   - "json mode" provides powerful features for generating JSON-formatted data.
-  - In addition to standard features, "json mode" can control JSON structure, including the presence and number of elements.
+  - In addition to standard features, it can control JSON structure dynamically, including the presence and number of elements.
 - various output methods
-  - Writing generated data to a file is the most basic output method, but you can also rotate output files or send data directly over the network.
+  - Writing generated data to a file is the most basic output method, but you can also rotate files or send data directly over the network.
 
 ## Quick Start
 
