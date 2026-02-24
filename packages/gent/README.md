@@ -18,16 +18,20 @@ Like other dummy data, generated output can be used as sample data for applicati
 ## Features
 
 - "template" and "template commands"
-  - define generating text data format with a "template" which is a simple text file.
-  - embed "template commands" within a "template" with special syntax.
-  - "template commands" generate dynamic value, thus generating data will be non-static.
-  - there are various "template commands" and also easily add new command.
+  - To generate natural-looking data across various formats, GenT uses a mechanism called "template" and "template commands."
+  - A "template" is a simple text file in which users can freely describe the data (text) they want to generate.
+  - Within a "template," users can embed "template commands" using a special syntax.
+  - "Template commands" generate dynamic values at generation time, resulting in output data with rich variations.
+  - There are many kinds of "template commands," and extending them is straightforward.
 - "meta file"
-  - meta file allows to manage multiple templates and their probabilities.
+  - A "meta file" allows more advanced generation settings that cannot be configured only with CLI options.
+  - For example, you can combine multiple templates and specify their probabilities.
+  - A "meta file" is also used when you want outputs other than file output (described later).
 - "json mode"
-  - json mode can control json structure.
-- output
-  - flexible output interface.
+  - "json mode" provides powerful features for generating JSON-formatted data.
+  - In addition to standard features, "json mode" can control JSON structure, including the presence and number of elements.
+- various output methods
+  - Writing generated data to a file is the most basic output method, but you can also rotate output files or send data directly over the network.
 
 ## Quick Start
 
