@@ -16,7 +16,8 @@ interface PrimitiveParsedCommandExpression {
 }
 
 export interface CommandExpressionFragment
-  extends PrimitiveParsedCommandExpression,
+  extends
+    PrimitiveParsedCommandExpression,
     Omit<StructuredCommandExpression, "expression"> {
   readonly type: "command";
 }
@@ -26,28 +27,24 @@ export interface CommandNameFragment extends PrimitiveParsedCommandExpression {
   readonly content: string;
 }
 
-export interface CommandArgumentFragment
-  extends PrimitiveParsedCommandExpression {
+export interface CommandArgumentFragment extends PrimitiveParsedCommandExpression {
   readonly type: "argument";
   readonly index: number;
   readonly content: string;
 }
 
-export interface CommandOptionFragment
-  extends PrimitiveParsedCommandExpression {
+export interface CommandOptionFragment extends PrimitiveParsedCommandExpression {
   readonly type: "option";
   readonly key: string;
   readonly value: CommandOptionValue;
 }
 
-export interface CommandOptionKeyFragment
-  extends PrimitiveParsedCommandExpression {
+export interface CommandOptionKeyFragment extends PrimitiveParsedCommandExpression {
   readonly type: "option-key";
   readonly content: string;
 }
 
-export interface CommandOptionValueFragment
-  extends PrimitiveParsedCommandExpression {
+export interface CommandOptionValueFragment extends PrimitiveParsedCommandExpression {
   readonly type: "option-value";
   readonly content: CommandOptionValue;
 }

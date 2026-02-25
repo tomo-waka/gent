@@ -29,8 +29,7 @@ export interface StringJsonableParameters extends PrimitiveJsonableParameters {
   readonly content: DocumentContent;
 }
 
-export interface JsonStringJsonableParameters
-  extends PrimitiveJsonableParameters {
+export interface JsonStringJsonableParameters extends PrimitiveJsonableParameters {
   readonly type: "string";
   readonly subType: "json";
   readonly content: JsonableValue;

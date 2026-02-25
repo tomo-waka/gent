@@ -11,4 +11,4 @@ GenT is a template-based data generator. The generated data is used as test data
 
 ## Articles
 
-* [GenT cli](./packages/gent/README.md)
+- [GenT cli](./packages/gent/README.md)
