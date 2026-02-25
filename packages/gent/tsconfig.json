@@ -3,7 +3,7 @@
   "compilerOptions": {
     /* Modules */
     "rootDirs": ["src", "generated"],
-    "types": [],
+    "types": ["node"],
     /* Language and Environment */
     "lib": ["ES2024"],
     /* Type Checking */

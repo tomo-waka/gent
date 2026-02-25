@@ -31,10 +31,13 @@
     "build": "npm run build:tsc",
     "build:publish": "npm run build:tsc -- --sourceMap false",
     "build:tsc": "tsc -p tsconfig.build.json",
+    "format": "prettier . --check",
+    "format:write": "prettier . --write",
     "generate:dts": "tsx scripts/generateParserCstDts.ts",
     "generate:package-env": "tsx scripts/generatePackageEnv.ts",
     "generate:schema-types": "tsx scripts/generateSchemaTypes.ts",
-    "lint": "echo \"Info: no lint specified\" && exit 0",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "lint:tsc": "npm run build:tsc -- --noEmit",
     "prepare": "npm run build:publish",
     "start": "tsx src/cli/cli.ts --template sample/syslog_RFC3164(ISO_Date).template.log --count 5 --out out/out.log --debug",
@@ -48,6 +51,7 @@
   "dependencies": {
     "@faker-js/faker": "~10",
     "@types/luxon": "~3",
+    "@types/node": "^24.10.13",
     "chevrotain": "~11",
     "commander": "~14",
     "glob": "~13",
@@ -58,7 +62,6 @@
   "devDependencies": {
     "@vitest/coverage-v8": "^4.0.18",
     "json-schema-to-typescript": "^15.0.4",
-    "prettier": "~3",
     "tsx": "^4.0.0",
     "typescript": "~5.9.3",
     "vitest": "^4.0.18"
