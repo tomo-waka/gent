@@ -52,7 +52,7 @@ export function transformJsonableObjectIntoJsonObject(
   keyOrIndex: string | number,
   context: DocumentContext,
 ): JsonObject | undefined {
-  let jsonObject: MutableJsonObject = {};
+  const jsonObject: MutableJsonObject = {};
   Object.keys(jsonableObject).forEach((memberKey) => {
     const memberValue = jsonableObject[memberKey];
     if (memberValue === undefined) {

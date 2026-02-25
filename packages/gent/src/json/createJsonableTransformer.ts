@@ -144,7 +144,7 @@ function transformIntoJsonableObject(
   jsonObject: JsonObject,
   jsonableTransformer: JsonableTransformer,
 ): JsonableObject {
-  let jsonableObject: MutableJsonableObject = {};
+  const jsonableObject: MutableJsonableObject = {};
   Object.keys(jsonObject).forEach((memberKey) => {
     const memberValue = jsonObject[memberKey];
     if (memberValue === undefined) {

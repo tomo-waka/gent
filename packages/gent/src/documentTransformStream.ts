@@ -133,9 +133,9 @@ export class DocumentTransformStream extends stream.Transform {
   private __flushPendingTransformTasks(): void {
     const tasks = this.pendingTransformTasks;
     this.pendingTransformTasks = [];
-    tasks.forEach(([document, encoding, callback]) =>
-      this.__transformDocument(document, encoding, callback),
-    );
+    tasks.forEach(([document, encoding, callback]) => {
+      this.__transformDocument(document, encoding, callback);
+    });
   }
 
   private __clearWindowInternal(): void {

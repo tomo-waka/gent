@@ -22,9 +22,9 @@ class DebugFileWriterImpl implements DebugFileWriter {
     }
     const outFilePath = nodePath.resolve(baseDirectoryPath, fileName);
 
-    this.__writeFile(outFilePath, content).catch((error) =>
-      console.error(error),
-    );
+    this.__writeFile(outFilePath, content).catch((error) => {
+      console.error(error);
+    });
   }
 
   private async __writeFile(filePath: string, content: string): Promise<void> {

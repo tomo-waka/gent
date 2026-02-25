@@ -46,7 +46,7 @@ export function normalizeGenerationProfile(
     count = 0;
   }
 
-  let out = normalizeOutputOptions(generationProfile.out, basePath);
+  const out = normalizeOutputOptions(generationProfile.out, basePath);
   if (out === undefined) {
     console.error(`Invalid out option. (${out})`);
     return undefined;
