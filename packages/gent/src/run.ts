@@ -3,7 +3,7 @@ import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
 import * as stream from "node:stream";
 import { commandManager } from "./command/index.js";
-import { MaxEps, TrailerMap } from "./consts.js";
+import { MaxEps, TrailerMap } from "./common/consts.js";
 import { createDocumentFeeder } from "./createDocumentFeeder.js";
 import { createGeneratingDocumentStream } from "./createGeneratingDocumentStream.js";
 import { debugFileWriter } from "./debugFileWriter.js";

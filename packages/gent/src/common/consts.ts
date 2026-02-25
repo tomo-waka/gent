@@ -1,7 +1,7 @@
 import type {
   NonTransparentFramingMethod,
   TcpFramingMethod,
-} from "./api/outputOptions.js";
+} from "../api/outputOptions.js";
 
 export const DEFAULT_TEMPLATE_WEIGHT = 1;
 

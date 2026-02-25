@@ -2,18 +2,18 @@
 import { Command, Option } from "commander";
 import { packageEnv } from "../../generated/packageEnv.js";
 import { FAILED } from "./cliConsts.js";
-import { DEFAULT_TEMPLATE_WEIGHT } from "../consts.js";
+import { DEFAULT_TEMPLATE_WEIGHT } from "../common/consts.js";
 import type { TemplateMode, TemplateOptions } from "../api/programOptions.js";
 import { run } from "../run.js";
+import { determineTemplateModeByFile } from "../common/commonUtils.js";
+import { tryReadFile } from "../common/ioUtils.js";
+import { parseAndResolveFilePath } from "../common/ioUtils.js";
+import { normalizeGenerationProfile } from "../helper/normalizeGenerationProfile.js";
 import {
-  determineTemplateModeByFile,
-  isNonNullObject,
-  normalizeProgramOptions,
-  parseAndResolveFilePath,
-  parseString,
-  tryReadFile,
-} from "../utils.js";
-import { validateGenerationProfileJson } from "../helper/generationProfileValidation.js";
+  GenerationProfileJson,
+  validateGenerationProfileJson,
+} from "../helper/validateGenerationProfileJson.js";
+import { isNonNullObject, parseString } from "../common/generalUtils.js";
 
 const templateOption = new Option(
   "-t --template <template-file>",
@@ -68,7 +68,7 @@ function main(): void {
       const cwd = process.cwd();
       const profile = parseString(options["profile"]);
       const template = parseString(options["template"]);
-      let rawProgramOptions: unknown;
+      let rawProgramOptions: GenerationProfileJson;
       if (profile !== undefined) {
         const resolvedFilePath = parseAndResolveFilePath(profile, cwd);
         if (resolvedFilePath === undefined) {
@@ -87,19 +87,19 @@ function main(): void {
           program.error("failed to read profile file.", { exitCode: FAILED });
           return;
         }
+        let parsedJson: unknown;
         try {
-          rawProgramOptions = JSON.parse(fileContent);
+          parsedJson = JSON.parse(fileContent);
         } catch (error) {
           console.log(error);
-          rawProgramOptions = undefined;
+          parsedJson = undefined;
         }
-        if (rawProgramOptions === undefined) {
+        if (parsedJson === undefined) {
           program.error("failed to parse profile file.", { exitCode: FAILED });
           return;
         }
 
-        const validationResult =
-          validateGenerationProfileJson(rawProgramOptions);
+        const validationResult = validateGenerationProfileJson(parsedJson);
         if (!validationResult.success) {
           const errorMessages = validationResult.errors
             .map((errorMessage) => `  - ${errorMessage}`)
@@ -121,7 +121,7 @@ function main(): void {
           weight: DEFAULT_TEMPLATE_WEIGHT,
         };
 
-        rawProgramOptions = {
+        const structuredOptions: unknown = {
           debug: options["debug"],
           from: options["start"],
           to: options["end"],
@@ -129,6 +129,22 @@ function main(): void {
           out: options["out"],
           templates: [templateOptions],
         };
+
+        const validationResult =
+          validateGenerationProfileJson(structuredOptions);
+        if (!validationResult.success) {
+          const errorMessages = validationResult.errors
+            .map((errorMessage) => `  - ${errorMessage}`)
+            .join("\n");
+          program.error(
+            `invalid options.\nvalidation errors:\n${errorMessages}`,
+            {
+              exitCode: FAILED,
+            },
+          );
+          return;
+        }
+        rawProgramOptions = validationResult.value;
       } else {
         program.error(
           "You must specify either template or profile option at least.",
@@ -137,7 +153,7 @@ function main(): void {
         return;
       }
 
-      const programOptions = normalizeProgramOptions(rawProgramOptions, cwd);
+      const programOptions = normalizeGenerationProfile(rawProgramOptions, cwd);
       if (programOptions === undefined) {
         program.error("invalid options.", { exitCode: FAILED });
         return;

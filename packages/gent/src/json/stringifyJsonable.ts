@@ -1,4 +1,4 @@
-import { isReadonlyArray } from "../common/utils.js";
+import { isReadonlyArray } from "../common/generalUtils.js";
 import type { DocumentContext } from "../document/index.js";
 import { AbstractJsonable } from "./abstractJsonable.js";
 import type { JsonableObject, JsonableValue } from "./jsonableTypes.js";

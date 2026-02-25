@@ -4,7 +4,12 @@ import {
   type CommandParsedTemplateFragment,
   parseAndEmbedCommandExpression,
 } from "../commandTemplate/index.js";
-import { isReadonlyArray } from "../common/utils.js";
+import {
+  isNonNullObject,
+  isReadonlyArray,
+  parseNonNaNFloat,
+  parseNonNaNInteger,
+} from "../common/generalUtils.js";
 import { normalizeWeight } from "../common/weightedItemFeeder.js";
 import type {
   DocumentContent,
@@ -17,11 +22,6 @@ import {
   isStringOnlyTemplateFragments,
   parseTemplate,
 } from "../template/index.js";
-import {
-  isNonNullObject,
-  parseNonNaNFloat,
-  parseNonNaNInteger,
-} from "../utils.js";
 import { createJsonable } from "./createJsonable.js";
 import {
   JsonableContentParameterName,

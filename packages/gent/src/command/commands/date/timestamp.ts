@@ -6,8 +6,8 @@ import type {
   DocumentOptions,
   SharedDocumentOptions,
 } from "../../../document/index.js";
-import { parseString } from "../../../utils.js";
 import type { CommandOptions, ProgrammableCommand } from "../../type.js";
+import { parseString } from "../../../common/generalUtils.js";
 
 const NO_DATE = "NO_DATE";
 const ERROR_DATE = "ERROR_DATE";

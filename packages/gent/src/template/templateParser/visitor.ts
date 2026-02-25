@@ -1,4 +1,4 @@
-import { pickFirst } from "../../utils.js";
+import { pickFirst } from "../../common/generalUtils.js";
 import { EXPRESSION_BLOCK_END, EXPRESSION_BLOCK_START } from "../consts.js";
 import type { TemplateFragment } from "../types.js";
 import { lex, templateParser } from "./templateParser.js";

@@ -5,8 +5,8 @@ import { describe, expect, it } from "vitest";
 import {
   validateGenerationProfileJson,
   generationProfileJsonSchema,
-} from "../../src/helper/generationProfileValidation.js";
-import { normalizeProgramOptions } from "../../src/utils.js";
+} from "../../src/helper/validateGenerationProfileJson.js";
+import { normalizeGenerationProfile } from "../../src/helper/normalizeGenerationProfile.js";
 
 const currentDir = nodePath.dirname(fileURLToPath(import.meta.url));
 const fixtureDir = nodePath.resolve(
@@ -73,7 +73,7 @@ describe("normalizeProgramOptions with validated profile", () => {
       return;
     }
 
-    const normalized = normalizeProgramOptions(
+    const normalized = normalizeGenerationProfile(
       validationResult.value,
       basePath,
     );

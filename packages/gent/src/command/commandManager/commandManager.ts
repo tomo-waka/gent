@@ -4,7 +4,6 @@ import type {
   DocumentContext,
   DocumentOptions,
 } from "../../document/index.js";
-import { parseNonNaNInteger, parseString } from "../../utils.js";
 import { GlobalOption_Escape, GlobalOption_Variations } from "../consts.js";
 import type {
   Command,
@@ -13,6 +12,7 @@ import type {
   StaticCommand,
 } from "../type.js";
 import { isEscapeStyle } from "../utils.js";
+import { parseNonNaNInteger, parseString } from "../../common/generalUtils.js";
 
 export interface CommandManager {
   setCommand(command: Command): this;

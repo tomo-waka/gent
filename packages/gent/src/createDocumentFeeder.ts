@@ -13,7 +13,7 @@ import type {
   SharedDocumentOptions,
 } from "./document/index.js";
 import type { ProgramOptions, TemplateOptions } from "./api/programOptions.js";
-import { assertNever } from "./utils.js";
+import { assertNever } from "./common/generalUtils.js";
 
 export async function createDocumentFeeder(
   templateOptionsArray: readonly TemplateOptions[],

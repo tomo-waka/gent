@@ -1,4 +1,4 @@
-import { pickFirst, pickMany } from "../../utils.js";
+import { pickFirst, pickMany } from "../../common/generalUtils.js";
 import type { CommandOptions } from "../type.js";
 import { commandParser, lex } from "./commandParser.js";
 import type {

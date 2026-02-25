@@ -1,4 +1,4 @@
-import { assertNever } from "../utils.js";
+import { assertNever } from "../common/generalUtils.js";
 import { AbstractJsonable } from "./abstractJsonable.js";
 import { ArrayJsonable } from "./jsonableClasses/arrayJsonable.js";
 import { BooleanJsonable } from "./jsonableClasses/booleanJsonable.js";

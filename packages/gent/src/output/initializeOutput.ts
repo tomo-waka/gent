@@ -3,7 +3,7 @@ import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
 import * as stream from "node:stream";
 import type { OutputOptions } from "../api/outputOptions.js";
-import { assertNever } from "../utils.js";
+import { assertNever } from "../common/generalUtils.js";
 import { createFileOutput } from "./createFileOutput.js";
 import { createTcpOutput } from "./createTcpOutput.js";
 import { createTlsOutput } from "./createTlsOutput.js";
