@@ -9,12 +9,13 @@ import { defineConfig } from "eslint/config";
 export default defineConfig([
   {
     ignores: [
+      // common
       "**/node_modules/**",
       "**/dist/**",
       "**/coverage/**",
       "**/out/**",
       "**/.vite/**",
-      "**/*.d.ts",
+      // packages/gent
       "packages/gent/generated/**",
     ],
   },
@@ -25,9 +26,6 @@ export default defineConfig([
       ...js.configs.recommended.languageOptions,
       ecmaVersion: "latest",
       sourceType: "module",
-      globals: {
-        ...globals.node,
-      },
     },
   },
   {
@@ -42,6 +40,22 @@ export default defineConfig([
       parserOptions: {
         projectService: true,
       },
+    },
+  },
+  {
+    files: [
+      "packages/{gent,gent-sea,gent-server}/**/*.{js,mjs,cjs,ts,mts,cts,tsx}",
+    ],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
+    files: ["packages/gent-gui/**/*.{js,mjs,cjs,ts,mts,cts,tsx}"],
+    ignores: ["packages/gent-gui/src/**"],
+    languageOptions: {
       globals: {
         ...globals.node,
       },
