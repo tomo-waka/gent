@@ -12,8 +12,11 @@ import type { DocumentTransformOptions } from "./documentTransformTypes.js";
 import { initializeOutput } from "./output/initializeOutput.js";
 import type { ProgramOptions } from "./api/programOptions.js";
 import "./command/commands/index.js";
+import { Run } from "./api/functions.js";
 
-export async function run(programOptions: ProgramOptions): Promise<void> {
+export const run: Run = async function runImpl(
+  programOptions: ProgramOptions,
+): Promise<void> {
   const { debug, count, out, templates } = programOptions;
 
   // #region out path
@@ -130,4 +133,4 @@ export async function run(programOptions: ProgramOptions): Promise<void> {
   );
 
   return;
-}
+};

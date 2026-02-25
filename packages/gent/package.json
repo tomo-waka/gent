@@ -56,7 +56,6 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@types/node": "~25",
     "@vitest/coverage-v8": "^4.0.18",
     "json-schema-to-typescript": "^15.0.4",
     "prettier": "~3",
