@@ -13,6 +13,7 @@ const profile = ref<Record<string, unknown>>(
 const errors = ref<ErrorObject[]>([]);
 
 const ajv = createAjv({ allErrors: true, strict: false });
+const schema = generationProfileSchema as JsonSchema;
 
 const generatedProfile = computed(() => JSON.stringify(profile.value, null, 2));
 
@@ -41,7 +42,7 @@ const handleChange = ({ data, errors: nextErrors }: JsonFormsChangeEvent) => {
           :ajv="ajv"
           :data="profile"
           :renderers="vanillaRenderers"
-          :schema="generationProfileSchema as JsonSchema"
+          :schema="schema"
           @change="handleChange"
         />
       </div>

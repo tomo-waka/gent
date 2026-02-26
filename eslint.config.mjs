@@ -28,7 +28,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["**/*.{ts,mts,cts,tsx}"],
+    files: ["**/*.{ts,mts,cts}"],
     extends: [...tseslint.configs.recommendedTypeChecked],
     rules: {
       "@typescript-eslint/no-unused-vars": [
@@ -54,7 +54,7 @@ export default defineConfig([
   },
   {
     files: [
-      "packages/{gent,gent-sea,gent-server}/**/*.{js,mjs,cjs,ts,mts,cts,tsx}",
+      "packages/{gent,gent-sea,gent-server}/**/*.{js,mjs,cjs,ts,mts,cts}",
     ],
     languageOptions: {
       globals: {
@@ -63,7 +63,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["packages/gent-gui/**/*.{js,mjs,cjs,ts,mts,cts,tsx}"],
+    files: ["packages/gent-gui/**/*.{js,mjs,cjs,ts,mts,cts}"],
     ignores: ["packages/gent-gui/src/**"],
     languageOptions: {
       globals: {
@@ -79,13 +79,15 @@ export default defineConfig([
       },
     },
   },
-  ...vue.configs["flat/essential"].map((config) => ({
+  // Apply Vue's latest recommended flat preset only to SFC files in gent-gui.
+  ...vue.configs["flat/recommended"].map((config) => ({
     ...config,
     files: ["packages/gent-gui/src/**/*.vue"],
     languageOptions: {
       ...config.languageOptions,
       parserOptions: {
         ...config.languageOptions?.parserOptions,
+        // Parse <script setup lang="ts"> blocks with TypeScript + project-aware rules.
         parser: tseslint.parser,
         projectService: true,
         extraFileExtensions: [".vue"],
