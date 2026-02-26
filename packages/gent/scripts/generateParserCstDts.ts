@@ -27,16 +27,21 @@ const tuples: Tuple[] = [
   [commandDtsString, commandDtsPath],
 ];
 
-tuples.forEach(async ([dtsString, dtsPath]) => {
-  let dtsFile: FileHandle | undefined;
-  try {
-    dtsFile = await fsPromises.open(dtsPath, "w");
-    await dtsFile.writeFile(dtsString);
-  } catch (error) {
-    console.error("Error occurred during writing output.");
-  } finally {
-    if (dtsFile !== undefined) {
-      await dtsFile.close();
+async function fileOut(): Promise<void> {
+  for (const tuple of tuples) {
+    const [dtsString, dtsPath] = tuple;
+    let dtsFile: FileHandle | undefined;
+    try {
+      dtsFile = await fsPromises.open(dtsPath, "w");
+      await dtsFile.writeFile(dtsString);
+    } catch (error) {
+      console.error("Error occurred during writing output.", error);
+    } finally {
+      if (dtsFile !== undefined) {
+        await dtsFile.close();
+      }
     }
   }
-});
+}
+
+await fileOut();

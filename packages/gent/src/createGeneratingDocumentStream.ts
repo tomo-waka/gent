@@ -23,7 +23,7 @@ function* generateGeneratingDocument(
   count: number,
 ): Generator<GeneratingDocument> {
   const documentContextIterator = createDocumentContextIterator(count);
-  for (let context of documentContextIterator) {
+  for (const context of documentContextIterator) {
     let document = documentFeeder.getItem();
     if (document === undefined) {
       console.error("no document found.");

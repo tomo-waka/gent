@@ -1,4 +1,8 @@
-import { compile, type Options } from "json-schema-to-typescript";
+import {
+  compile,
+  type Options,
+  type JSONSchema,
+} from "json-schema-to-typescript";
 import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
 import { fileURLToPath } from "url";
@@ -31,7 +35,7 @@ async function compileSchemaFile(
 ): Promise<void> {
   try {
     const schemaContent = await fsPromises.readFile(schemaPath, "utf8");
-    const schema = JSON.parse(schemaContent);
+    const schema = JSON.parse(schemaContent) as JSONSchema;
 
     const compiled = await compile(schema, typeName, {
       ...compileOptions,
@@ -89,7 +93,7 @@ async function main() {
   console.log("Schema type generation completed.");
 }
 
-main().catch((error) => {
+main().catch((error: unknown) => {
   console.error("Failed to generate schema types:", error);
   process.exit(1);
 });

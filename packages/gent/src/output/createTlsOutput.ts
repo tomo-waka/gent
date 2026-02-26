@@ -2,9 +2,9 @@ import * as stream from "node:stream";
 import * as tls from "node:tls";
 import type { TlsOutputOptions } from "../api/outputOptions.js";
 
-export async function createTlsOutput(
+export function createTlsOutput(
   outputOptions: TlsOutputOptions,
-): Promise<stream.Writable> {
+): stream.Writable {
   const tlsOptions: tls.ConnectionOptions = {
     host: outputOptions.address,
     port: outputOptions.port,

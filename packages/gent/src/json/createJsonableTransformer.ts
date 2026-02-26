@@ -144,7 +144,7 @@ function transformIntoJsonableObject(
   jsonObject: JsonObject,
   jsonableTransformer: JsonableTransformer,
 ): JsonableObject {
-  let jsonableObject: MutableJsonableObject = {};
+  const jsonableObject: MutableJsonableObject = {};
   Object.keys(jsonObject).forEach((memberKey) => {
     const memberValue = jsonObject[memberKey];
     if (memberValue === undefined) {
@@ -298,8 +298,7 @@ function tryParseJsonableParameters(
         return undefined;
       }
       // string-json
-      let jsonableValue: JsonableValue | undefined;
-      jsonableValue = jsonableTransformer(contentValue);
+      const jsonableValue = jsonableTransformer(contentValue);
       if (jsonableValue === undefined) {
         // => return undefined
         return undefined;

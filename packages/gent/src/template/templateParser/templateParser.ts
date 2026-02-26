@@ -29,7 +29,7 @@ function matchLiteralBlock(text: string, startOffset: number): [string] | null {
   } else if (endOffset === startOffset) {
     return null;
   } else {
-    let matchedString = text.substring(startOffset, endOffset);
+    const matchedString = text.substring(startOffset, endOffset);
     return [matchedString];
   }
 }
@@ -54,7 +54,7 @@ function matchExpressionBlock(
   if (endOffset === startOffset) {
     return null;
   } else {
-    let matchedString = text.substring(startOffset, endOffset);
+    const matchedString = text.substring(startOffset, endOffset);
     return [matchedString];
   }
 }

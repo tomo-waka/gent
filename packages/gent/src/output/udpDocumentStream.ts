@@ -29,7 +29,9 @@ export class UdpDocumentStream extends stream.Writable {
         this.socketType = lookupAddress.family === 4 ? "udp4" : "udp6";
         callback();
       })
-      .catch((reason) => callback(reason));
+      .catch((reason) => {
+        callback(reason instanceof Error ? reason : new Error(String(reason)));
+      });
   }
 
   public override _write(

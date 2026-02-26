@@ -1,0 +1,10 @@
+# common
+
+node_modules
+dist
+out
+coverage
+
+# packages/gent
+
+packages/gent/generated

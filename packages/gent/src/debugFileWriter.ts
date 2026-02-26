@@ -22,9 +22,9 @@ class DebugFileWriterImpl implements DebugFileWriter {
     }
     const outFilePath = nodePath.resolve(baseDirectoryPath, fileName);
 
-    this.__writeFile(outFilePath, content).catch((error) =>
-      console.error(error),
-    );
+    this.__writeFile(outFilePath, content).catch((error) => {
+      console.error(error);
+    });
   }
 
   private async __writeFile(filePath: string, content: string): Promise<void> {
@@ -32,8 +32,8 @@ class DebugFileWriterImpl implements DebugFileWriter {
     try {
       outFile = await fsPromises.open(filePath, "w");
       await outFile.writeFile(content);
-    } catch (error) {
-      throw new Error("Error occurred during writing output.");
+    } catch (error: unknown) {
+      throw new Error(`Error occurred during writing output. ${String(error)}`);
     } finally {
       if (outFile !== undefined) {
         await outFile.close();

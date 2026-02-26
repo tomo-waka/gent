@@ -7,7 +7,7 @@ export function parseJsonable(
 ): JsonableValue | undefined {
   let jsonValue: JsonValue | undefined;
   try {
-    jsonValue = JSON.parse(input);
+    jsonValue = JSON.parse(input) as JsonValue;
   } catch (error) {
     console.error(error);
     jsonValue = undefined;

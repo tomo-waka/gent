@@ -24,6 +24,24 @@
 - All commits must follow [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>`
 - Examples: `feat(gent): add command`, `fix(gent-server): correct handler`, `docs: update README`
 
+## Lint and Format (Monorepo)
+
+Run lint and format checks from repository root to apply consistent rules across all packages.
+
+```shell
+npm run lint
+npm run format
+```
+
+Auto-fix issues:
+
+```shell
+npm run lint:fix
+npm run format:write
+```
+
+Each package also exposes the same script names for targeted runs.
+
 ## JSON Schema and Type Generation
 
 The project uses JSON Schema for Generation Profile validation and TypeScript type generation.

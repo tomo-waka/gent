@@ -2,6 +2,7 @@ import { Buffer } from "node:buffer";
 import * as stream from "node:stream";
 import { GeneratingDocument } from "./document/index.js";
 import type { DocumentTransformOptions } from "./documentTransformTypes.js";
+import { createNeverValueError } from "./common/generalUtils.js";
 
 const Per1000Window = 1000;
 const Per100Window = 100;
@@ -48,12 +49,10 @@ export class DocumentTransformStream extends stream.Transform {
           options.trailerReplacer,
         );
       } else {
-        throw new Error(`Unexpected framingMethod: ${framing satisfies never}`);
+        throw createNeverValueError(framing, "Unexpected framingMethod");
       }
     } else {
-      throw new Error(
-        `Unexpected transferMode: ${transformMode satisfies never}`,
-      );
+      throw createNeverValueError(transformMode, "Unexpected transferMode");
     }
 
     if (options.eps < Per100Window) {
@@ -85,7 +84,7 @@ export class DocumentTransformStream extends stream.Transform {
   }
 
   public override _transform(
-    chunk: any,
+    chunk: unknown,
     encoding: BufferEncoding,
     callback: stream.TransformCallback,
   ): void {
@@ -133,9 +132,9 @@ export class DocumentTransformStream extends stream.Transform {
   private __flushPendingTransformTasks(): void {
     const tasks = this.pendingTransformTasks;
     this.pendingTransformTasks = [];
-    tasks.forEach(([document, encoding, callback]) =>
-      this.__transformDocument(document, encoding, callback),
-    );
+    tasks.forEach(([document, encoding, callback]) => {
+      this.__transformDocument(document, encoding, callback);
+    });
   }
 
   private __clearWindowInternal(): void {

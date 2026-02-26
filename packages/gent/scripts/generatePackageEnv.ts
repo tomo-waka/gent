@@ -1,6 +1,7 @@
 import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
+import { isNonNullObject, isString } from "../src/common/generalUtils.js";
 
 const __dirname = nodePath.dirname(fileURLToPath(import.meta.url));
 
@@ -15,12 +16,20 @@ const packageJsonString = await fsPromises.readFile(packageJsonPath, {
   encoding: "utf8",
 });
 
-const parsedPackageJson = JSON.parse(packageJsonString);
+const parsedPackageJson: unknown = JSON.parse(packageJsonString);
+
+if (!isNonNullObject(parsedPackageJson)) {
+  throw new Error("invalid package.json");
+}
 
 const UNKNOWN = "UNKNOWN";
 const fullName = parsedPackageJson["name"] ?? UNKNOWN;
 const version = parsedPackageJson["version"] ?? UNKNOWN;
 const description = parsedPackageJson["description"] ?? UNKNOWN;
+
+if (!isString(fullName) || !isString(version) || !isString(description)) {
+  throw new Error("invalid package.json");
+}
 
 const scopedNameRegex = /^(?:(@[^@\/]+)\/|)([^@\/]+)$/;
 
