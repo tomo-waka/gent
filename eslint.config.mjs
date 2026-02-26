@@ -1,6 +1,7 @@
 import js from "@eslint/js";
 import globals from "globals";
 import eslintConfigPrettier from "eslint-config-prettier";
+import vue from "eslint-plugin-vue";
 import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 
@@ -78,5 +79,22 @@ export default defineConfig([
       },
     },
   },
+  ...vue.configs["flat/essential"].map((config) => ({
+    ...config,
+    files: ["packages/gent-gui/src/**/*.vue"],
+    languageOptions: {
+      ...config.languageOptions,
+      parserOptions: {
+        ...config.languageOptions?.parserOptions,
+        parser: tseslint.parser,
+        projectService: true,
+        extraFileExtensions: [".vue"],
+      },
+      globals: {
+        ...globals.browser,
+        ...config.languageOptions?.globals,
+      },
+    },
+  })),
   eslintConfigPrettier,
 ]);
