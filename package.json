@@ -11,8 +11,6 @@
     "@eslint/js": "^10.0.0",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "latest",
-    "eslint-plugin-react-hooks": "next",
-    "eslint-plugin-react-refresh": "latest",
     "globals": "latest",
     "prettier": "latest",
     "typescript-eslint": "latest"

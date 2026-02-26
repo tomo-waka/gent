@@ -1,7 +1,5 @@
 import js from "@eslint/js";
 import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
 import eslintConfigPrettier from "eslint-config-prettier";
 import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
@@ -73,19 +71,11 @@ export default defineConfig([
     },
   },
   {
-    files: ["packages/gent-gui/src/**/*.{ts,tsx}"],
-    plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
-    },
+    files: ["packages/gent-gui/src/**/*.ts"],
     languageOptions: {
       globals: {
         ...globals.browser,
       },
-    },
-    rules: {
-      ...reactHooks.configs.flat.recommended.rules,
-      ...reactRefresh.configs.vite.rules,
     },
   },
   eslintConfigPrettier,
