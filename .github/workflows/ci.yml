@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check generated schema is up to date
+        run: npm run check:schema -w @gent-js/gent
+
       - name: Format
         run: npm run format
 

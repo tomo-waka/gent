@@ -1,42 +1,51 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.app {
+  display: grid;
+  gap: 1rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.lead {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  color: #4b5563;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.panel {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.panel h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
 }
 
-.card {
-  padding: 2em;
+.formHost :is(input, select, textarea) {
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.read-the-docs {
-  color: #888;
+.status {
+  margin-bottom: 0;
+}
+
+.status[data-valid="true"] {
+  color: #166534;
+}
+
+.status[data-valid="false"] {
+  color: #991b1b;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow: auto;
 }

@@ -31,10 +31,12 @@
     "build": "npm run build:tsc",
     "build:publish": "npm run build:tsc -- --sourceMap false",
     "build:tsc": "tsc -p tsconfig.build.json",
+    "check:schema": "npm run generate:schema && git diff --exit-code -- generated/schema/generatedGenerationProfileSchema.ts",
     "format": "prettier . --check",
     "format:write": "prettier . --write",
     "generate:dts": "tsx scripts/generateParserCstDts.ts",
     "generate:package-env": "tsx scripts/generatePackageEnv.ts",
+    "generate:schema": "tsx scripts/generateSchema.ts",
     "generate:schema-types": "tsx scripts/generateSchemaTypes.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -60,6 +62,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@apidevtools/json-schema-ref-parser": "^15.2.2",
     "@vitest/coverage-v8": "^4.0.18",
     "json-schema-to-typescript": "^15.0.4",
     "tsx": "^4.0.0",
