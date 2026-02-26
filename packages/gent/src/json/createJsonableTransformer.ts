@@ -298,8 +298,7 @@ function tryParseJsonableParameters(
         return undefined;
       }
       // string-json
-      let jsonableValue: JsonableValue | undefined;
-      jsonableValue = jsonableTransformer(contentValue);
+      const jsonableValue = jsonableTransformer(contentValue);
       if (jsonableValue === undefined) {
         // => return undefined
         return undefined;

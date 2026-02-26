@@ -126,7 +126,7 @@ function createEscapeStringOut(
       return `"${output.replaceAll('"', '""')}"`;
     };
   } else {
-    console.log(`unsupported escape style: ${style}`);
+    console.log(`unsupported escape style: ${String(style)}`);
     return baseContextualStringOut;
   }
 }

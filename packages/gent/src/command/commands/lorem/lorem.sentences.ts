@@ -9,7 +9,7 @@ import type { CommandOptions, ProgrammableCommand } from "../../type.js";
 export const loremSentencesCommand: ProgrammableCommand = {
   name: "lorem.sentences",
   build: (commandOptions: Readonly<CommandOptions> | undefined) => {
-    // @ts-ignore
+    // @ts-expect-error skip strict type check for command options for now.
     return () => faker.lorem.sentences(commandOptions);
   },
 };

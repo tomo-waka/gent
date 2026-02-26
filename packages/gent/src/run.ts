@@ -13,6 +13,7 @@ import { initializeOutput } from "./output/initializeOutput.js";
 import type { ProgramOptions } from "./api/programOptions.js";
 import "./command/commands/index.js";
 import { Run } from "./api/functions.js";
+import { createNeverValueError } from "./common/generalUtils.js";
 
 export const run: Run = async function runImpl(
   programOptions: ProgramOptions,
@@ -32,7 +33,7 @@ export const run: Run = async function runImpl(
         existsOutDir = true;
       }
       await fsPromises.access(outDirPath, fs.constants.W_OK);
-    } catch (error) {
+    } catch {
       existsOutDir = false;
     }
 
@@ -105,13 +106,11 @@ export const run: Run = async function runImpl(
       };
     } else {
       return Promise.reject(
-        new Error(`Unexpected out options: ${out satisfies never}`),
+        createNeverValueError(out, "Unexpected out options"),
       );
     }
   } else {
-    return Promise.reject(
-      new Error(`Unexpected out options: ${out satisfies never}`),
-    );
+    return Promise.reject(createNeverValueError(out, "Unexpected out options"));
   }
 
   const documentTransformStream = new DocumentTransformStream(

@@ -30,10 +30,21 @@ export default defineConfig([
   },
   {
     files: ["**/*.{ts,mts,cts,tsx}"],
-    extends: [
-      ...tseslint.configs.recommendedTypeChecked,
-      ...tseslint.configs.strictTypeChecked,
-    ],
+    extends: [...tseslint.configs.recommendedTypeChecked],
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          vars: "all",
+          // to notice function arguments
+          args: "none",
+          caughtErrors: "all",
+          ignoreRestSiblings: false,
+          ignoreUsingDeclarations: false,
+          reportUsedIgnorePattern: false,
+        },
+      ],
+    },
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",

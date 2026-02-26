@@ -32,8 +32,8 @@ class DebugFileWriterImpl implements DebugFileWriter {
     try {
       outFile = await fsPromises.open(filePath, "w");
       await outFile.writeFile(content);
-    } catch (error) {
-      throw new Error("Error occurred during writing output.");
+    } catch (error: unknown) {
+      throw new Error(`Error occurred during writing output. ${String(error)}`);
     } finally {
       if (outFile !== undefined) {
         await outFile.close();

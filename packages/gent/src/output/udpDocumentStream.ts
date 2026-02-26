@@ -30,7 +30,7 @@ export class UdpDocumentStream extends stream.Writable {
         callback();
       })
       .catch((reason) => {
-        callback(reason);
+        callback(reason instanceof Error ? reason : new Error(String(reason)));
       });
   }
 

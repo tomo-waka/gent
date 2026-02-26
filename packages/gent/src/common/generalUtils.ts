@@ -17,9 +17,9 @@ export function isNonNullObject(
  * ReadonlyArray のためのタイプガード
  * https://github.com/microsoft/TypeScript/issues/17002
  */
-export function isReadonlyArray<T extends ReadonlyArray<unknown>>(
-  value: T | unknown,
-): value is T {
+export function isReadonlyArray<T, Rest>(
+  value: readonly T[] | Rest,
+): value is readonly T[] {
   return Array.isArray(value);
 }
 
@@ -80,9 +80,14 @@ export function parseDate(value: unknown): Date | undefined {
 
 // #region misc
 
-export function assertNever(x: never): never {
-  throw new Error(`Unexpected object: ${x}`);
+export function assertNever(x: never, message?: string): never {
+  throw createNeverValueError(x, message);
 }
+
+export function createNeverValueError(x: never, message?: string): Error {
+  return new Error(`${message ?? "Unexpected value"}: ${x as string}`);
+}
+
 export function pickMany<T>(input: T | T[] | undefined): T[] {
   if (input === undefined) {
     return [];
