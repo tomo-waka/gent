@@ -13,6 +13,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gent-js/gent": "^0.1.23",
+    "@jsonforms/core": "^3.7.0",
+    "@jsonforms/react": "^3.7.0",
+    "@jsonforms/vanilla-renderers": "^3.7.0",
+    "ajv": "^8.18.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
