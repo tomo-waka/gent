@@ -4,10 +4,8 @@ import { vanillaCells, vanillaRenderers } from "@jsonforms/vanilla-renderers";
 import type { ErrorObject } from "ajv";
 import { useMemo, useState } from "react";
 import "./App.css";
-import {
-  generationProfileSchema,
-  initialGenerationProfile,
-} from "./schema/generationProfileSchema";
+import { generationProfileSchema } from "@gent-js/gent/generated/schema/generatedGenerationProfileSchema";
+import { initialGenerationProfile } from "./schema/initialGenerationProfile";
 
 function App() {
   const [profile, setProfile] = useState<Record<string, unknown>>(
