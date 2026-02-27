@@ -3,5 +3,5 @@
   "github.copilot.enable": {
     "*": true
   },
-  "cSpell.words": ["Jsonable", "postject"]
+  "cSpell.words": ["apidevtools", "Jsonable", "jsonforms", "postject"]
 }

@@ -18,6 +18,8 @@ Default behavior should be: small, scoped edits; explicit validation; and synchr
 
 - Run dependency operations (for example `npm install`) from repository root unless package-local behavior is required.
 - Run feature scripts from each package directory unless explicit workspace flags are used.
+- When running package scripts from repository root in this monorepo, always target the workspace explicitly with `-w` (for example `npm run -w @tomo-waka/gent build:tsc`).
+- If you run scripts in package-local scope instead, set the current working directory to the target package directory first (for example `packages/gent`, `packages/gent-gui`, or `packages/gent-server`) before executing `npm run ...`.
 - Do not assume scripts are shared across packages; check each package `package.json` first.
 
 ## Big-Picture Execution Flow (packages/gent)
@@ -93,10 +95,17 @@ When semantics change, docs must be updated in the same change set.
 
 ## Practical Editing Guidance
 
-- Keep ESM import style (`.js` extension in TS source imports) consistent with the existing codebase.
-- Prefer extending existing normalization/type-guard helpers in `src/utils.ts` and types in `src/types.ts` over ad-hoc parsing.
-- Fix root causes instead of adding narrow patches when feasible.
-- Keep changes minimal and scoped; avoid unrelated refactors.
+- General:
+  - Keep ESM import style (`.js` extension in TS source imports) consistent with the existing codebase.
+  - Prefer extending existing normalization/type-guard helpers in `src/utils.ts` and types in `src/types.ts` over ad-hoc parsing.
+  - Fix root causes instead of adding narrow patches when feasible.
+  - Keep changes minimal and scoped; avoid unrelated refactors.
+- Comments:
+  - Add comments only when intent is non-obvious from names, types, and structure.
+  - Explain `why` (invariants, assumptions, edge-case rationale), not obvious `what` behavior.
+  - Add comments for non-trivial branching/fallbacks, protocol or compatibility constraints, ordering dependencies/side effects, or performance/security tradeoffs.
+  - Do not add comments for straightforward assignments, simple control flow, or self-explanatory transformations.
+  - Keep comments brief (1-2 lines), colocated with the relevant logic, and synchronized with behavior changes.
 
 ## Copilot Response Contract for This Repository
 
