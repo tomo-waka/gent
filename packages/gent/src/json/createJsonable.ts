@@ -3,11 +3,11 @@ import { AbstractJsonable } from "./abstractJsonable.js";
 import { ArrayJsonable } from "./jsonableClasses/arrayJsonable.js";
 import { BooleanJsonable } from "./jsonableClasses/booleanJsonable.js";
 import { JsonStringJsonable } from "./jsonableClasses/jsonStringJsonable.js";
-import type { JsonableValueParameters } from "./jsonableParametersTypes.js";
 import { NullJsonable } from "./jsonableClasses/nullJsonable.js";
 import { NumberJsonable } from "./jsonableClasses/numberJsonable.js";
 import { ObjectJsonable } from "./jsonableClasses/objectJsonable.js";
 import { StringJsonable } from "./jsonableClasses/stringJsonable.js";
+import type { JsonableValueParameters } from "./jsonableParametersTypes.js";
 
 export function createJsonable(
   parameters: JsonableValueParameters,

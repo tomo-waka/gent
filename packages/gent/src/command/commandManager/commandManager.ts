@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { parseNonNaNInteger, parseString } from "../../common/generalUtils.js";
 import type {
   ContextualStringOut,
   DocumentContext,
@@ -12,7 +13,6 @@ import type {
   StaticCommand,
 } from "../type.js";
 import { isEscapeStyle } from "../utils.js";
-import { parseNonNaNInteger, parseString } from "../../common/generalUtils.js";
 
 export interface CommandManager {
   setCommand(command: Command): this;

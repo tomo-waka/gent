@@ -1,8 +1,8 @@
-import { generateCstDts } from "chevrotain";
 import type { FileHandle } from "node:fs/promises";
 import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
 import { fileURLToPath } from "url";
+import { generateCstDts } from "chevrotain";
 import { commandParser } from "../src/command/commandParser/commandParser.js";
 import { templateParser } from "../src/template/templateParser/templateParser.js";
 

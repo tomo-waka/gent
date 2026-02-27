@@ -2,18 +2,18 @@ import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
 import * as stream from "node:stream";
+import { Run } from "./api/functions.js";
+import type { ProgramOptions } from "./api/programOptions.js";
+import "./command/commands/index.js";
 import { commandManager } from "./command/index.js";
 import { MaxEps, TrailerMap } from "./common/consts.js";
+import { createNeverValueError } from "./common/generalUtils.js";
 import { createDocumentFeeder } from "./createDocumentFeeder.js";
 import { createGeneratingDocumentStream } from "./createGeneratingDocumentStream.js";
 import { debugFileWriter } from "./debugFileWriter.js";
 import { DocumentTransformStream } from "./documentTransformStream.js";
 import type { DocumentTransformOptions } from "./documentTransformTypes.js";
 import { initializeOutput } from "./output/initializeOutput.js";
-import type { ProgramOptions } from "./api/programOptions.js";
-import "./command/commands/index.js";
-import { Run } from "./api/functions.js";
-import { createNeverValueError } from "./common/generalUtils.js";
 
 export const run: Run = async function runImpl(
   programOptions: ProgramOptions,

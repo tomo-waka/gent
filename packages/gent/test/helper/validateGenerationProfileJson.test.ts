@@ -2,11 +2,11 @@ import * as fs from "node:fs";
 import * as nodePath from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import {
-  validateGenerationProfileJson,
-  generationProfileJsonSchema,
-} from "../../src/helper/validateGenerationProfileJson.js";
 import { normalizeGenerationProfile } from "../../src/helper/normalizeGenerationProfile.js";
+import {
+  generationProfileJsonSchema,
+  validateGenerationProfileJson,
+} from "../../src/helper/validateGenerationProfileJson.js";
 
 const currentDir = nodePath.dirname(fileURLToPath(import.meta.url));
 const fixtureDir = nodePath.resolve(

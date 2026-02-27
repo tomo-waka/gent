@@ -1,6 +1,6 @@
 export type {
-  ContextualStringOut,
   ContextualDocumentFragment,
+  ContextualStringOut,
   DocumentContent,
   DocumentContext,
   DocumentFragment,

@@ -1,7 +1,7 @@
-import * as nodePath from "node:path";
-import { isString } from "./generalUtils.js";
 import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
+import * as nodePath from "node:path";
+import { isString } from "./generalUtils.js";
 
 export function parseAndResolveFilePath(
   value: unknown,

@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { generationProfileSchema } from "@gent-js/gent/generated/schema/generatedGenerationProfileSchema";
 import { createAjv, type JsonSchema } from "@jsonforms/core";
 import { JsonForms, type JsonFormsChangeEvent } from "@jsonforms/vue";
 import { vanillaRenderers } from "@jsonforms/vue-vanilla";
 import type { ErrorObject } from "ajv";
 import { computed, ref } from "vue";
-import { generationProfileSchema } from "@gent-js/gent/generated/schema/generatedGenerationProfileSchema";
 import { initialGenerationProfile } from "./schema/initialGenerationProfile";
 
 const profile = ref<Record<string, unknown>>(

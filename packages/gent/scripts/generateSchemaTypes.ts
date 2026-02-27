@@ -1,11 +1,11 @@
-import {
-  compile,
-  type Options,
-  type JSONSchema,
-} from "json-schema-to-typescript";
 import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
 import { fileURLToPath } from "url";
+import {
+  compile,
+  type JSONSchema,
+  type Options,
+} from "json-schema-to-typescript";
 
 const __dirname = nodePath.dirname(fileURLToPath(import.meta.url));
 

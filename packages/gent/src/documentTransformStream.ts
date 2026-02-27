@@ -1,8 +1,8 @@
 import { Buffer } from "node:buffer";
 import * as stream from "node:stream";
+import { createNeverValueError } from "./common/generalUtils.js";
 import { GeneratingDocument } from "./document/index.js";
 import type { DocumentTransformOptions } from "./documentTransformTypes.js";
-import { createNeverValueError } from "./common/generalUtils.js";
 
 const Per1000Window = 1000;
 const Per100Window = 100;

@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { DateTime } from "luxon";
+import { parseString } from "../../../common/generalUtils.js";
 import type {
   ContextualStringOut,
   DocumentContext,
@@ -7,7 +8,6 @@ import type {
   SharedDocumentOptions,
 } from "../../../document/index.js";
 import type { CommandOptions, ProgrammableCommand } from "../../type.js";
-import { parseString } from "../../../common/generalUtils.js";
 
 const NO_DATE = "NO_DATE";
 const ERROR_DATE = "ERROR_DATE";

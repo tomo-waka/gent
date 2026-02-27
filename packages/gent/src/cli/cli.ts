@@ -1,19 +1,18 @@
 #!/usr/bin/env node
 import { Command, Option } from "commander";
 import { packageEnv } from "../../generated/packageEnv.js";
-import { FAILED } from "./cliConsts.js";
-import { DEFAULT_TEMPLATE_WEIGHT } from "../common/consts.js";
 import type { TemplateMode, TemplateOptions } from "../api/programOptions.js";
-import { run } from "../run.js";
 import { determineTemplateModeByFile } from "../common/commonUtils.js";
-import { tryReadFile } from "../common/ioUtils.js";
-import { parseAndResolveFilePath } from "../common/ioUtils.js";
+import { DEFAULT_TEMPLATE_WEIGHT } from "../common/consts.js";
+import { isNonNullObject, parseString } from "../common/generalUtils.js";
+import { parseAndResolveFilePath, tryReadFile  } from "../common/ioUtils.js";
 import { normalizeGenerationProfile } from "../helper/normalizeGenerationProfile.js";
 import {
   GenerationProfileJson,
   validateGenerationProfileJson,
 } from "../helper/validateGenerationProfileJson.js";
-import { isNonNullObject, parseString } from "../common/generalUtils.js";
+import { run } from "../run.js";
+import { FAILED } from "./cliConsts.js";
 
 const templateOption = new Option(
   "-t --template <template-file>",

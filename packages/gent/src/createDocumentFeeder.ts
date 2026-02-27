@@ -1,8 +1,10 @@
 import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
+import type { ProgramOptions, TemplateOptions } from "./api/programOptions.js";
 import { buildDocumentFromJsonTemplate } from "./buildDocumentFromJsonTemplate.js";
 import { buildDocumentFromTextTemplate } from "./buildDocumentFromTextTemplate.js";
 import type { CommandManager } from "./command/index.js";
+import { assertNever } from "./common/generalUtils.js";
 import {
   type WeightedItem,
   WeightedItemFeeder,
@@ -12,8 +14,6 @@ import type {
   DocumentOptions,
   SharedDocumentOptions,
 } from "./document/index.js";
-import type { ProgramOptions, TemplateOptions } from "./api/programOptions.js";
-import { assertNever } from "./common/generalUtils.js";
 
 export async function createDocumentFeeder(
   templateOptionsArray: readonly TemplateOptions[],

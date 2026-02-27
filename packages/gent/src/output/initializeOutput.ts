@@ -1,7 +1,7 @@
-import { globIterate } from "glob";
 import * as fsPromises from "node:fs/promises";
 import * as nodePath from "node:path";
 import * as stream from "node:stream";
+import { globIterate } from "glob";
 import type { OutputOptions } from "../api/outputOptions.js";
 import { assertNever } from "../common/generalUtils.js";
 import { createFileOutput } from "./createFileOutput.js";

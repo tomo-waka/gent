@@ -3,5 +3,9 @@
   "github.copilot.enable": {
     "*": true
   },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
   "cSpell.words": ["apidevtools", "Jsonable", "jsonforms", "postject"]
 }

@@ -1,8 +1,22 @@
+import { OutputOptions } from "../api/outputOptions.js";
 import {
   ProgramOptions,
   type TemplateMode,
   type TemplateOptions,
 } from "../api/programOptions.js";
+import {
+  determineTemplateModeByFile,
+  isNetworkOutputType,
+  isOutputType,
+  isTcpFramingType,
+  isTemplateMode,
+} from "../common/commonUtils.js";
+import {
+  DEFAULT_TEMPLATE_WEIGHT,
+  DefaultEps,
+  DefaultTcpFramingMethod,
+  DefaultTrailerReplacer,
+} from "../common/consts.js";
 import {
   assertNever,
   isNonNullObject,
@@ -11,23 +25,9 @@ import {
   parseNonNaNInteger,
   parseString,
 } from "../common/generalUtils.js";
-import { normalizeWeight } from "../common/weightedItemFeeder.js";
-import {
-  DEFAULT_TEMPLATE_WEIGHT,
-  DefaultEps,
-  DefaultTcpFramingMethod,
-  DefaultTrailerReplacer,
-} from "../common/consts.js";
-import {
-  isTemplateMode,
-  determineTemplateModeByFile,
-  isNetworkOutputType,
-  isOutputType,
-  isTcpFramingType,
-} from "../common/commonUtils.js";
 import { parseAndResolveFilePath } from "../common/ioUtils.js";
+import { normalizeWeight } from "../common/weightedItemFeeder.js";
 import { GenerationProfileJson } from "./validateGenerationProfileJson.js";
-import { OutputOptions } from "../api/outputOptions.js";
 
 export function normalizeGenerationProfile(
   generationProfile: GenerationProfileJson,

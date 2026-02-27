@@ -1,9 +1,10 @@
 import js from "@eslint/js";
-import globals from "globals";
-import eslintConfigPrettier from "eslint-config-prettier";
-import vue from "eslint-plugin-vue";
-import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
+import eslintConfigPrettier from "eslint-config-prettier";
+import importX from "eslint-plugin-import-x";
+import vue from "eslint-plugin-vue";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default defineConfig([
   {
@@ -77,6 +78,42 @@ export default defineConfig([
       globals: {
         ...globals.browser,
       },
+    },
+  },
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts,vue}"],
+    plugins: {
+      "import-x": importX,
+    },
+    rules: {
+      "import-x/first": "error",
+      "import-x/newline-after-import": "error",
+      "import-x/no-duplicates": "error",
+      "import-x/no-self-import": "warn",
+      "import-x/no-useless-path-segments": "warn",
+      "import-x/no-cycle": "warn",
+      "import-x/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "object",
+            "unknown",
+          ],
+          "newlines-between": "ignore",
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+          named: true,
+          warnOnUnassignedImports: false,
+        },
+      ],
     },
   },
   // Apply Vue's latest recommended flat preset only to SFC files in gent-gui.
