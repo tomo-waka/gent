@@ -28,7 +28,8 @@ jobs:
           registry-url: "https://registry.npmjs.org/"
 
       - name: Install dependencies
-        run: npm ci
+        # to resolve peer dependency conflict related with eslint-plugin-import-x
+        run: npm ci --legacy-peer-deps
 
       - name: Check generated schema is up to date
         run: npm run check:schema -w @gent-js/gent
