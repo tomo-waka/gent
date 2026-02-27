@@ -5,7 +5,7 @@ import type { TemplateMode, TemplateOptions } from "../api/programOptions.js";
 import { determineTemplateModeByFile } from "../common/commonUtils.js";
 import { DEFAULT_TEMPLATE_WEIGHT } from "../common/consts.js";
 import { isNonNullObject, parseString } from "../common/generalUtils.js";
-import { parseAndResolveFilePath, tryReadFile  } from "../common/ioUtils.js";
+import { parseAndResolveFilePath, tryReadFile } from "../common/ioUtils.js";
 import { normalizeGenerationProfile } from "../helper/normalizeGenerationProfile.js";
 import {
   GenerationProfileJson,
