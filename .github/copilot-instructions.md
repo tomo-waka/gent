@@ -91,6 +91,7 @@ When semantics change, docs must be updated in the same change set.
 ## Commit Message Convention
 
 - All commits must follow [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>`
+- scope part should be the package name (for example `gent`, `gent-gui`, `gent-server`) or a relevant sub-area (for example `cli`, `output`, `template`).
 - Examples: `feat(gent): add command`, `fix(gent-server): correct handler`, `docs: update README`
 
 ## Practical Editing Guidance
