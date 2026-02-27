@@ -11,11 +11,11 @@
     "@eslint/js": "^10.0.0",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "latest",
-    "eslint-plugin-react-hooks": "next",
-    "eslint-plugin-react-refresh": "latest",
+    "eslint-plugin-vue": "latest",
     "globals": "latest",
     "prettier": "latest",
-    "typescript-eslint": "latest"
+    "typescript-eslint": "latest",
+    "vue-eslint-parser": "latest"
   },
   "workspaces": [
     "packages/gent",
