@@ -3,13 +3,13 @@
 ## Goal
 
 These instructions align AI-assisted changes with the current GenT architecture and team workflow.
-Default behavior should be: small, scoped edits; explicit validation; and synchronized documentation.
+Default behavior: small, scoped edits; explicit validation; and synchronized documentation.
 
 ## Scope and Package Boundaries
 
 - Core implementation is `packages/gent` (core + CLI). It contains the project's primary functionality, including the CLI implementation.
 - Workspace also contains:
-  - `packages/gent-gui` (Vite + React UI). This package is under development and aims to provide a GUI for GenT, using `packages/gent-server` as its backend.
+  - `packages/gent-gui` (Vite + Vue UI). This package is under development and aims to provide a GUI for GenT, using `packages/gent-server` as its backend.
   - `packages/gent-server` (Fastify service). This package is under development and aims to provide a REST API for GenT functionality.
   - `packages/gent-sea` (Node.js SEA). This package provides a Node.js SEA (single executable application) variant of the GenT CLI.
 - Root `package.json` uses npm workspaces.
@@ -18,20 +18,20 @@ Default behavior should be: small, scoped edits; explicit validation; and synchr
 
 - Run dependency operations (for example `npm install`) from repository root unless package-local behavior is required.
 - Run feature scripts from each package directory unless explicit workspace flags are used.
-- When running package scripts from repository root in this monorepo, always target the workspace explicitly with `-w` (for example `npm run -w @tomo-waka/gent build:tsc`).
-- If you run scripts in package-local scope instead, set the current working directory to the target package directory first (for example `packages/gent`, `packages/gent-gui`, or `packages/gent-server`) before executing `npm run ...`.
-- Do not assume scripts are shared across packages; check each package `package.json` first.
+- When running package scripts from repository root in this monorepo, always target the workspace explicitly with `-w` (for example `npm run -w @gent-js/gent build:tsc`).
+- If running scripts in package-local scope, set the current working directory to the target package directory first (for example `packages/gent`, `packages/gent-gui`, or `packages/gent-server`) before executing `npm run ...`.
+- Do not assume scripts are shared across packages. Check each package `package.json` first.
 
 ## Big-Picture Execution Flow (packages/gent)
 
 - CLI entrypoint is `src/cli/cli.ts` (`commander` options: `--template` or `--profile` are required).
-- `cli.ts` builds raw options, then normalizes via `normalizeProgramOptions` in `src/utils.ts`.
+- `cli.ts` builds raw options, then normalizes via `normalizeGenerationProfile` in `src/helper/normalizeGenerationProfile.ts`.
 - `run` in `src/run.ts` orchestrates generation:
   - `createDocumentFeeder`
   - `createGeneratingDocumentStream`
   - `DocumentTransformStream`
   - output stream from `output/initializeOutput.ts`
-- Template mode is inferred by extension (`.json` => json mode) in `determineTemplateModeByFile` (`src/utils.ts`).
+- Template mode is inferred by extension (`.json` => json mode) in `determineTemplateModeByFile` (`src/common/commonUtils.ts`).
 - Text templates flow through `template/` + `commandTemplate/`; JSON templates flow through `json/` (`buildDocumentFromJsonTemplate.ts`).
 
 ## Command System Conventions
@@ -46,7 +46,7 @@ Default behavior should be: small, scoped edits; explicit validation; and synchr
 
 - CLI `--out` supports simple file output.
 - Advanced output options (udp/tcp/tls, framing options, and related behaviors) are primarily controlled via meta JSON.
-- Output options are normalized in `src/utils.ts` (`normalizeOutputOptions`) and executed in `output/initializeOutput.ts`.
+- Output options are normalized in `src/helper/normalizeGenerationProfile.ts` (`normalizeOutputOptions`) and executed in `output/initializeOutput.ts`.
 - `initializeOutput.ts` cleans existing output files matching rotate patterns before writing.
 
 ## Generated and Derived Files
@@ -62,43 +62,42 @@ Run the minimum meaningful checks based on changed scope.
 
 - If `packages/gent` behavior changes:
   - `npm run build:tsc`
-  - plus one relevant smoke run: `npm run start`, `npm run start-json`, or `npm run start-meta`
+  - Run one relevant smoke command: `npm run start`, `npm run start-json`, or `npm run start-profile`.
 - If `packages/gent-gui` source changes:
   - `npm run build`
-  - and run `npm run lint` when React/TypeScript files were changed
+  - Run `npm run lint` when Vue/TypeScript files change.
 - If `packages/gent-server` source changes:
   - `npm run build`
-  - use `npm run dev` only when runtime smoke verification is needed
+  - Run `npm run dev` only when runtime smoke verification is needed.
 
 Notes:
 
-- `packages/gent` currently has no real automated test suite (`npm test` is informational).
-- Prefer targeted validation first, then broader validation when risk is higher.
+- `packages/gent` has a Vitest suite (`npm test` runs `vitest run`). Run targeted tests first, then broaden when risk is higher.
+- Prefer targeted validation first, then broader validation as risk increases.
 
 ## Documentation Sync Policy
 
-When semantics change, docs must be updated in the same change set.
+When semantics change, update docs in the same change set.
 
 - CLI/options/meta/output semantics:
-  - update `packages/gent/docs/output.md`
+  - Update `packages/gent/docs/output.md`.
 - Template command syntax, options, behavior:
-  - update `packages/gent/docs/template-commands.md`
+  - Update `packages/gent/docs/template-commands.md`.
 - Developer workflow changes:
-  - update `packages/gent/docs/developing.md`
+  - Update `packages/gent/docs/developing.md`.
 - If README-visible behavior changes:
-  - update `packages/gent/README.md` (and root `README.md` when relevant)
+  - Update `packages/gent/README.md` (and root `README.md` when relevant).
 
 ## Commit Message Convention
 
 - All commits must follow [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>`
-- scope part should be the package name (for example `gent`, `gent-gui`, `gent-server`) or a relevant sub-area (for example `cli`, `output`, `template`).
+- Scope should be the package name (for example `gent`, `gent-gui`, `gent-server`) or a relevant sub-area (for example `cli`, `output`, `template`).
 - Examples: `feat(gent): add command`, `fix(gent-server): correct handler`, `docs: update README`
 
 ## Practical Editing Guidance
 
 - General:
   - Keep ESM import style (`.js` extension in TS source imports) consistent with the existing codebase.
-  - Prefer extending existing normalization/type-guard helpers in `src/utils.ts` and types in `src/types.ts` over ad-hoc parsing.
   - Fix root causes instead of adding narrow patches when feasible.
   - Keep changes minimal and scoped; avoid unrelated refactors.
 - Comments:
@@ -110,11 +109,11 @@ When semantics change, docs must be updated in the same change set.
 
 ## Copilot Response Contract for This Repository
 
-When proposing or implementing non-trivial changes, responses should include:
+When proposing or implementing non-trivial changes, include:
 
-- assumptions made
-- what was validated (commands actually run)
-- remaining risks or unverified areas
-- one practical fallback or alternative approach when relevant
+- Assumptions made.
+- What was validated (commands actually run).
+- Remaining risks or unverified areas.
+- One practical fallback or alternative approach when relevant.
 
 Keep outputs concise and actionable.
