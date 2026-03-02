@@ -40,7 +40,11 @@ file output with options.
 
 - type: `file`
 - path: path to output file.
-- size(optional): rotate file size. (e.g. "10M")
+- size(optional): rotate file size. Format is `positive-integer + unit`.
+  - number part: positive integer (1, 2, 10, ...)
+  - unit part: `B`, `K`, `M`, or `G`
+  - examples: `1B`, `300K`, `10M`, `2G`
+  - invalid examples: `0K`, `-1M`, `1.5G`, `100KB`, `100m`
 
 ## udp
 
@@ -57,8 +61,8 @@ file output with options.
 
 - type: `udp`
 - address: destination ip address.
-- port: destination port.
-- eps(optional): throttle data generate. event per second. (default: 3000)
+- port: destination port as JSON number. Range: `1` to `65535`.
+- eps(optional): throttle data generate. Positive integer as JSON number. Range: `1` to `9007199254740991` (JavaScript `Number.MAX_SAFE_INTEGER`). (default: 3000)
 
 ## tcp
 
@@ -78,8 +82,8 @@ file output with options.
 
 - type: `tcp`
 - address: destination ip address.
-- port: destination port.
-- eps(optional): throttle data generate. event per second. (default: 3000)
+- port: destination port as JSON number. Range: `1` to `65535`.
+- eps(optional): throttle data generate. Positive integer as JSON number. Range: `1` to `9007199254740991` (JavaScript `Number.MAX_SAFE_INTEGER`). (default: 3000)
 - framing: `octet-counting`
 
 ### lf framing
@@ -99,8 +103,8 @@ file output with options.
 
 - type: `tcp`
 - address: destination ip address.
-- port: destination port.
-- eps(optional): throttle data generate. event per second. (default: 3000)
+- port: destination port as JSON number. Range: `1` to `65535`.
+- eps(optional): throttle data generate. Positive integer as JSON number. Range: `1` to `9007199254740991` (JavaScript `Number.MAX_SAFE_INTEGER`). (default: 3000)
 - framing: `lf`
 - trailerReplacer(optional): replace trailer string (which is `lf`) with other string.
 
@@ -122,8 +126,8 @@ file output with options.
 
 - type: `tls`
 - address: destination ip address.
-- port: destination port.
-- eps(optional): throttle data generate. event per second. (default: 3000)
+- port: destination port as JSON number. Range: `1` to `65535`.
+- eps(optional): throttle data generate. Positive integer as JSON number. Range: `1` to `9007199254740991` (JavaScript `Number.MAX_SAFE_INTEGER`). (default: 3000)
 - framing: `octet-counting`
 
 ### lf framing
@@ -143,7 +147,7 @@ file output with options.
 
 - type: `tls`
 - address: destination ip address.
-- port: destination port.
-- eps(optional): throttle data generate. event per second. (default: 3000)
+- port: destination port as JSON number. Range: `1` to `65535`.
+- eps(optional): throttle data generate. Positive integer as JSON number. Range: `1` to `9007199254740991` (JavaScript `Number.MAX_SAFE_INTEGER`). (default: 3000)
 - framing: `lf`
 - trailerReplacer(optional): replace trailer string (which is `lf`) with other string.

@@ -7,33 +7,30 @@ export const generationProfileSchema: Record<string, unknown> = {
   "title": "GenT Generation Profile",
   "type": "object",
   "properties": {
-    "$schema": {
-      "type": "string",
-      "minLength": 1
-    },
     "debug": {
-      "type": "boolean"
+      "title": "Debug flag",
+      "description": "for dev.",
+      "type": "boolean",
+      "default": false
     },
     "from": {
+      "title": "From date time",
       "type": "string",
       "format": "date-time"
     },
     "to": {
+      "title": "To date time",
       "type": "string",
       "format": "date-time"
     },
     "count": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "string",
-          "pattern": "^-?(?:\\d+|\\d+\\.\\d+|\\.\\d+)$"
-        }
-      ]
+      "title": "Count of entries",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
     },
     "out": {
+      "title": "Generation output",
       "$ref": "#/$defs/outputOptions"
     },
     "templates": {
@@ -50,22 +47,28 @@ export const generationProfileSchema: Record<string, unknown> = {
   ],
   "additionalProperties": false,
   "$defs": {
+    "templateMode": {
+      "title": "Template mode",
+      "type": "string",
+      "enum": [
+        "text",
+        "json"
+      ]
+    },
     "templateOptions": {
       "type": "object",
       "properties": {
         "mode": {
-          "type": "string",
-          "enum": [
-            "text",
-            "json"
-          ]
+          "$ref": "#/$defs/templateMode"
         },
         "path": {
           "type": "string",
           "minLength": 1
         },
         "weight": {
-          "$ref": "#/properties/count"
+          "title": "Weight for random selection",
+          "type": "number",
+          "exclusiveMinimum": 0
         }
       },
       "required": [
@@ -76,22 +79,26 @@ export const generationProfileSchema: Record<string, unknown> = {
     "outputOptions": {
       "oneOf": [
         {
+          "title": "Simple File output",
           "type": "string",
           "minLength": 1
         },
         {
-          "title": "GenT FileOutputOptions",
+          "title": "Rotating file output",
           "type": "object",
           "properties": {
             "type": {
               "const": "file"
             },
             "path": {
+              "title": "Path to output file",
               "type": "string",
               "minLength": 1
             },
             "size": {
-              "type": "string"
+              "title": "Size to rotate the file",
+              "type": "string",
+              "pattern": "^[1-9][0-9]*[BKMG]$"
             }
           },
           "required": [
@@ -101,7 +108,7 @@ export const generationProfileSchema: Record<string, unknown> = {
           "additionalProperties": false
         },
         {
-          "title": "GenT UdpOutputOptions",
+          "title": "Udp output",
           "type": "object",
           "properties": {
             "type": {
@@ -112,14 +119,30 @@ export const generationProfileSchema: Record<string, unknown> = {
               "minLength": 1
             },
             "address": {
-              "type": "string",
-              "minLength": 1
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "hostname"
+                },
+                {
+                  "type": "string",
+                  "format": "ipv4"
+                },
+                {
+                  "type": "string",
+                  "format": "ipv6"
+                }
+              ]
             },
             "port": {
-              "$ref": "#/properties/count"
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
             },
             "eps": {
-              "$ref": "#/properties/count"
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
             }
           },
           "required": [
@@ -130,7 +153,7 @@ export const generationProfileSchema: Record<string, unknown> = {
           "additionalProperties": false
         },
         {
-          "title": "GenT TcpOutputOptions",
+          "title": "Tcp output",
           "oneOf": [
             {
               "type": "object",
@@ -143,14 +166,26 @@ export const generationProfileSchema: Record<string, unknown> = {
                   "minLength": 1
                 },
                 "address": {
-                  "type": "string",
-                  "minLength": 1
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "hostname"
+                    },
+                    {
+                      "type": "string",
+                      "format": "ipv4"
+                    },
+                    {
+                      "type": "string",
+                      "format": "ipv6"
+                    }
+                  ]
                 },
                 "port": {
-                  "$ref": "#/properties/count"
+                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
                 },
                 "eps": {
-                  "$ref": "#/properties/count"
+                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
                 },
                 "framing": {
                   "const": "octet-counting"
@@ -174,14 +209,26 @@ export const generationProfileSchema: Record<string, unknown> = {
                   "minLength": 1
                 },
                 "address": {
-                  "type": "string",
-                  "minLength": 1
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "hostname"
+                    },
+                    {
+                      "type": "string",
+                      "format": "ipv4"
+                    },
+                    {
+                      "type": "string",
+                      "format": "ipv6"
+                    }
+                  ]
                 },
                 "port": {
-                  "$ref": "#/properties/count"
+                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
                 },
                 "eps": {
-                  "$ref": "#/properties/count"
+                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
                 },
                 "framing": {
                   "const": "lf"
@@ -201,7 +248,7 @@ export const generationProfileSchema: Record<string, unknown> = {
           ]
         },
         {
-          "title": "GenT TlsOutputOptions",
+          "title": "Tls output",
           "oneOf": [
             {
               "type": "object",
@@ -214,14 +261,26 @@ export const generationProfileSchema: Record<string, unknown> = {
                   "minLength": 1
                 },
                 "address": {
-                  "type": "string",
-                  "minLength": 1
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "hostname"
+                    },
+                    {
+                      "type": "string",
+                      "format": "ipv4"
+                    },
+                    {
+                      "type": "string",
+                      "format": "ipv6"
+                    }
+                  ]
                 },
                 "port": {
-                  "$ref": "#/properties/count"
+                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
                 },
                 "eps": {
-                  "$ref": "#/properties/count"
+                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
                 },
                 "framing": {
                   "const": "octet-counting"
@@ -245,14 +304,26 @@ export const generationProfileSchema: Record<string, unknown> = {
                   "minLength": 1
                 },
                 "address": {
-                  "type": "string",
-                  "minLength": 1
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "hostname"
+                    },
+                    {
+                      "type": "string",
+                      "format": "ipv4"
+                    },
+                    {
+                      "type": "string",
+                      "format": "ipv6"
+                    }
+                  ]
                 },
                 "port": {
-                  "$ref": "#/properties/count"
+                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
                 },
                 "eps": {
-                  "$ref": "#/properties/count"
+                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
                 },
                 "framing": {
                   "const": "lf"

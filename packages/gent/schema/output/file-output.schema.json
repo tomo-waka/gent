@@ -1,18 +1,21 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/tomo-waka/gent/main/packages/gent/schema/output/file-output.schema.json",
-  "title": "GenT FileOutputOptions",
+  "title": "Rotating file output",
   "type": "object",
   "properties": {
     "type": {
       "const": "file"
     },
     "path": {
+      "title": "Path to output file",
       "type": "string",
       "minLength": 1
     },
     "size": {
-      "type": "string"
+      "title": "Size to rotate the file",
+      "type": "string",
+      "pattern": "^[1-9][0-9]*[BKMG]$"
     }
   },
   "required": ["type", "path"],

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/tomo-waka/gent/main/packages/gent/schema/output/tls-output.schema.json",
-  "title": "GenT TlsOutputOptions",
+  "title": "Tls output",
   "oneOf": [
     {
       "type": "object",
@@ -14,14 +14,26 @@
           "minLength": 1
         },
         "address": {
-          "type": "string",
-          "minLength": 1
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "hostname"
+            },
+            {
+              "type": "string",
+              "format": "ipv4"
+            },
+            {
+              "type": "string",
+              "format": "ipv6"
+            }
+          ]
         },
         "port": {
-          "$ref": "../common.schema.json#/$defs/numberLike"
+          "$ref": "../common.schema.json#/$defs/portNumber"
         },
         "eps": {
-          "$ref": "../common.schema.json#/$defs/numberLike"
+          "$ref": "../common.schema.json#/$defs/epsNumber"
         },
         "framing": {
           "const": "octet-counting"
@@ -41,14 +53,26 @@
           "minLength": 1
         },
         "address": {
-          "type": "string",
-          "minLength": 1
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "hostname"
+            },
+            {
+              "type": "string",
+              "format": "ipv4"
+            },
+            {
+              "type": "string",
+              "format": "ipv6"
+            }
+          ]
         },
         "port": {
-          "$ref": "../common.schema.json#/$defs/numberLike"
+          "$ref": "../common.schema.json#/$defs/portNumber"
         },
         "eps": {
-          "$ref": "../common.schema.json#/$defs/numberLike"
+          "$ref": "../common.schema.json#/$defs/epsNumber"
         },
         "framing": {
           "const": "lf"

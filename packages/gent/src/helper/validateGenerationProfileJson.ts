@@ -4,12 +4,11 @@ const dateTimeSchema = z
   .string()
   .refine(isDateTimeString, "Invalid date-time format");
 
-const numberLikeRegex = /^-?(?:\d+|\d+\.\d+|\.\d+)$/;
+const countingNumber = z.number().int().min(1).max(Number.MAX_SAFE_INTEGER);
+const positiveNumber = z.number().positive().max(Number.MAX_SAFE_INTEGER);
 
-const numberLikeSchema = z.union([
-  z.number(),
-  z.string().regex(numberLikeRegex),
-]);
+const portSchema = z.number().int().min(1).max(65535);
+const epsSchema = z.number().int().min(1).max(Number.MAX_SAFE_INTEGER);
 
 const templateModeSchema = z.enum(["text", "json"]);
 
@@ -17,7 +16,7 @@ const templateOptionsSchema = z
   .object({
     mode: templateModeSchema.optional(),
     path: z.string().min(1),
-    weight: numberLikeSchema.optional(),
+    weight: positiveNumber.optional(),
   })
   .strict();
 
@@ -34,8 +33,8 @@ const udpOutputOptionsSchema = z
     type: z.literal("udp"),
     path: z.string().min(1).optional(),
     address: z.string().min(1),
-    port: numberLikeSchema,
-    eps: numberLikeSchema.optional(),
+    port: portSchema,
+    eps: epsSchema.optional(),
   })
   .strict();
 
@@ -45,8 +44,8 @@ const tcpOutputOptionsSchema = z.union([
       type: z.literal("tcp"),
       path: z.string().min(1).optional(),
       address: z.string().min(1),
-      port: numberLikeSchema,
-      eps: numberLikeSchema.optional(),
+      port: portSchema,
+      eps: epsSchema.optional(),
       framing: z.literal("octet-counting").optional(),
     })
     .strict(),
@@ -55,8 +54,8 @@ const tcpOutputOptionsSchema = z.union([
       type: z.literal("tcp"),
       path: z.string().min(1).optional(),
       address: z.string().min(1),
-      port: numberLikeSchema,
-      eps: numberLikeSchema.optional(),
+      port: portSchema,
+      eps: epsSchema.optional(),
       framing: z.literal("lf"),
       trailerReplacer: z.string().optional(),
     })
@@ -69,8 +68,8 @@ const tlsOutputOptionsSchema = z.union([
       type: z.literal("tls"),
       path: z.string().min(1).optional(),
       address: z.string().min(1),
-      port: numberLikeSchema,
-      eps: numberLikeSchema.optional(),
+      port: portSchema,
+      eps: epsSchema.optional(),
       framing: z.literal("octet-counting").optional(),
     })
     .strict(),
@@ -79,8 +78,8 @@ const tlsOutputOptionsSchema = z.union([
       type: z.literal("tls"),
       path: z.string().min(1).optional(),
       address: z.string().min(1),
-      port: numberLikeSchema,
-      eps: numberLikeSchema.optional(),
+      port: portSchema,
+      eps: epsSchema.optional(),
       framing: z.literal("lf"),
       trailerReplacer: z.string().optional(),
     })
@@ -105,7 +104,7 @@ export const generationProfileJsonSchema = z
     debug: z.boolean().optional(),
     from: dateTimeSchema.optional(),
     to: dateTimeSchema.optional(),
-    count: numberLikeSchema.optional(),
+    count: countingNumber.optional(),
     out: outputOptionsSchema,
     templates: z.array(templateOptionsSchema).min(1),
   })

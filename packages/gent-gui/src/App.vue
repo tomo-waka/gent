@@ -12,6 +12,7 @@ const profile = ref<Record<string, unknown>>(
 );
 const errors = ref<ErrorObject[]>([]);
 
+// JSON Forms createAjv already wires ajv-formats internally.
 const ajv = createAjv({ allErrors: true, strict: false });
 const schema = generationProfileSchema as JsonSchema;
 
@@ -39,10 +40,10 @@ const handleChange = ({ data, errors: nextErrors }: JsonFormsChangeEvent) => {
       <h2>Profile Inputs</h2>
       <div class="formHost">
         <JsonForms
+          :schema="schema"
           :ajv="ajv"
           :data="profile"
           :renderers="vanillaRenderers"
-          :schema="schema"
           @change="handleChange"
         />
       </div>

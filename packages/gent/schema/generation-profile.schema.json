@@ -4,25 +4,30 @@
   "title": "GenT Generation Profile",
   "type": "object",
   "properties": {
-    "$schema": {
-      "type": "string",
-      "minLength": 1
-    },
     "debug": {
-      "type": "boolean"
+      "title": "Debug flag",
+      "description": "for dev.",
+      "type": "boolean",
+      "default": false
     },
     "from": {
+      "title": "From date time",
       "type": "string",
       "format": "date-time"
     },
     "to": {
+      "title": "To date time",
       "type": "string",
       "format": "date-time"
     },
     "count": {
-      "$ref": "./common.schema.json#/$defs/numberLike"
+      "title": "Count of entries",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
     },
     "out": {
+      "title": "Generation output",
       "$ref": "#/$defs/outputOptions"
     },
     "templates": {
@@ -36,18 +41,25 @@
   "required": ["out", "templates"],
   "additionalProperties": false,
   "$defs": {
+    "templateMode": {
+      "title": "Template mode",
+      "type": "string",
+      "enum": ["text", "json"]
+    },
     "templateOptions": {
       "type": "object",
       "properties": {
         "mode": {
-          "$ref": "./common.schema.json#/$defs/templateMode"
+          "$ref": "#/$defs/templateMode"
         },
         "path": {
           "type": "string",
           "minLength": 1
         },
         "weight": {
-          "$ref": "./common.schema.json#/$defs/numberLike"
+          "title": "Weight for random selection",
+          "type": "number",
+          "exclusiveMinimum": 0
         }
       },
       "required": ["path"],
@@ -56,6 +68,7 @@
     "outputOptions": {
       "oneOf": [
         {
+          "title": "Simple File output",
           "type": "string",
           "minLength": 1
         },

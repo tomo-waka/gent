@@ -66,6 +66,13 @@ Generation Profile JSON (`--profile`) is validated at runtime by Zod schema in `
 
 **Note:** Runtime types (`ProgramOptions`, `OutputOptions`, etc.) with normalized values (like `Date` objects) are manually maintained in `src/api/`. If you change schema structure significantly, you may need to update these runtime types as well.
 
+### AJV formats in gent-gui
+
+In `packages/gent-gui`, JSON Forms `createAjv` already registers `ajv-formats` internally.
+
+- Do not call `addFormats(ajv)` again in app code.
+- Calling it twice can raise duplicate keyword errors such as `Keyword formatMaximum is already defined`.
+
 ## Unit Testing
 
 Run unit tests with Vitest:
