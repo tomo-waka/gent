@@ -13,6 +13,8 @@ const fixtureDir = nodePath.resolve(
   currentDir,
   "../fixtures/generationProfiles",
 );
+const validFixtureDir = nodePath.resolve(fixtureDir, "valid");
+const invalidFixtureDir = nodePath.resolve(fixtureDir, "invalid");
 
 function readJsonFixture(fileName: string): unknown {
   const filePath = nodePath.resolve(fixtureDir, fileName);
@@ -20,24 +22,38 @@ function readJsonFixture(fileName: string): unknown {
   return JSON.parse(content) as unknown;
 }
 
+function listFixtureFiles(relativeDir: string): string[] {
+  const absoluteDir = nodePath.resolve(fixtureDir, relativeDir);
+  return fs
+    .readdirSync(absoluteDir, { encoding: "utf8" })
+    .filter((fileName) => fileName.endsWith(".json"))
+    .sort((left, right) => left.localeCompare(right))
+    .map((fileName) => `${relativeDir}/${fileName}`);
+}
+
+const validFixtures = listFixtureFiles("valid");
+const invalidFixtures = listFixtureFiles("invalid");
+
 describe("generationProfileJsonSchema", () => {
-  it("accepts a minimal valid profile", () => {
-    const profile = readJsonFixture("valid/minimal.json");
+  it.each(validFixtures)("accepts valid fixture %s", (fixturePath) => {
+    const profile = readJsonFixture(fixturePath);
 
     const parsed = generationProfileJsonSchema.safeParse(profile);
-
     expect(parsed.success).toBe(true);
-  });
-
-  it("accepts profile with $schema and network output", () => {
-    const profile = readJsonFixture("valid/network-tcp-lf.json");
 
     const result = validateGenerationProfileJson(profile);
-
     expect(result.success).toBe(true);
   });
 
-  it("rejects unknown root property", () => {
+  it.each(invalidFixtures)("rejects invalid fixture %s", (fixturePath) => {
+    const profile = readJsonFixture(fixturePath);
+
+    const result = validateGenerationProfileJson(profile);
+
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects unknown root property with strict-mode error", () => {
     const profile = readJsonFixture("invalid/unknown-root-property.json");
 
     const result = validateGenerationProfileJson(profile);
@@ -52,17 +68,16 @@ describe("generationProfileJsonSchema", () => {
       ),
     ).toBe(true);
   });
-
-  it("rejects invalid numberLike value", () => {
-    const profile = readJsonFixture("invalid/invalid-number-like.json");
-
-    const result = validateGenerationProfileJson(profile);
-
-    expect(result.success).toBe(false);
-  });
 });
 
 describe("normalizeProgramOptions with validated profile", () => {
+  it("fixtures directory setup is present", () => {
+    expect(fs.existsSync(validFixtureDir)).toBe(true);
+    expect(fs.existsSync(invalidFixtureDir)).toBe(true);
+    expect(validFixtures.length).toBeGreaterThan(0);
+    expect(invalidFixtures.length).toBeGreaterThan(0);
+  });
+
   it("normalizes validated profile into runtime options", () => {
     const basePath = nodePath.resolve("test");
     const profile = readJsonFixture("valid/with-count.json");

@@ -1,0 +1,8 @@
+{
+  "out": {
+    "type": "http",
+    "address": "localhost",
+    "port": 80
+  },
+  "templates": [{ "path": "template.log" }]
+}

@@ -1,0 +1,5 @@
+{
+  "from": "not-a-date-time",
+  "out": "./out.log",
+  "templates": [{ "path": "template.log" }]
+}

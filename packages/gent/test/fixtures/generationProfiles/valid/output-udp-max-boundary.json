@@ -1,0 +1,9 @@
+{
+  "out": {
+    "type": "udp",
+    "address": "localhost",
+    "port": 65535,
+    "eps": 9007199254740991
+  },
+  "templates": [{ "path": "template.log", "mode": "text" }]
+}
