@@ -1,21 +1,21 @@
 /* eslint-disable */
 // Generated from JSON Schema. Do not edit manually.
 
-export type GenTTlsOutputOptions =
+export type TlsOutput =
   | {
       type: "tls";
       path?: string;
       address: string;
-      port: number | string;
-      eps?: number | string;
+      port: number;
+      eps?: number;
       framing?: "octet-counting";
     }
   | {
       type: "tls";
       path?: string;
       address: string;
-      port: number | string;
-      eps?: number | string;
+      port: number;
+      eps?: number;
       framing: "lf";
       trailerReplacer?: string;
     };

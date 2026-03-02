@@ -1,8 +1,11 @@
 /* eslint-disable */
 // Generated from JSON Schema. Do not edit manually.
 
-export interface GenTFileOutputOptions {
+export type PathToOutputFile = string;
+export type SizeToRotateTheFile = string;
+
+export interface RotatingFileOutput {
   type: "file";
-  path: string;
-  size?: string;
+  path: PathToOutputFile;
+  size?: SizeToRotateTheFile;
 }
