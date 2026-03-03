@@ -7,6 +7,8 @@ import type { ErrorObject } from "ajv";
 import { computed, ref } from "vue";
 import { initialGenerationProfile } from "./schema/initialGenerationProfile";
 
+const renderers = Object.freeze(vanillaRenderers);
+
 const profile = ref<Record<string, unknown>>(
   structuredClone(initialGenerationProfile),
 );
@@ -43,7 +45,7 @@ const handleChange = ({ data, errors: nextErrors }: JsonFormsChangeEvent) => {
           :schema="schema"
           :ajv="ajv"
           :data="profile"
-          :renderers="vanillaRenderers"
+          :renderers="renderers"
           @change="handleChange"
         />
       </div>

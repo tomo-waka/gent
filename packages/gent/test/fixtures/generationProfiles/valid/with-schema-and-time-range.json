@@ -1,0 +1,7 @@
+{
+  "debug": true,
+  "from": "2024-01-01T00:00:00.000Z",
+  "to": "2024-01-31T23:59:59.000Z",
+  "out": "./out.log",
+  "templates": [{ "path": "template.log", "mode": "json", "weight": 1.25 }]
+}

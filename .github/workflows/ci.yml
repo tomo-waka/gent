@@ -31,8 +31,8 @@ jobs:
         # to resolve peer dependency conflict related with eslint-plugin-import-x
         run: npm ci --legacy-peer-deps
 
-      - name: Check generated schema is up to date
-        run: npm run check:schema -w @gent-js/gent
+      - name: Check generated artifacts are up to date
+        run: npm run check:generated -w @gent-js/gent
 
       - name: Format
         run: npm run format

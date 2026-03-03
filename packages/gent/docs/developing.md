@@ -42,6 +42,15 @@ npm run format:write
 
 Each package also exposes the same script names for targeted runs.
 
+## VS Code Workspace Settings
+
+When updating workspace settings in `.vscode/settings.json`, keep the file organized for readable diffs and easier maintenance.
+
+- Group entries by concern (for example: AI/chat, editor, testing, extension-specific, spell checker)
+- Sort keys alphabetically within each group
+- Keep comments short and section-level (avoid inline noise)
+- Keep shared project behavior in workspace settings; move personal preferences to User Settings when possible
+
 ## JSON Schema and Type Generation
 
 The project uses JSON Schema for Generation Profile validation and TypeScript type generation.

@@ -1,0 +1,8 @@
+{
+  "out": {
+    "type": "file",
+    "path": "./out/app.log",
+    "size": "10M"
+  },
+  "templates": [{ "path": "template.log", "mode": "text" }]
+}

@@ -1,0 +1,10 @@
+{
+  "out": {
+    "type": "tls",
+    "address": "127.0.0.1",
+    "port": 6514,
+    "framing": "lf",
+    "trailerReplacer": " "
+  },
+  "templates": [{ "path": "template.log", "mode": "text" }]
+}

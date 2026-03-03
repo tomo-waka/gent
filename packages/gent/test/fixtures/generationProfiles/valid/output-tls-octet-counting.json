@@ -1,0 +1,9 @@
+{
+  "out": {
+    "type": "tls",
+    "address": "127.0.0.1",
+    "port": 514,
+    "framing": "octet-counting"
+  },
+  "templates": [{ "path": "template.log", "mode": "text" }]
+}

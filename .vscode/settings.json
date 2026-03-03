@@ -1,10 +1,25 @@
 {
+  // AI / chat
   "chat.disableAIFeatures": false,
   "github.copilot.enable": {
     "*": true
   },
+
+  // Editor / save behavior
   "editor.codeActionsOnSave": {
     "source.organizeImports": "never"
   },
+
+  // Testing (built-in)
+  "testing.automaticallyOpenTestResults": "openOnTestFailure",
+
+  // Vitest extension
+  "vitest.applyDiagnostic": true,
+  "vitest.logLevel": "info",
+  "vitest.shellType": "child_process",
+  "vitest.showInlineConsoleLog": true,
+  "vitest.workspaceConfig": "vitest.workspace.ts",
+
+  // Spell checker
   "cSpell.words": ["apidevtools", "Jsonable", "jsonforms", "postject"]
 }

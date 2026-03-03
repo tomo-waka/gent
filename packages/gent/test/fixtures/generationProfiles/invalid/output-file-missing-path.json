@@ -1,0 +1,6 @@
+{
+  "out": {
+    "type": "file"
+  },
+  "templates": [{ "path": "template.log" }]
+}

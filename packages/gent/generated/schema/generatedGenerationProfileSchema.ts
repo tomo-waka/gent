@@ -154,193 +154,131 @@ export const generationProfileSchema: Record<string, unknown> = {
         },
         {
           "title": "Tcp output",
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "const": "tcp"
-                },
-                "path": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "address": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "format": "hostname"
-                    },
-                    {
-                      "type": "string",
-                      "format": "ipv4"
-                    },
-                    {
-                      "type": "string",
-                      "format": "ipv6"
-                    }
-                  ]
-                },
-                "port": {
-                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
-                },
-                "eps": {
-                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
-                },
-                "framing": {
-                  "const": "octet-counting"
-                }
-              },
-              "required": [
-                "type",
-                "address",
-                "port"
-              ],
-              "additionalProperties": false
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "tcp"
             },
-            {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "const": "tcp"
-                },
-                "path": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "address": {
+              "anyOf": [
+                {
                   "type": "string",
-                  "minLength": 1
+                  "format": "hostname"
                 },
-                "address": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "format": "hostname"
-                    },
-                    {
-                      "type": "string",
-                      "format": "ipv4"
-                    },
-                    {
-                      "type": "string",
-                      "format": "ipv6"
-                    }
-                  ]
+                {
+                  "type": "string",
+                  "format": "ipv4"
                 },
-                "port": {
-                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
-                },
-                "eps": {
-                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
-                },
-                "framing": {
-                  "const": "lf"
-                },
-                "trailerReplacer": {
-                  "type": "string"
+                {
+                  "type": "string",
+                  "format": "ipv6"
                 }
-              },
-              "required": [
-                "type",
-                "address",
-                "port",
-                "framing"
-              ],
-              "additionalProperties": false
+              ]
+            },
+            "port": {
+              "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
+            },
+            "eps": {
+              "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
+            },
+            "framing": {
+              "title": "Framing method",
+              "type": "string",
+              "enum": [
+                "lf",
+                "octet-counting"
+              ]
             }
-          ]
+          },
+          "if": {
+            "properties": {
+              "framing": {
+                "const": "lf"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "trailerReplacer": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "type",
+            "address",
+            "port",
+            "framing"
+          ],
+          "unevaluatedProperties": false
         },
         {
           "title": "Tls output",
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "const": "tls"
-                },
-                "path": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "address": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "format": "hostname"
-                    },
-                    {
-                      "type": "string",
-                      "format": "ipv4"
-                    },
-                    {
-                      "type": "string",
-                      "format": "ipv6"
-                    }
-                  ]
-                },
-                "port": {
-                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
-                },
-                "eps": {
-                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
-                },
-                "framing": {
-                  "const": "octet-counting"
-                }
-              },
-              "required": [
-                "type",
-                "address",
-                "port"
-              ],
-              "additionalProperties": false
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "tls"
             },
-            {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "const": "tls"
-                },
-                "path": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "address": {
+              "anyOf": [
+                {
                   "type": "string",
-                  "minLength": 1
+                  "format": "hostname"
                 },
-                "address": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "format": "hostname"
-                    },
-                    {
-                      "type": "string",
-                      "format": "ipv4"
-                    },
-                    {
-                      "type": "string",
-                      "format": "ipv6"
-                    }
-                  ]
+                {
+                  "type": "string",
+                  "format": "ipv4"
                 },
-                "port": {
-                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
-                },
-                "eps": {
-                  "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
-                },
-                "framing": {
-                  "const": "lf"
-                },
-                "trailerReplacer": {
-                  "type": "string"
+                {
+                  "type": "string",
+                  "format": "ipv6"
                 }
-              },
-              "required": [
-                "type",
-                "address",
-                "port",
-                "framing"
-              ],
-              "additionalProperties": false
+              ]
+            },
+            "port": {
+              "$ref": "#/$defs/outputOptions/oneOf/2/properties/port"
+            },
+            "eps": {
+              "$ref": "#/$defs/outputOptions/oneOf/2/properties/eps"
+            },
+            "framing": {
+              "title": "Framing method",
+              "type": "string",
+              "enum": [
+                "lf",
+                "octet-counting"
+              ]
             }
-          ]
+          },
+          "if": {
+            "properties": {
+              "framing": {
+                "const": "lf"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "trailerReplacer": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "type",
+            "address",
+            "port",
+            "framing"
+          ],
+          "unevaluatedProperties": false
         }
       ]
     }

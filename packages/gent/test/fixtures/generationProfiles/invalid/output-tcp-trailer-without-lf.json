@@ -1,0 +1,10 @@
+{
+  "out": {
+    "type": "tcp",
+    "address": "localhost",
+    "port": 514,
+    "framing": "octet-counting",
+    "trailerReplacer": " "
+  },
+  "templates": [{ "path": "template.log" }]
+}

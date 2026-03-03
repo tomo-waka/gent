@@ -1,75 +1,70 @@
 /* eslint-disable */
 // Generated from JSON Schema. Do not edit manually.
 
-export type OutputOptions =
-  | string
-  | GenTFileOutputOptions
-  | GenTUdpOutputOptions
-  | GenTTcpOutputOptions
-  | GenTTlsOutputOptions;
-export type GenTTcpOutputOptions =
-  | {
-      type: "tcp";
-      path?: string;
-      address: string;
-      port: number | string;
-      eps?: number | string;
-      framing?: "octet-counting";
-    }
-  | {
-      type: "tcp";
-      path?: string;
-      address: string;
-      port: number | string;
-      eps?: number | string;
-      framing: "lf";
-      trailerReplacer?: string;
-    };
-export type GenTTlsOutputOptions =
-  | {
-      type: "tls";
-      path?: string;
-      address: string;
-      port: number | string;
-      eps?: number | string;
-      framing?: "octet-counting";
-    }
-  | {
-      type: "tls";
-      path?: string;
-      address: string;
-      port: number | string;
-      eps?: number | string;
-      framing: "lf";
-      trailerReplacer?: string;
-    };
+/**
+ * for dev.
+ */
+export type DebugFlag = boolean;
+export type FromDateTime = string;
+export type ToDateTime = string;
+export type CountOfEntries = number;
+export type GenerationOutput =
+  | SimpleFileOutput
+  | RotatingFileOutput
+  | UdpOutput
+  | TcpOutput
+  | TlsOutput;
+export type SimpleFileOutput = string;
+export type PathToOutputFile = string;
+export type SizeToRotateTheFile = string;
+export type FramingMethod = "lf" | "octet-counting";
+export type FramingMethod1 = "lf" | "octet-counting";
+export type TemplateMode = "text" | "json";
+export type WeightForRandomSelection = number;
 
 export interface GenTGenerationProfile {
-  $schema?: string;
-  debug?: boolean;
-  from?: string;
-  to?: string;
-  count?: number | string;
-  out: OutputOptions;
+  debug?: DebugFlag;
+  from?: FromDateTime;
+  to?: ToDateTime;
+  count?: CountOfEntries;
+  out: GenerationOutput;
   /**
    * @minItems 1
    */
   templates: [TemplateOptions, ...TemplateOptions[]];
 }
-export interface GenTFileOutputOptions {
+export interface RotatingFileOutput {
   type: "file";
-  path: string;
-  size?: string;
+  path: PathToOutputFile;
+  size?: SizeToRotateTheFile;
 }
-export interface GenTUdpOutputOptions {
+export interface UdpOutput {
   type: "udp";
   path?: string;
   address: string;
-  port: number | string;
-  eps?: number | string;
+  port: number;
+  eps?: number;
+}
+export interface TcpOutput {
+  type: "tcp";
+  path?: string;
+  address: string;
+  port: number;
+  eps?: number;
+  framing: FramingMethod;
+  [k: string]: any;
+}
+export interface TlsOutput {
+  type: "tls";
+  path?: string;
+  address: string;
+  port: number;
+  eps?: number;
+  framing: FramingMethod1;
+  [k: string]: any;
 }
 export interface TemplateOptions {
-  mode?: "text" | "json";
+  mode?: TemplateMode;
   path: string;
-  weight?: number | string;
+  weight?: WeightForRandomSelection;
 }

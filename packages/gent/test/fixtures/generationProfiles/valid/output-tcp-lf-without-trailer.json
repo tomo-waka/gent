@@ -1,0 +1,9 @@
+{
+  "out": {
+    "type": "tcp",
+    "address": "127.0.0.1",
+    "port": 6514,
+    "framing": "lf"
+  },
+  "templates": [{ "path": "template.log", "mode": "text" }]
+}
