@@ -2,87 +2,53 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/tomo-waka/gent/main/packages/gent/schema/output/tls-output.schema.json",
   "title": "Tls output",
-  "oneOf": [
-    {
-      "type": "object",
-      "properties": {
-        "type": {
-          "const": "tls"
-        },
-        "path": {
-          "type": "string",
-          "minLength": 1
-        },
-        "address": {
-          "anyOf": [
-            {
-              "type": "string",
-              "format": "hostname"
-            },
-            {
-              "type": "string",
-              "format": "ipv4"
-            },
-            {
-              "type": "string",
-              "format": "ipv6"
-            }
-          ]
-        },
-        "port": {
-          "$ref": "../common.schema.json#/$defs/portNumber"
-        },
-        "eps": {
-          "$ref": "../common.schema.json#/$defs/epsNumber"
-        },
-        "framing": {
-          "const": "octet-counting"
-        }
-      },
-      "required": ["type", "address", "port"],
-      "additionalProperties": false
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "tls"
     },
-    {
-      "type": "object",
-      "properties": {
-        "type": {
-          "const": "tls"
-        },
-        "path": {
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "address": {
+      "anyOf": [
+        {
           "type": "string",
-          "minLength": 1
+          "format": "hostname"
         },
-        "address": {
-          "anyOf": [
-            {
-              "type": "string",
-              "format": "hostname"
-            },
-            {
-              "type": "string",
-              "format": "ipv4"
-            },
-            {
-              "type": "string",
-              "format": "ipv6"
-            }
-          ]
+        {
+          "type": "string",
+          "format": "ipv4"
         },
-        "port": {
-          "$ref": "../common.schema.json#/$defs/portNumber"
-        },
-        "eps": {
-          "$ref": "../common.schema.json#/$defs/epsNumber"
-        },
-        "framing": {
-          "const": "lf"
-        },
-        "trailerReplacer": {
-          "type": "string"
+        {
+          "type": "string",
+          "format": "ipv6"
         }
-      },
-      "required": ["type", "address", "port", "framing"],
-      "additionalProperties": false
+      ]
+    },
+    "port": {
+      "$ref": "../common.schema.json#/$defs/portNumber"
+    },
+    "eps": {
+      "$ref": "../common.schema.json#/$defs/epsNumber"
+    },
+    "framing": {
+      "title": "Framing method",
+      "type": "string",
+      "enum": ["lf", "octet-counting"]
     }
-  ]
+  },
+  "if": {
+    "properties": {
+      "framing": { "const": "lf" }
+    }
+  },
+  "then": {
+    "properties": {
+      "trailerReplacer": { "type": "string" }
+    }
+  },
+  "required": ["type", "address", "port", "framing"],
+  "unevaluatedProperties": false
 }
