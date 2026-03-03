@@ -1,5 +1,5 @@
-import Ajv, { type AnySchema } from "ajv";
-import addFormats from "ajv-formats";
+import type { AnySchema, ErrorObject, ValidateFunction } from "ajv";
+import type { FormatsPlugin } from "ajv-formats";
 import { beforeAll, describe, expect, it } from "vitest";
 import { generationProfileSchema } from "../../generated/schema/generatedGenerationProfileSchema.js";
 import {
@@ -11,15 +11,23 @@ import {
 // This test validates that fixture JSONs conform to the generation profile schema.
 // Test infrastructure, not production behavior.
 describe("generationProfileFixtureSchema", () => {
-  let ajv: Ajv;
+  let validate: ValidateFunction;
+  let errorsText: (errors?: ErrorObject[] | null) => string;
 
-  beforeAll(() => {
-    ajv = new Ajv({ allErrors: true, strict: false });
+  beforeAll(async () => {
+    const [{ Ajv }, ajvFormatsModule] = await Promise.all([
+      import("ajv"),
+      import("ajv-formats"),
+    ]);
+    const addFormats = ajvFormatsModule.default as unknown as FormatsPlugin;
+
+    const ajv = new Ajv({ allErrors: true, strict: false });
     addFormats(ajv);
+    validate = ajv.compile(generationProfileSchema as AnySchema);
+    errorsText = (errors) => ajv.errorsText(errors);
   });
 
   it("schema is compilable", () => {
-    const validate = ajv.compile(generationProfileSchema as AnySchema);
     expect(validate).toBeDefined();
   });
 
@@ -27,12 +35,11 @@ describe("generationProfileFixtureSchema", () => {
     "valid fixture %s conforms to schema",
     (fixturePath) => {
       const fixture = readGenerationProfileJsonFixture(fixturePath);
-      const validate = ajv.compile(generationProfileSchema as AnySchema);
 
       const valid = validate(fixture);
       if (!valid) {
         throw new Error(
-          `Fixture ${fixturePath} does not conform to schema: ${ajv.errorsText(validate.errors)}`,
+          `Fixture ${fixturePath} does not conform to schema: ${errorsText(validate.errors)}`,
         );
       }
       expect(valid).toBe(true);
@@ -43,7 +50,6 @@ describe("generationProfileFixtureSchema", () => {
     "invalid fixture %s fails schema validation",
     (fixturePath) => {
       const fixture = readGenerationProfileJsonFixture(fixturePath);
-      const validate = ajv.compile(generationProfileSchema as AnySchema);
 
       const valid = validate(fixture);
       expect(valid).toBe(false);
