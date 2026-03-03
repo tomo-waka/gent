@@ -1,31 +1,35 @@
 <script setup lang="ts">
-import { generationProfileSchema } from "@gent-js/gent/generated/schema/generatedGenerationProfileSchema";
-import { createAjv, type JsonSchema } from "@jsonforms/core";
+import { createAjv } from "@jsonforms/core";
 import { JsonForms, type JsonFormsChangeEvent } from "@jsonforms/vue";
 import { vanillaRenderers } from "@jsonforms/vue-vanilla";
-import type { ErrorObject } from "ajv";
 import { computed, ref } from "vue";
-import { initialGenerationProfile } from "./schema/initialGenerationProfile";
+import { typedGenerationProfileSchema } from "../../../../core/schema/generationProfileSchema";
+import {
+  applyGenerationProfileFormChange,
+  createGenerationProfileEditorState,
+  getGenerationProfileIssueCountLabel,
+  isGenerationProfileValid,
+  toGenerationProfileJson,
+} from "../../application/generationProfileEditor";
+import { createInitialGenerationProfile } from "../../model/generationProfileModel";
 
 const renderers = Object.freeze(vanillaRenderers);
-
-const profile = ref<Record<string, unknown>>(
-  structuredClone(initialGenerationProfile),
-);
-const errors = ref<ErrorObject[]>([]);
-
-// JSON Forms createAjv already wires ajv-formats internally.
 const ajv = createAjv({ allErrors: true, strict: false });
-const schema = generationProfileSchema as JsonSchema;
 
-const generatedProfile = computed(() => JSON.stringify(profile.value, null, 2));
+const state = ref(
+  createGenerationProfileEditorState(createInitialGenerationProfile()),
+);
 
-const isValid = computed(() => errors.value.length === 0);
-const issueCountLabel = computed(() => `${errors.value.length} issue(s)`);
+const generatedProfile = computed(() =>
+  toGenerationProfileJson(state.value.profile),
+);
+const isValid = computed(() => isGenerationProfileValid(state.value.errors));
+const issueCountLabel = computed(() =>
+  getGenerationProfileIssueCountLabel(state.value.errors),
+);
 
-const handleChange = ({ data, errors: nextErrors }: JsonFormsChangeEvent) => {
-  profile.value = (data ?? {}) as Record<string, unknown>;
-  errors.value = (nextErrors ?? []) as ErrorObject[];
+const handleChange = ({ data, errors }: JsonFormsChangeEvent) => {
+  state.value = applyGenerationProfileFormChange(data, errors);
 };
 </script>
 
@@ -42,9 +46,9 @@ const handleChange = ({ data, errors: nextErrors }: JsonFormsChangeEvent) => {
       <h2>Profile Inputs</h2>
       <div class="formHost">
         <JsonForms
-          :schema="schema"
+          :schema="typedGenerationProfileSchema"
           :ajv="ajv"
-          :data="profile"
+          :data="state.profile"
           :renderers="renderers"
           @change="handleChange"
         />

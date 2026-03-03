@@ -7,3 +7,4 @@ Current UI includes a JsonForms-based generation profile editor backed by the Ge
 ## Docs
 
 - [JSON Forms Schema Authoring Checklist](./docs/json-forms-schema-checklist.md)
+- [Directory Structure Guidelines](./docs/directory-structure.md)
