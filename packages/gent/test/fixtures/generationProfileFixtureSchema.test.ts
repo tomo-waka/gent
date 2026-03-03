@@ -1,6 +1,6 @@
 import Ajv, { type AnySchema } from "ajv";
 import addFormats from "ajv-formats";
-import { describe, expect, it, beforeAll } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import { generationProfileSchema } from "../../generated/schema/generatedGenerationProfileSchema.js";
 import {
   invalidFixtures,
