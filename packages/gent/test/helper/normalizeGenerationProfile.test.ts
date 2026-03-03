@@ -2,7 +2,7 @@ import * as nodePath from "node:path";
 import { describe, expect, it } from "vitest";
 import { normalizeGenerationProfile } from "../../src/helper/normalizeGenerationProfile.js";
 import { validateGenerationProfileJson } from "../../src/helper/validateGenerationProfileJson.js";
-import { readGenerationProfileJsonFixture } from "./generationProfileFixtureUtils.js";
+import { readGenerationProfileJsonFixture } from "../fixtures/generationProfileFixtureUtils.js";
 
 describe("normalizeGenerationProfile with validated profile", () => {
   it("normalizes validated profile into runtime options", () => {

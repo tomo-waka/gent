@@ -7,7 +7,7 @@ import {
   invalidFixtures,
   readGenerationProfileJsonFixture,
   validFixtures,
-} from "./generationProfileFixtureUtils.js";
+} from "../fixtures/generationProfileFixtureUtils.js";
 
 describe("generationProfileJsonSchema", () => {
   it.each(validFixtures)("accepts valid fixture %s", (fixturePath) => {
