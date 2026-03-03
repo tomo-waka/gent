@@ -1,21 +1,14 @@
 /* eslint-disable */
 // Generated from JSON Schema. Do not edit manually.
 
-export type TcpOutput =
-  | {
-      type: "tcp";
-      path?: string;
-      address: string;
-      port: number;
-      eps?: number;
-      framing?: "octet-counting";
-    }
-  | {
-      type: "tcp";
-      path?: string;
-      address: string;
-      port: number;
-      eps?: number;
-      framing: "lf";
-      trailerReplacer?: string;
-    };
+export type FramingMethod = "lf" | "octet-counting";
+
+export interface TcpOutput {
+  type: "tcp";
+  path?: string;
+  address: string;
+  port: number;
+  eps?: number;
+  framing: FramingMethod;
+  [k: string]: any;
+}

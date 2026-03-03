@@ -17,42 +17,8 @@ export type GenerationOutput =
 export type SimpleFileOutput = string;
 export type PathToOutputFile = string;
 export type SizeToRotateTheFile = string;
-export type TcpOutput =
-  | {
-      type: "tcp";
-      path?: string;
-      address: string;
-      port: number;
-      eps?: number;
-      framing?: "octet-counting";
-    }
-  | {
-      type: "tcp";
-      path?: string;
-      address: string;
-      port: number;
-      eps?: number;
-      framing: "lf";
-      trailerReplacer?: string;
-    };
-export type TlsOutput =
-  | {
-      type: "tls";
-      path?: string;
-      address: string;
-      port: number;
-      eps?: number;
-      framing?: "octet-counting";
-    }
-  | {
-      type: "tls";
-      path?: string;
-      address: string;
-      port: number;
-      eps?: number;
-      framing: "lf";
-      trailerReplacer?: string;
-    };
+export type FramingMethod = "lf" | "octet-counting";
+export type FramingMethod1 = "lf" | "octet-counting";
 export type TemplateMode = "text" | "json";
 export type WeightForRandomSelection = number;
 
@@ -78,6 +44,24 @@ export interface UdpOutput {
   address: string;
   port: number;
   eps?: number;
+}
+export interface TcpOutput {
+  type: "tcp";
+  path?: string;
+  address: string;
+  port: number;
+  eps?: number;
+  framing: FramingMethod;
+  [k: string]: any;
+}
+export interface TlsOutput {
+  type: "tls";
+  path?: string;
+  address: string;
+  port: number;
+  eps?: number;
+  framing: FramingMethod1;
+  [k: string]: any;
 }
 export interface TemplateOptions {
   mode?: TemplateMode;
