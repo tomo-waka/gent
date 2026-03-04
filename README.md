@@ -12,3 +12,8 @@ GenT is a template-based data generator. The generated data is used as test data
 ## Articles
 
 - [GenT cli](./packages/gent/README.md)
+
+## Development
+
+- Monorepo-wide development guide: [./docs/developing.md](./docs/developing.md)
+- `@gent-js/gent` package-specific development guide: [./packages/gent/docs/developing.md](./packages/gent/docs/developing.md)

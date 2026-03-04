@@ -189,4 +189,5 @@ moreover, you can use various output method and options in Generation Profile JS
 
 ## Development
 
-[development](./docs/developing.md)
+- Monorepo-wide development rules (commit convention, lint/format, workspace settings): [../../docs/developing.md](../../docs/developing.md)
+- `@gent-js/gent` package-specific development guide: [./docs/developing.md](./docs/developing.md)

@@ -83,16 +83,18 @@ When semantics change, update docs in the same change set.
   - Update `packages/gent/docs/output.md`.
 - Template command syntax, options, behavior:
   - Update `packages/gent/docs/template-commands.md`.
-- Developer workflow changes:
+- Monorepo-wide developer workflow changes:
+  - Update `docs/developing.md`.
+- `packages/gent`-specific workflow changes:
   - Update `packages/gent/docs/developing.md`.
 - If README-visible behavior changes:
   - Update `packages/gent/README.md` (and root `README.md` when relevant).
-- If the same governance rule is needed for both humans and AI, define full details once in `packages/gent/docs/developing.md` and reference that section from `.github/copilot-instructions.md` instead of duplicating text.
+- If the same governance rule is needed for both humans and AI, define full details once in `docs/developing.md` and reference that section from `.github/copilot-instructions.md` instead of duplicating text.
 
 ## Commit Message Convention
 
 - All commits must follow [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>`.
-- Canonical commit type rules (including `feat`/`fix` production-impact policy and non-production type priority order) are defined in `packages/gent/docs/developing.md` under **Commit Message Convention**.
+- Canonical commit type rules (including `feat`/`fix` production-impact policy and non-production type priority order) are defined in `docs/developing.md` under **Commit Message Convention**.
 - Copilot must apply that canonical policy when proposing commit messages.
 
 ## Practical Editing Guidance
