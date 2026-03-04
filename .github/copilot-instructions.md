@@ -90,9 +90,9 @@ When semantics change, update docs in the same change set.
 
 ## Commit Message Convention
 
-- All commits must follow [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>`
-- Scope should be the package name (for example `gent`, `gent-gui`, `gent-server`) or a relevant sub-area (for example `cli`, `output`, `template`).
-- Examples: `feat(gent): add command`, `fix(gent-server): correct handler`, `docs: update README`
+- All commits must follow [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>`.
+- Canonical commit type rules (including `feat`/`fix` production-impact policy and non-production type priority order) are defined in `packages/gent/docs/developing.md` under **Commit Message Convention**.
+- Copilot must apply that canonical policy when proposing commit messages.
 
 ## Practical Editing Guidance
 

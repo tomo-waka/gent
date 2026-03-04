@@ -21,8 +21,22 @@
 
 ## Commit Message Convention
 
+- This section is the canonical commit message policy for this repository (for both humans and AI agents).
 - All commits must follow [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>`
-- Examples: `feat(gent): add command`, `fix(gent-server): correct handler`, `docs: update README`
+- Use the following minimal type set to keep impact clear without over-fragmenting:
+  - `feat`: production code change that adds or extends user-visible behavior.
+  - `fix`: production code change that fixes incorrect behavior.
+  - `refactor`: production code change with no intended behavior change (internal structure, readability, maintainability).
+  - `docs`: documentation-only change (for example Markdown files, usage guides).
+  - `ci`: CI/CD-only change (for example GitHub Actions workflows, pipeline settings).
+  - `style`: non-behavioral formatting/lint-rule application (for example Prettier output, ESLint autofix-only updates).
+  - `test`: test-only change (add/update tests with no production code semantics change).
+  - `chore`: repository/tooling/config maintenance that is not `ci`, `docs`, `style`, or `test`, and does not change production behavior.
+- Rule of thumb:
+  - If runtime behavior of production code changes, use `feat` or `fix` (or `refactor` only when behavior is intentionally unchanged).
+  - If production behavior does not change, do not use `feat` or `fix`.
+- Priority order when multiple non-production types could apply: `ci` > `docs` > `style` > `test` > `chore`.
+- Examples: `feat(gent): add json template option`, `fix(gent-server): handle empty payload`, `ci: cache npm dependencies`, `style(gent): apply eslint --fix`, `docs: update README`
 
 ## Lint and Format (Monorepo)
 
