@@ -87,6 +87,7 @@ When semantics change, update docs in the same change set.
   - Update `packages/gent/docs/developing.md`.
 - If README-visible behavior changes:
   - Update `packages/gent/README.md` (and root `README.md` when relevant).
+- If the same governance rule is needed for both humans and AI, define full details once in `packages/gent/docs/developing.md` and reference that section from `.github/copilot-instructions.md` instead of duplicating text.
 
 ## Commit Message Convention
 

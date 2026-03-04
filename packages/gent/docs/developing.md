@@ -36,6 +36,7 @@
   - If runtime behavior of production code changes, use `feat` or `fix` (or `refactor` only when behavior is intentionally unchanged).
   - If production behavior does not change, do not use `feat` or `fix`.
 - Priority order when multiple non-production types could apply: `ci` > `docs` > `style` > `test` > `chore`.
+- Scope should be the package name (for example `gent`, `gent-gui`, `gent-server`) or a relevant sub-area (for example `cli`, `output`, `template`).
 - Examples: `feat(gent): add json template option`, `fix(gent-server): handle empty payload`, `ci: cache npm dependencies`, `style(gent): apply eslint --fix`, `docs: update README`
 
 ## Lint and Format (Monorepo)
