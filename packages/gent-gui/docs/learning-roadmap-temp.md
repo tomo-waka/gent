@@ -11,8 +11,30 @@ Purpose:
 ## How to use this memo
 
 - Mark each step as in progress/completed.
-- Add short notes under each step (what was learned, what was difficult, what to revisit).
+- For each step, track both implementation output and personal learning checkpoints.
+- Keep learning comments in code while learning (even if they are noisier than normal production style).
 - Keep entries short and practical.
+
+### Learning-comment policy for this phase
+
+- Add comments more aggressively than usual to explain intent, data flow, and trade-offs.
+- Include references in comments when useful (for example, Vue official docs sections).
+- After becoming familiar with Vue/Json Forms, remove or reduce tutorial-style comments.
+
+### Reporting format (use this every step)
+
+#### 1) Copilot implementation log
+
+- What changed (files/components/helpers)
+- Why this implementation was chosen
+- Validation run (build/lint/test)
+
+#### 2) Developer review and learning checkpoints
+
+- What to read in code (specific files)
+- What to verify in runtime behavior
+- What to explain back in your own words
+- What to refactor as a small exercise (optional)
 
 ## Progress overview
 
@@ -50,6 +72,21 @@ Learn core Vue development patterns without Json Forms complexity.
 - Difficulties:
 - Revisit later:
 
+### Step review template
+
+#### Copilot implementation log
+
+- What changed:
+- Why this way:
+- Validation:
+
+#### Developer review and learning checkpoints
+
+- Code reading targets:
+- Runtime checks:
+- Explain-back checkpoints:
+- Optional refactor exercise:
+
 ---
 
 ## Step 2 — Json Forms fundamentals
@@ -76,6 +113,21 @@ Understand schema and ui schema basics with a small standalone form.
 - Learned:
 - Difficulties:
 - Revisit later:
+
+### Step review template
+
+#### Copilot implementation log
+
+- What changed:
+- Why this way:
+- Validation:
+
+#### Developer review and learning checkpoints
+
+- Code reading targets:
+- Runtime checks:
+- Explain-back checkpoints:
+- Optional refactor exercise:
 
 ---
 
@@ -104,6 +156,21 @@ Build confidence in practical integration patterns.
 - Difficulties:
 - Revisit later:
 
+### Step review template
+
+#### Copilot implementation log
+
+- What changed:
+- Why this way:
+- Validation:
+
+#### Developer review and learning checkpoints
+
+- Code reading targets:
+- Runtime checks:
+- Explain-back checkpoints:
+- Optional refactor exercise:
+
 ---
 
 ## Step 4 — Intermediate Json Forms patterns
@@ -128,6 +195,21 @@ Learn where default rendering is insufficient and how to extend.
 - Learned:
 - Difficulties:
 - Revisit later:
+
+### Step review template
+
+#### Copilot implementation log
+
+- What changed:
+- Why this way:
+- Validation:
+
+#### Developer review and learning checkpoints
+
+- Code reading targets:
+- Runtime checks:
+- Explain-back checkpoints:
+- Optional refactor exercise:
 
 ---
 
@@ -154,6 +236,21 @@ Reinforce project architecture habits while keeping learning momentum.
 - Learned:
 - Difficulties:
 - Revisit later:
+
+### Step review template
+
+#### Copilot implementation log
+
+- What changed:
+- Why this way:
+- Validation:
+
+#### Developer review and learning checkpoints
+
+- Code reading targets:
+- Runtime checks:
+- Explain-back checkpoints:
+- Optional refactor exercise:
 
 ---
 
