@@ -123,10 +123,42 @@ Keep dependencies one-way:
 
 - `core` -> no dependency on `framework/*`
 - `features/*/model|application` -> may depend on `core`, never directly on framework runtime APIs
-- `framework/vue/*` -> can depend on `features` and `core`
+- `features/*/ui/*` -> may depend on `core` and `features/*/(model|application)`, never on `framework/*`
+- `framework/vue/*` -> should depend on `features/*/ui/vue/*` only
 - `shared` -> utility-only, no feature-specific business rules
 
 This keeps migration costs bounded and avoids cyclic dependencies.
+
+These boundaries are enforced in ESLint (`no-restricted-imports`) for:
+
+- `core` and `features/*/(model|application)` (cannot depend on `framework` or `ui`),
+- `framework/vue` (cannot depend on `core` or `features/*/(model|application)`),
+- `features/*/ui` (cannot depend on `framework`).
+
+## Dependency Diagram
+
+```mermaid
+flowchart LR
+  C[core]
+  FM[features/*/model]
+  FA[features/*/application]
+  FU[features/*/ui]
+  FV[framework/vue]
+  S[shared]
+
+  FM --> C
+  FA --> C
+  FA --> FM
+  FU --> C
+  FU --> FM
+  FU --> FA
+  FV --> FU
+
+  S -. utility only .- C
+  S -. utility only .- FM
+  S -. utility only .- FA
+  S -. utility only .- FU
+```
 
 ## Naming and Placement Conventions
 

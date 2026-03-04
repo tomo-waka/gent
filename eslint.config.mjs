@@ -81,6 +81,74 @@ export default defineConfig([
     },
   },
   {
+    files: [
+      "packages/gent-gui/src/core/**/*.ts",
+      "packages/gent-gui/src/features/**/model/**/*.ts",
+      "packages/gent-gui/src/features/**/application/**/*.ts",
+    ],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["**/framework/**"],
+              message:
+                "Core/model/application layers must not depend on framework adapters.",
+            },
+            {
+              group: ["**/ui/**"],
+              message:
+                "Core/model/application layers must not depend on UI implementation.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["packages/gent-gui/src/framework/vue/**/*.{ts,vue}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["**/core/**"],
+              message:
+                "framework/vue must not directly depend on core; consume feature UI adapters instead.",
+            },
+            {
+              group: [
+                "**/features/**/application/**",
+                "**/features/**/model/**",
+              ],
+              message:
+                "framework/vue must not directly depend on feature model/application; depend on feature UI only.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["packages/gent-gui/src/features/**/ui/**/*.{ts,vue}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["**/framework/**"],
+              message:
+                "Feature UI must not depend on framework adapters to keep one-way dependency flow.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,vue}"],
     plugins: {
       "import-x": importX,
