@@ -149,6 +149,23 @@ export default defineConfig([
     },
   },
   {
+    files: ["packages/gent-gui/src/shared/ui/vue/primitives/**/*.{ts,vue}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["**/core/**", "**/features/**", "**/framework/**"],
+              message:
+                "Shared Vue primitives must stay presentational and not depend on core/features/framework layers.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,vue}"],
     plugins: {
       "import-x": importX,

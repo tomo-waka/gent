@@ -45,6 +45,9 @@ src/
       jsonforms/
       composables/
   shared/                   # cross-feature utilities used only inside gent-gui
+    ui/
+      vue/
+        primitives/         # reusable primitive UI components (Button, Checkbox, etc.)
     utils/
     constants/
     types/
@@ -95,6 +98,49 @@ src/
 
 `framework/vue/components/App.vue` is now a thin root wrapper, and the generation profile flow is owned by `features/generation-profile`.
 
+## `features/*/ui/vue` vs `framework/vue`
+
+Use this rule of thumb during development:
+
+- Put files in `features/*/ui/vue` when they represent a **feature screen or feature-local UI parts**.
+- Put files in `framework/vue` when they represent **app bootstrap or framework adapter wiring**.
+
+### Current examples
+
+- `src/features/generation-profile/ui/vue/GenerationProfileEditorPage.vue`
+  - Feature page for generation profile editing.
+- `src/features/vue-playground/ui/vue/VuePlaygroundPage.vue`
+  - Feature page and feature-local learning UI.
+- `src/framework/vue/components/App.vue`
+  - Thin root shell that selects which feature page to render.
+- `src/framework/vue/entry/main.ts`
+  - Vue bootstrap (`createApp`, global style import, mount).
+
+### Quick decision checklist
+
+- If the file would still exist after replacing Vue with another framework, place logic in `core` / `features/*/(model|application)` and keep only adapter code in `ui/vue`.
+- If the file is about `createApp`, root mounting, or global framework integration, place it in `framework/vue`.
+- If the file is tied to one use case (profile editor, playground, etc.), place it in that feature's `ui/vue`.
+
+## Primitive UI Components (Button / Checkbox)
+
+For reusable primitive Vue UI components (for example `Button`, `Checkbox`), use:
+
+- `src/shared/ui/vue/primitives/*`
+
+Placement rule:
+
+- `features/*/ui/vue`: feature-local UI for a specific use case.
+- `framework/vue`: app bootstrap and framework adapter wiring.
+- `shared/ui/vue/primitives`: reusable, presentational building blocks shared across features.
+
+Examples:
+
+- `src/shared/ui/vue/primitives/BaseButton.vue`
+- `src/shared/ui/vue/primitives/BaseCheckbox.vue`
+
+Primitive components should stay UI-focused and avoid feature/business logic.
+
 ## Package-Level Extraction Rules (`packages/*`)
 
 When code is reused beyond `gent-gui`, extract it into a package under `packages/`.
@@ -124,6 +170,7 @@ Keep dependencies one-way:
 - `core` -> no dependency on `framework/*`
 - `features/*/model|application` -> may depend on `core`, never directly on framework runtime APIs
 - `features/*/ui/*` -> may depend on `core` and `features/*/(model|application)`, never on `framework/*`
+- `shared/ui/vue/primitives/*` -> should be framework-level UI primitives without feature-specific dependencies
 - `framework/vue/*` -> should depend on `features/*/ui/vue/*` only
 - `shared` -> utility-only, no feature-specific business rules
 
@@ -133,7 +180,8 @@ These boundaries are enforced in ESLint (`no-restricted-imports`) for:
 
 - `core` and `features/*/(model|application)` (cannot depend on `framework` or `ui`),
 - `framework/vue` (cannot depend on `core` or `features/*/(model|application)`),
-- `features/*/ui` (cannot depend on `framework`).
+- `features/*/ui` (cannot depend on `framework`),
+- `shared/ui/vue/primitives` (cannot depend on `core`, `features`, or `framework`).
 
 ## Dependency Diagram
 
