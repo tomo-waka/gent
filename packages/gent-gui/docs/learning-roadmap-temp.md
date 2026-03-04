@@ -44,6 +44,18 @@ Purpose:
 - [ ] Step 4: Intermediate Json Forms patterns
 - [ ] Step 5: Architecture alignment + minimal tests
 
+## Vue API style decision (for this learning phase)
+
+- Primary style: Composition API.
+- SFC syntax: prefer `<script setup lang="ts">`.
+- Reason: aligns with current Vue ecosystem patterns, TypeScript ergonomics, and composable-based reuse.
+- Rule of use: introduce Options API only when reading legacy examples or explicitly comparing trade-offs.
+
+Reference hints:
+
+- Vue docs: "Essentials > Composition API FAQ"
+- Vue docs: "SFC > `<script setup>`"
+
 ---
 
 ## Step 1 — Vue fundamentals in real app code
