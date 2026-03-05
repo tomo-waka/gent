@@ -36,6 +36,20 @@ Purpose:
 - What to explain back in your own words
 - What to refactor as a small exercise (optional)
 
+### Continuous learning loop (apply in every step)
+
+1. Implement a first version focused on understandability.
+2. Review refactoring checkpoints (readability, reactivity, separation of concerns).
+3. Compare 1-2 alternative implementations and explain trade-offs.
+4. Apply one small refactor and verify behavior with build/lint.
+5. Keep or remove learning comments depending on current understanding.
+
+When reporting each step, include:
+
+- Refactoring checkpoints found
+- Alternative implementation options considered
+- Which option was selected and why
+
 ## Progress overview
 
 - [ ] Step 1: Vue fundamentals in real app code
@@ -98,6 +112,20 @@ Learn core Vue development patterns without Json Forms complexity.
 - Runtime checks:
 - Explain-back checkpoints:
 - Optional refactor exercise:
+
+### Step 1 refactoring checklist (practice)
+
+- [ ] Replace `watch(() => profile.value, ...)` with `watch(profile, ...)` and confirm behavior is unchanged.
+- [ ] Remove `deep: true` once, verify timestamp still updates from current immutable updates, then explain why.
+- [ ] Extract all update handlers into one helper (for example, `patchProfile`) and compare readability before/after.
+- [ ] Compare `ref<PlaygroundProfile>(...)` vs `reactive(...)` for this page and write a short note about trade-offs.
+- [ ] Decide whether to keep current style or adopt one of the alternatives, with a one-paragraph reason.
+
+Step 1 alternative implementation ideas:
+
+- Alternative A: keep `ref` + immutable object replacement (current style, explicit update flow).
+- Alternative B: switch to `reactive` + direct property mutation (less boilerplate, different watch semantics).
+- Alternative C: keep `ref` but use a generic `updateProfile<K extends keyof PlaygroundProfile>(...)` helper.
 
 ---
 
