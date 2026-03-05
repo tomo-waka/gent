@@ -115,17 +115,22 @@ Learn core Vue development patterns without Json Forms complexity.
 
 ### Step 1 refactoring checklist (practice)
 
-- [ ] Replace `watch(() => profile.value, ...)` with `watch(profile, ...)` and confirm behavior is unchanged.
-- [ ] Remove `deep: true` once, verify timestamp still updates from current immutable updates, then explain why.
-- [ ] Extract all update handlers into one helper (for example, `patchProfile`) and compare readability before/after.
-- [ ] Compare `ref<PlaygroundProfile>(...)` vs `reactive(...)` for this page and write a short note about trade-offs.
-- [ ] Decide whether to keep current style or adopt one of the alternatives, with a one-paragraph reason.
+- [x] Replace `watch(() => profile.value, ...)` with `watch(profile, ...)` and confirm behavior is unchanged.
+- [x] Remove `deep: true` once, verify timestamp still updates from current immutable updates, then explain why.
+- [x] Extract all update handlers into one helper (for example, `patchProfile`) and compare readability before/after.
+- [x] Compare `ref<PlaygroundProfile>(...)` vs `reactive(...)` for this page and write a short note about trade-offs.
+- [x] Decide whether to keep current style or adopt one of the alternatives, with a one-paragraph reason.
 
 Step 1 alternative implementation ideas:
 
 - Alternative A: keep `ref` + immutable object replacement (current style, explicit update flow).
 - Alternative B: switch to `reactive` + direct property mutation (less boilerplate, different watch semantics).
 - Alternative C: keep `ref` but use a generic `updateProfile<K extends keyof PlaygroundProfile>(...)` helper.
+
+Step 1 decision note:
+
+- Selected style: Alternative A (`ref` + immutable updates).
+- Reason: for early learning, explicit replacement flow makes reactive updates and watcher triggers easier to reason about than mixed in-place mutation patterns.
 
 ---
 

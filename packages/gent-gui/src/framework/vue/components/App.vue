@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import GenerationProfileEditorPage from "../../../features/generation-profile/ui/vue/GenerationProfileEditorPage.vue";
+import VuePlaygroundPage from "../../../features/vue-playground/ui/vue/VuePlaygroundPage.vue";
 </script>
 
 <template>
-  <GenerationProfileEditorPage />
+  <VuePlaygroundPage />
 </template>
