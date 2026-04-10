@@ -15,7 +15,7 @@
     "@rollup/plugin-commonjs": "~28",
     "@rollup/plugin-node-resolve": "~16",
     "@rollup/plugin-typescript": "~12",
-    "rollup": "~4",
+    "rollup": "^4.59.0",
     "tslib": "~2"
   }
 }
