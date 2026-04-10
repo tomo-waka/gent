@@ -34,7 +34,7 @@
     "check:generated": "tsx scripts/checkGenerated.ts",
     "check:schema": "tsx scripts/checkGenerated.ts schema",
     "check:schema-types": "tsx scripts/checkGenerated.ts schema-types",
-    "format": "prettier . --check",
+    "format:check": "prettier . --check",
     "format:write": "prettier . --write",
     "generate:dts": "tsx scripts/generateParserCstDts.ts",
     "generate:package-env": "tsx scripts/generatePackageEnv.ts",

@@ -7,7 +7,7 @@
     "build:bundle": "rollup --config rollup.config.ts --configPlugin typescript",
     "build:inject-blob": "npx postject out/gent.exe NODE_SEA_BLOB dist/gent.blob --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2",
     "cp:node": "tsx scripts/cpNode.ts",
-    "format": "prettier . --check",
+    "format:check": "prettier . --check",
     "format:write": "prettier . --write",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -32,7 +32,7 @@ Run lint and format checks from repository root to apply consistent rules across
 
 ```shell
 npm run lint
-npm run format
+npm run format:check
 ```
 
 Auto-fix issues:

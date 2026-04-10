@@ -2,7 +2,7 @@
   "name": "@gent-js/root",
   "private": true,
   "scripts": {
-    "format": "prettier . --check",
+    "format:check": "prettier . --check",
     "format:write": "prettier . --write",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
