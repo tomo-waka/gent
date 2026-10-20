@@ -44,7 +44,7 @@
   "dependencies": {
     "@faker-js/faker": "~10",
     "@types/luxon": "~3",
-    "chevrotain": "~11",
+    "chevrotain": "~13.2.0",
     "commander": "~14",
     "glob": "~13",
     "luxon": "~3",
